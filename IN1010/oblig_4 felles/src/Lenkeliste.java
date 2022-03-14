@@ -15,6 +15,8 @@ Node slutt = siste element i listen
 - fjern() sletter det foerste elementet i listen og returnere det 
 - toString() gaar gjennom listen og skriver ut informasjon om elementene */
 
+import java.util.Iterator;
+
 abstract class Lenkeliste <T> implements Liste <T> { 
     
     /* GLOBALE VARIABLER FOR LENKELISTEN */
@@ -33,6 +35,19 @@ abstract class Lenkeliste <T> implements Liste <T> {
         /* KONSTRUKTOER FOR NODE */
         Node(T data) {
             this.data = data;
+        }
+    }
+
+    public class LenkeListeIterator implements Iterator<T> {
+
+        @Override
+        public T next() {
+            return null;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return next() != null;
         }
     }
 
