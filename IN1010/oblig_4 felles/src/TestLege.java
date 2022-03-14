@@ -13,7 +13,6 @@ public class TestLege {
         zara.nyResept(new HvitResept(new Vanlig("Paracet", 1000, 199), zara, synne, 2));
         zara.nyResept(new BlaaResept(new Narkotisk("Morfex", 3, 798, 200), zara, jorgen, 25));
 
-
         System.out.println(bob.compareTo(yasmin));
         System.out.println(yasmin.compareTo(bob));
         System.out.println(bob.compareTo(bob));
