@@ -1,65 +1,43 @@
-class Pasient {
+public class Pasient {
     private String navn;
-    private String fnr;
-    private int id;
+    private String fnr; // foedselsnummer (String)
+    private int pasientID = 0; // unik ID per pasient
+    Stabel<Resept> reseptliste = new Stabel<>(); // stabel med resepter per pasient
 
-    static int antallID = 0;
-
-    Stabel<Resept> reseptliste = new Stabel<>();
-
-
-    public Pasient(String navn, String fnr)
-    {
+    public Pasient(String navn, String fnr) {
         this.navn = navn;
         this.fnr = fnr;
-        this.id = antallID;
-        oppdaterIdTeller();
+        this.pasientID++;
     }
 
-
-    void oppdaterIdTeller()
-    {   antallID++;
-    }
-
-
-    Stabel<Resept> hentReseptliste()
-    {
+    Stabel<Resept> hentReseptliste() {
         return this.reseptliste;
     }
 
-
-    void leggTilResept(Resept nyResept)
-    {
+    void leggTilResept(Resept nyResept) {
         this.reseptliste.leggTil(nyResept);
     }
 
-
-    public String hentNavn()
-    {
+    public String hentNavn() {
         return this.navn;
     }
 
-
-    public int hentId()
-    {
-        return this.id;
+    public int hentID() {
+        return this.pasientID;
     }
 
-
-    public String hentFnr()
-    {
+    public String hentFnr() {
         return this.fnr;
     }
-
 
     //Metoder
   
     @Override
-    public String toString(){
+    public String toString() {
       return ("PASIENT\n" +
-              "ID: " + hentId() + ", Navn: " + hentNavn() +
+              "ID: " + hentID() + ", Navn: " + hentNavn() +
               "\nFodselsnr: " + hentFnr() +
-              "\nAntall resepter: " + hentReseptliste().storrelse() );
+              "\nAntall resepter: " + hentReseptliste().stoerrelse() );
     }
 }
   

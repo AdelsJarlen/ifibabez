@@ -4,7 +4,7 @@
 - hent() skal returnere det foerste elementet i listen uten aa endre det
 - fjern() skal slette det foerste elementet i listen og returnere det */
 
-interface Liste <T> {
+interface Liste <T> extends Iterable <T> {
     int stoerrelse ();
     void leggTil (T x);
     T hent ();
