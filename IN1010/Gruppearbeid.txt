@@ -10,7 +10,6 @@ A1: ​ Snakk sammen om hva dere forventer å bidra med, og hva dere forventer a
         - Alle koder litt hver
         - Alle skriver litt hver
         - Alle møter opp til avtalt tid
-        - Alle bidrar med kode fra tidligere obliger
         - At vi klarer å samkode 
         - Prøve å skrive enkel og forståelig kode
         - Samarbeide digitalt med hverandre via github og fysisk ved å møtes
@@ -24,9 +23,9 @@ A2: ​ Diskuter samarbeidsform. Vil dere sitte sammen og jobbe, eller fordele o
     Det er viktig at alle er komfortable med verktøyene dere bruker.
         - Vi skal sitte sammen fysisk samt litt digitalt over github 
         - Vi skal prøve å kode litt i par og diskutere de løsnigene vi har kommet frem til
-        - TID
         - Verktøy: github, mondays, google Docs, vs-code med codetogether-extention
         - Vi er alle komfortable med de verktøyene
+        - Tidsaspekt: Jobbe sammen 3 timer x4, sitte litt hver for oss om det trengs
 
 A3: ​ Velg hvilken løsning dere skal basere dere på. 
     Dere alle skal ha løsninger på de delene av oppgaven som bygger på tidligere obliger, 
@@ -34,7 +33,8 @@ A3: ​ Velg hvilken løsning dere skal basere dere på.
     Hva er fordeler og ulemper med løsningen dere velger? 
     Noter dette på stikkordsform, og nevn hvem sin løsning som er valgt for de forskjellige tidligere løsningene. 
     Sett dere inn i den valgte løsningen.
-        - Vi prøver å bruke litt kode fra alle sine tidligere obliger 
-        - Ulemper med det er litt mer jobb
-        - Fordeler er at alle føler de har bidratt
-        - HVEM SIN KODE TIL HVA ...
+        - Vi bruker Jørgen sin kode fra oblig #2 og oblig #3
+        - Fordeler: har ryddige kommentarer
+        - Fordeler: skrevet med samme stil
+        - Ulempler: kan være litt komplisert
+        - Ulemper: er ikke sikkert vi får bruk for dobbeltlenkede lister
