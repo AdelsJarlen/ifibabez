@@ -49,6 +49,7 @@ abstract class Lenkeliste <T> implements Liste <T> {
         public boolean hasNext() {
             return next() != null;
         }
+
     }
 
     /* KONSTRUKTOER FOR LENKELISTEN */
@@ -56,6 +57,11 @@ abstract class Lenkeliste <T> implements Liste <T> {
         this.stoerrelse = 0; // default for stoerrelse
         this.start = null; // default = tom
         this.slutt = null; // default = tom
+    }
+
+    public Iterator<T> iterator() {
+        LenkeListeIterator iterator = new LenkeListeIterator();
+        return iterator;
     }
 
     /* RETURNERER ANTALL ELEMENTER I LENKELISTEN */

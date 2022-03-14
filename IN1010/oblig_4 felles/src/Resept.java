@@ -11,7 +11,7 @@ abstract class Resept {
 
     protected Legemiddel legemiddel;
     protected Lege utskrivendeLege;
-    protected int pasientID;
+    protected Pasient pasient;
     protected int reit;
 
     // Static variabel for aa telle antall instanser som blir opprettet
@@ -23,10 +23,10 @@ abstract class Resept {
     /* KONSTRUKTOER */
     /****************/
 
-    public Resept(Legemiddel legemiddel, Lege utskrivendeLege, int pasientID, int reit) {
+    public Resept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit) {
         this.legemiddel = legemiddel;
         this.utskrivendeLege = utskrivendeLege;
-        this.pasientID = pasientID;
+        this.pasient = pasient;
         this.reit = reit;
 
         antObjekter++;
@@ -50,7 +50,7 @@ abstract class Resept {
     }
 
     public int hentPasientID() {
-        return pasientID;
+        return pasient.hentID();
     }
 
     public int hentReit() {

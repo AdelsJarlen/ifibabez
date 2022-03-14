@@ -16,8 +16,8 @@ public class HvitResept extends Resept {
     /* KONSTRUKTOER */
     /****************/
 
-    public HvitResept(Legemiddel legemiddel, Lege utskrivendeLege, int pasientID, int reit) {
-        super(legemiddel, utskrivendeLege, pasientID, reit); // henter variabler fra Resept
+    public HvitResept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit) {
+        super(legemiddel, utskrivendeLege, pasient, reit); // henter variabler fra Resept
     }
 
     /***********/

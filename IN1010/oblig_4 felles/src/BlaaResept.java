@@ -18,8 +18,8 @@ public class BlaaResept extends Resept {
     /* KONSTRUKTOER */
     /****************/
 
-    public BlaaResept(Legemiddel legemiddel, Lege utskrivendeLege, int pasientID, int reit) {
-        super(legemiddel, utskrivendeLege, pasientID, reit); // henter variabler fra Resept
+    public BlaaResept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit) {
+        super(legemiddel, utskrivendeLege, pasient, reit); // henter variabler fra Resept
     }
 
     /***********/

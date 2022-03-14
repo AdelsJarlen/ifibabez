@@ -1,13 +1,15 @@
 public class Pasient {
     private String navn;
     private String fnr; // foedselsnummer (String)
-    private int pasientID = 0; // unik ID per pasient
+    protected int pasientID; // unik ID per pasient
+    static int tellerID = 1; // starter paa 1
     Stabel<Resept> reseptliste = new Stabel<>(); // stabel med resepter per pasient
 
     public Pasient(String navn, String fnr) {
         this.navn = navn;
         this.fnr = fnr;
-        this.pasientID++;
+        pasientID = tellerID;
+        tellerID++;
     }
 
     Stabel<Resept> hentReseptliste() {
@@ -37,7 +39,7 @@ public class Pasient {
       return ("PASIENT\n" +
               "ID: " + hentID() + ", Navn: " + hentNavn() +
               "\nFodselsnr: " + hentFnr() +
-              "\nAntall resepter: " + hentReseptliste().stoerrelse() );
+              "\nAntall resepter: " + hentReseptliste().stoerrelse());
     }
 }
   

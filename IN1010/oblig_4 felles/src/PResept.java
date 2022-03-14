@@ -19,8 +19,8 @@ public class PResept extends HvitResept {
     /* KONSTRUKTOER */
     /****************/
 
-    public PResept(Legemiddel legemiddel, Lege utskrivendeLege, int pasientID, int reit) {
-        super(legemiddel, utskrivendeLege, pasientID, reit);
+    public PResept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit) {
+        super(legemiddel, utskrivendeLege, pasient, reit);
     }
 
     /***********/

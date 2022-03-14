@@ -19,8 +19,8 @@ public class MilResept extends HvitResept {
     /* KONSTRUKTOER */
     /****************/
 
-    public MilResept(Legemiddel legemiddel, Lege utskrivendeLege, int pasientID) {
-        super(legemiddel, utskrivendeLege, pasientID, 3); // henter variabler fra HvitResept, men setter default verdi for reit
+    public MilResept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient) {
+        super(legemiddel, utskrivendeLege, pasient, 3); // henter variabler fra HvitResept, men setter default verdi for reit
     }
 
     /***********/
