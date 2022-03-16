@@ -161,4 +161,5 @@ public class IndeksertListe<T> extends Lenkeliste<T> {
         // 3. returnerer dataen til den midlertidige noden som har blitt fjernet
         return skal_fjernes.data;
     }
+
 }
