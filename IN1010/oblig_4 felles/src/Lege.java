@@ -58,24 +58,41 @@ public class Lege implements Comparable<Lege>{
     public String printResepter() {
         return utskrevneResepter.toString();
     }
-
-    /*
-    HvitResept skrivHvitResept (Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift
-
-    MilResept skrivMilResept (Legemiddel legemiddel, Pasient pasient) throws UlovligUtskrift
-
-    PResept skrivPResept (Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift
-
-    BlaaResept skrivBlaaResept (Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift
-
-
-    class UlovligUtskrift extends Exception {
-        UlovligUtskrift (Lege l, Legemiddel lm) {
-        super(“Legen “+l.hentNavn()+“ har ikke lov til aa skrive ut ”+lm.hentNavn());
-        } }
     
-        (Denne klassen må også legges til i besvarelsen din.)
-        
-    */
+    public HvitResept skrivHvitResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
+        if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
+            new UlovligUtskrift(this, legemiddel);
+        }
 
+        HvitResept ny_resept = new HvitResept(legemiddel, this, pasient, reit);
+        return ny_resept;
+    }
+
+    public MilResept skrivMilResept(Legemiddel legemiddel, Pasient pasient) throws UlovligUtskrift {
+        if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
+            new UlovligUtskrift(this, legemiddel);
+        }
+
+        MilResept ny_resept = new MilResept(legemiddel, this, pasient);
+        return ny_resept;
+    }
+
+    PResept skrivPResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
+        if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
+            new UlovligUtskrift(this, legemiddel);
+        }
+
+        PResept ny_resept = new PResept(legemiddel, this, pasient, reit);
+        return ny_resept;
+    }
+
+    BlaaResept skrivBlaaResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
+        if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
+            new UlovligUtskrift(this, legemiddel);
+        }
+        
+        BlaaResept ny_resept = new BlaaResept(legemiddel, this, pasient, reit);
+        return ny_resept;
+    }
+        
 }
