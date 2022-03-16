@@ -63,7 +63,6 @@ public class Lege implements Comparable<Lege>{
         if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
             new UlovligUtskrift(this, legemiddel);
         }
-
         HvitResept ny_resept = new HvitResept(legemiddel, this, pasient, reit);
         nyResept(ny_resept);
         return ny_resept;
@@ -73,7 +72,6 @@ public class Lege implements Comparable<Lege>{
         if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
             new UlovligUtskrift(this, legemiddel);
         }
-
         MilResept ny_resept = new MilResept(legemiddel, this, pasient);
         nyResept(ny_resept);
         return ny_resept;
@@ -83,7 +81,6 @@ public class Lege implements Comparable<Lege>{
         if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
             new UlovligUtskrift(this, legemiddel);
         }
-
         PResept ny_resept = new PResept(legemiddel, this, pasient, reit);
         nyResept(ny_resept);
         return ny_resept;
@@ -93,7 +90,6 @@ public class Lege implements Comparable<Lege>{
         if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
             new UlovligUtskrift(this, legemiddel);
         }
-
         BlaaResept ny_resept = new BlaaResept(legemiddel, this, pasient, reit);
         nyResept(ny_resept);
         return ny_resept;
