@@ -34,7 +34,7 @@ public class Lege implements Comparable<Lege> {
         return "Navn: " + hentNavn();
     }
 
-    /**
+    /*
      * Sammenlikner to strenger basert på hver karakters unicode-verdi. 
      * Metoden fungerer ikke pålitelig med navn som inneholder spesialkarakterer som 'æ, ø og å'.
      * return et heltall med differansen mellom unicode-verdien til Lege 'a' subtrahert 'b'.
@@ -55,8 +55,8 @@ public class Lege implements Comparable<Lege> {
         return utskrevneResepter;
     }
 
-    public String printResepter() {
-        return utskrevneResepter.toString();
+    public void printResepter() {
+        System.out.println(utskrevneResepter.toString());
     }
 
     public void sjekkLovligUtskrift(Legemiddel legemiddel) throws UlovligUtskrift {
