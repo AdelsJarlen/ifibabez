@@ -37,17 +37,14 @@ public class Lege implements Comparable<Lege>{
     /**
      * Sammenlikner to strenger basert på hver karakters unicode-verdi. 
      * Metoden fungerer ikke pålitelig med navn som inneholder spesialkarakterer som 'æ, ø og å'.
-     * @return et heltall med differansen mellom unicode-verdien til Lege 'a' subtrahert 'b'.
+     * return et heltall med differansen mellom unicode-verdien til Lege 'a' subtrahert 'b'.
      */
     @Override
-    public int compareTo(Lege o) {
+    public int compareTo(Lege lege) {
         String a = this.navn.toLowerCase();
-        String b = o.navn.toLowerCase();
+        String b = lege.navn.toLowerCase();
 
-        int r = a.compareTo(b);
-        
- 
-        return r;
+        return a.compareTo(b);
     }
 
 
