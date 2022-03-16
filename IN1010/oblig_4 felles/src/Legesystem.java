@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Legesystem {
@@ -9,22 +10,23 @@ public class Legesystem {
 
     protected IndeksertListe<Resept> utskrevneResepter;
     protected Stabel<Resept> resepter;
-    protected Koe<Pasient> pasienter = new Koe<>();
-    protected Koe<Lege> leger = new Koe<>();
-    protected Koe<Legemiddel> legemidler = new Koe<>();
+    protected IndeksertListe<Pasient> pasienter = new IndeksertListe<>();
+    protected Prioritetskoe<Lege> leger = new Prioritetskoe<>();
+    protected IndeksertListe<Legemiddel> legemidler = new IndeksertListe<>();
 
-    public void lesFraFil(String filnavn) throws FileNotFoundException {
+    public void lesFraFil(String filnavn) throws FileNotFoundException, UlovligUtskrift, NoSuchElementException {
 
         File data = new File(filnavn);
         Scanner scanner = new Scanner(data);
 
-        while (scanner.hasNextLine()) {
-            String linje = scanner.nextLine();
+        String linje = scanner.nextLine();
+
+        while (linje != null) {
             
             if (linje.contains("Pasient")) {
                 String pasient_linje = scanner.nextLine();
                 
-                while (scanner.hasNextLine()) {
+                while (pasient_linje != null) {
                     if (pasient_linje.contains("#")) {
                         linje = pasient_linje;
                         break;
@@ -34,13 +36,13 @@ public class Legesystem {
                     pasient_linje = scanner.nextLine();
                 }
 
-                System.out.println(pasienter);
+                // System.out.println(pasienter);
             } 
 
             if (linje.contains("Legemidler")) {
                 String legemiddel_linje = scanner.nextLine();
                 
-                while (scanner.hasNextLine()) {
+                while (legemiddel_linje != null) {
                     if (legemiddel_linje.contains("#")) {
                         linje = legemiddel_linje;
                         break;
@@ -75,14 +77,14 @@ public class Legesystem {
                     legemiddel_linje = scanner.nextLine();
                 }
 
-                System.out.println(legemidler);
+                // System.out.println(legemidler);
                 
             }
 
             if (linje.contains("Leger")) {
                 String lege_linje = scanner.nextLine();
                 
-                while (scanner.hasNextLine()) {
+                while (lege_linje != null) {
                     if (lege_linje.contains("#")) {
                         linje = lege_linje;
                         break;
@@ -101,15 +103,13 @@ public class Legesystem {
                     lege_linje = scanner.nextLine();
                 }
 
-                System.out.println(leger);
+                // System.out.println(leger);
             } 
-
-            // System.out.println(linje);
 
             if (linje.contains("Resepter")) {
                 String resept_linje = scanner.nextLine();
                 
-                while (scanner.hasNextLine()) {
+                while (resept_linje != null) {
                     if (resept_linje.contains("#")) {
                         linje = resept_linje;
                         break;
@@ -117,39 +117,124 @@ public class Legesystem {
 
                     if (resept_linje.contains("hvit")) {
                         String[] info = resept_linje.split(",");
-                        String legemiddelNr = info[0];
-                        String lege = info[1];
+                        int legemiddelNr = Integer.parseInt(info[0]);
                         int pasientID = Integer.parseInt(info[2]);
                         int reit = Integer.parseInt(info[4]);
+                        String legenavn = info[1];
+                        Legemiddel lm = legemidler.hent(legemiddelNr-1);
+                        Pasient pasient = pasienter.hent(pasientID-1);
+                        boolean skrevetUt = false;
 
-                        // (legemiddelNr, lege, pasientID, reit));
+                        for (Lege lege : leger) {
+                            if (lege.hentNavn().equals(legenavn)) {
+                                lege.skrivHvitResept(lm, pasient, reit);
+                                skrevetUt = true;
+                                // lege.printResepter();
+                            }
+                        }
+
+                        if (skrevetUt == false) {
+                            throw new NoSuchElementException("Legen " + legenavn + " finnes ikke.");
+                        }
+
                     }
 
-                    if (resept_linje.contains("vanedannende")) {
+                    if (resept_linje.contains("blaa")) {
                         String[] info = resept_linje.split(",");
-                        String navn = info[0];
-                        double virkestoff = Double.parseDouble(info[3]);
-                        int pris = Integer.parseInt(info[2]);
-                        int styrke = Integer.parseInt(info[4]);
-                        legemidler.leggTil(new Vanedannende(navn, virkestoff, pris, styrke));
+                        int legemiddelNr = Integer.parseInt(info[0]);
+                        int pasientID = Integer.parseInt(info[2]);
+                        int reit = Integer.parseInt(info[4]);
+                        String legenavn = info[1];
+                        Legemiddel lm = legemidler.hent(legemiddelNr-1);
+                        Pasient pasient = pasienter.hent(pasientID-1);
+                        boolean skrevetUt = false;
+
+                        for (Lege lege : leger) {
+                            if (lege.hentNavn().equals(legenavn)) {
+                                lege.skrivBlaaResept(lm, pasient, reit);
+                                skrevetUt = true;
+                                // lege.printResepter();
+                            }
+                        }
+
+                        if (skrevetUt == false) {
+                            throw new NoSuchElementException("Legen " + legenavn + " finnes ikke.");
+                        }
+
                     }
 
-                    if (resept_linje.contains("vanlig")) {
+                    if (resept_linje.contains("militaer")) {
                         String[] info = resept_linje.split(",");
-                        String navn = info[0];
-                        double virkestoff = Double.parseDouble(info[3]);
-                        int pris = Integer.parseInt(info[2]);
-                        legemidler.leggTil(new Vanlig(navn, virkestoff, pris));
+                        int legemiddelNr = Integer.parseInt(info[0]);
+                        int pasientID = Integer.parseInt(info[2]);
+                        String legenavn = info[1];
+                        Legemiddel lm = legemidler.hent(legemiddelNr-1);
+                        Pasient pasient = pasienter.hent(pasientID-1);
+                        boolean skrevetUt = false;
+
+                        for (Lege lege : leger) {
+                            if (lege.hentNavn().equals(legenavn)) {
+                                lege.skrivMilResept(lm, pasient);
+                                skrevetUt = true;
+                                // lege.printResepter();
+                            }
+                        }
+
+                        if (skrevetUt == false) {
+                            throw new NoSuchElementException("Legen " + legenavn + " finnes ikke.");
+                        }
+
                     }
 
-                    resept_linje = scanner.nextLine();
+                    if (resept_linje.contains("p")) {
+                        String[] info = resept_linje.split(",");
+                        int legemiddelNr = Integer.parseInt(info[0]);
+                        int pasientID = Integer.parseInt(info[2]);
+                        int reit = Integer.parseInt(info[4]);
+                        String legenavn = info[1];
+                        Legemiddel lm = legemidler.hent(legemiddelNr-1);
+                        Pasient pasient = pasienter.hent(pasientID-1);
+                        boolean skrevetUt = false;
+
+                        for (Lege lege : leger) {
+                            if (lege.hentNavn().equals(legenavn)) {
+                                lege.skrivPResept(lm, pasient, reit);
+                                skrevetUt = true;
+                                // lege.printResepter();
+                            }
+                        }
+
+                        if (skrevetUt == false) {
+                            throw new NoSuchElementException("Legen " + legenavn + " finnes ikke.");
+                        }
+
+                    }
+                    
+
+                    System.out.println(resept_linje);
+
+                    if (scanner.hasNextLine()) {
+                        resept_linje = scanner.nextLine();
+                    } else {
+                        break;
+                    }
+                    
                 }
 
                 // System.out.println(legemidler.toString());
                 
             }
 
+            // System.out.println(linje);
+            
+            if (scanner.hasNextLine()) {
+                linje = scanner.nextLine();
+            } else {
+                break;
+            }
         }
-    }
 
+        scanner.close();
+
+    }
 }
