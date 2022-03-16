@@ -60,8 +60,9 @@ public class Lege implements Comparable<Lege>{
     }
     
     public HvitResept skrivHvitResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
-        if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
-            new UlovligUtskrift(this, legemiddel);
+        if (legemiddel instanceof Narkotisk) {
+            System.out.println("Narkotiske legemidler kan kun skrives ut paa blaa resept.");
+            throw new UlovligUtskrift(this, legemiddel);
         }
         HvitResept ny_resept = new HvitResept(legemiddel, this, pasient, reit);
         nyResept(ny_resept);
@@ -69,8 +70,9 @@ public class Lege implements Comparable<Lege>{
     }
 
     public MilResept skrivMilResept(Legemiddel legemiddel, Pasient pasient) throws UlovligUtskrift {
-        if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
-            new UlovligUtskrift(this, legemiddel);
+        if (legemiddel instanceof Narkotisk) {
+            System.out.println("Narkotiske legemidler kan kun skrives ut paa blaa resept.");
+            throw new UlovligUtskrift(this, legemiddel);
         }
         MilResept ny_resept = new MilResept(legemiddel, this, pasient);
         nyResept(ny_resept);
@@ -78,8 +80,9 @@ public class Lege implements Comparable<Lege>{
     }
 
     PResept skrivPResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
-        if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
-            new UlovligUtskrift(this, legemiddel);
+        if (legemiddel instanceof Narkotisk) {
+            System.out.println("Narkotiske legemidler kan kun skrives ut paa blaa resept.");
+            throw new UlovligUtskrift(this, legemiddel);
         }
         PResept ny_resept = new PResept(legemiddel, this, pasient, reit);
         nyResept(ny_resept);
@@ -87,12 +90,13 @@ public class Lege implements Comparable<Lege>{
     }
 
     BlaaResept skrivBlaaResept(Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift {
-        if (legemiddel instanceof Narkotisk && !(this instanceof Spesialist)) {
-            new UlovligUtskrift(this, legemiddel);
+        if ((legemiddel instanceof Narkotisk) && !(this instanceof Spesialist)) {
+            throw new UlovligUtskrift(this, legemiddel);
         }
         BlaaResept ny_resept = new BlaaResept(legemiddel, this, pasient, reit);
         nyResept(ny_resept);
         return ny_resept;
+       
     }
         
 }
