@@ -4,7 +4,7 @@ altsaa vanlige leger. Men hvis legen er spesialist skal det i stedet opprettes
 et objekt av child-klassen Spesialist.
 */
 
-public class Lege implements Comparable<Lege>{
+public class Lege implements Comparable<Lege> {
 
     /*******************/
     /* KLASSEVARIABLER */
@@ -94,7 +94,5 @@ public class Lege implements Comparable<Lege>{
         BlaaResept ny_resept = new BlaaResept(legemiddel, this, pasient, reit);
         nyResept(ny_resept);
         return ny_resept;
-       
     }
-        
 }
