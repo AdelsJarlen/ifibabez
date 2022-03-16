@@ -45,7 +45,8 @@ public class Lege implements Comparable<Lege>{
         String b = o.navn.toLowerCase();
 
         int r = a.compareTo(b);
-
+        
+ 
         return r;
     }
 
@@ -57,4 +58,24 @@ public class Lege implements Comparable<Lege>{
     public String hentResepter() {
         return utskrevneResepter.toString();
     }
+
+    /*
+    HvitResept skrivHvitResept (Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift
+
+    MilResept skrivMilResept (Legemiddel legemiddel, Pasient pasient) throws UlovligUtskrift
+
+    PResept skrivPResept (Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift
+
+    BlaaResept skrivBlaaResept (Legemiddel legemiddel, Pasient pasient, int reit) throws UlovligUtskrift
+
+
+    class UlovligUtskrift extends Exception {
+        UlovligUtskrift (Lege l, Legemiddel lm) {
+        super(“Legen “+l.hentNavn()+“ har ikke lov til aa skrive ut ”+lm.hentNavn());
+        } }
+    
+        (Denne klassen må også legges til i besvarelsen din.)
+        
+    */
+
 }
