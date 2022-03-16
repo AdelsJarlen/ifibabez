@@ -226,7 +226,7 @@ abstract class Lenkeliste <T> implements Liste <T> {
         Node gjeldende = start;
 
         // 3. definerer en teller til loekken
-        int teller = 0;
+        int teller = 1;
 
         // 4. loekke saa lenge det er flere elementer i listen
         while (gjeldende != null) {
