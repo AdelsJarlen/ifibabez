@@ -51,7 +51,11 @@ public class Lege implements Comparable<Lege>{
         this.utskrevneResepter.leggTil(ny_resept);
     }
 
-    public String hentResepter() {
+    public IndeksertListe<Resept> hentResepter() {
+        return utskrevneResepter;
+    }
+
+    public String printResepter() {
         return utskrevneResepter.toString();
     }
 
