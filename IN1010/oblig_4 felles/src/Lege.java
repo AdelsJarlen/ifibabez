@@ -65,7 +65,7 @@ public class Lege implements Comparable<Lege>{
         }
 
         HvitResept ny_resept = new HvitResept(legemiddel, this, pasient, reit);
-        this.nyResept(ny_resept);
+        nyResept(ny_resept);
         return ny_resept;
     }
 
@@ -75,7 +75,7 @@ public class Lege implements Comparable<Lege>{
         }
 
         MilResept ny_resept = new MilResept(legemiddel, this, pasient);
-        this.nyResept(ny_resept);
+        nyResept(ny_resept);
         return ny_resept;
     }
 
@@ -85,7 +85,7 @@ public class Lege implements Comparable<Lege>{
         }
 
         PResept ny_resept = new PResept(legemiddel, this, pasient, reit);
-        this.nyResept(ny_resept);
+        nyResept(ny_resept);
         return ny_resept;
     }
 
@@ -95,7 +95,7 @@ public class Lege implements Comparable<Lege>{
         }
 
         BlaaResept ny_resept = new BlaaResept(legemiddel, this, pasient, reit);
-        this.nyResept(ny_resept);
+        nyResept(ny_resept);
         return ny_resept;
     }
         
