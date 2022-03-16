@@ -40,14 +40,19 @@ abstract class Lenkeliste <T> implements Liste <T> {
 
     public class LenkeListeIterator implements Iterator<T> {
 
+        private Node nesteNode = start;
+
         @Override
         public T next() {
-            return null;
+            Node denneNode = nesteNode;
+            nesteNode = nesteNode.neste;
+
+            return denneNode.data;
         }
 
         @Override
         public boolean hasNext() {
-            return next() != null;
+            return nesteNode != null;
         }
 
     }
