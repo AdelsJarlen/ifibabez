@@ -1,9 +1,18 @@
 public class Pasient {
+
+    /*******************/
+    /* KLASSEVARIABLER */
+    /*******************/    
+
     private String navn;
     private String fnr; // foedselsnummer (String)
     protected int pasientID; // unik ID per pasient
     static int tellerID = 1; // starter paa 1
     Stabel<Resept> reseptliste = new Stabel<>(); // stabel med resepter per pasient
+
+    /****************/
+    /* KONSTRUKTOER */
+    /****************/
 
     public Pasient(String navn, String fnr) {
         this.navn = navn;
@@ -12,12 +21,12 @@ public class Pasient {
         tellerID++;
     }
 
+    /***********/
+    /* GETTERE */
+    /***********/
+
     Stabel<Resept> hentReseptliste() {
         return this.reseptliste;
-    }
-
-    void leggTilResept(Resept nyResept) {
-        this.reseptliste.leggTil(nyResept);
     }
 
     public String hentNavn() {
@@ -32,8 +41,14 @@ public class Pasient {
         return this.fnr;
     }
 
-    //Metoder
+    /*****************/
+    /* ANDRE METODER */
+    /*****************/
   
+    void leggTilResept(Resept nyResept) {
+        this.reseptliste.leggTil(nyResept);
+    }
+
     @Override
     public String toString() {
       return ("PASIENT\n" +
