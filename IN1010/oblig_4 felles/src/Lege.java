@@ -49,6 +49,7 @@ public class Lege implements Comparable<Lege> {
 
     public void nyResept(Resept ny_resept){
         this.utskrevneResepter.leggTil(ny_resept);
+        ny_resept.pasient.leggTilResept(ny_resept);
     }
 
     public IndeksertListe<Resept> hentResepter() {

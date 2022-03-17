@@ -6,5 +6,7 @@ public class Main {
         Legesystem legesystem = new Legesystem();
 
         legesystem.lesFraFil("IN1010/oblig_4 felles/legedata.txt");
+
+        legesystem.kommandoloekke();
     }
 }

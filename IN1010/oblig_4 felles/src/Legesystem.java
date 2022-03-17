@@ -129,7 +129,7 @@ public class Legesystem {
                             if (lege.hentNavn().equals(legenavn)) {
                                 lege.skrivHvitResept(lm, pasient, reit);
                                 skrevetUt = true;
-                                // lege.printResepter();
+                                //lege.printResepter();
                             }
                         }
 
@@ -238,44 +238,129 @@ public class Legesystem {
 
     }
 
+    private Scanner tastatur = new Scanner(System.in);
+
     public void kommandoer() {
         System.out.println("******** LEGESYSTEM ********");
-        System.out.println("1. Skriv ut fullstendig oversikt \n   over pasienter, leger, legemidler og resepter.");
-        System.out.println("2. Opprett eller legg til nye elementer i systemet");
-        System.out.println("3. Bruke en gitt resept fra listen til en pasient");
-        System.out.println("4. Skriv ut forskjellige former for statistikk");
-        System.out.println("5. Skriv alle data til fil");
+        System.out.println("1. Skriv ut fullstendig oversikt over pasienter");
+        System.out.println("2. Skriv ut fullstendig oversikt over leger");
+        System.out.println("3. Skriv ut fullstendig oversikt over legemidler");
+        System.out.println("4. Skriv ut fullstendig oversikt over resepter");
+        System.out.println("5. Opprett eller legg til ny pasient");
+        System.out.println("6. Opprett eller legg til ny lege");
+        System.out.println("7. Opprett eller legg til ny legemiddel");
+        System.out.println("8. Opprett eller legg til ny resept");
+        System.out.println("9. Bruke en gitt resept fra listen til en pasient");
+        System.out.println("10. Skriv ut forskjellige former for statistikk");
+        System.out.println("11. Skriv alle data til fil");
         System.out.println("0. Avslutt");
+
+        System.out.print("\nSkriv inn et tall:   ");
     }
 
-    public void ordrelokke(){
+    public void kommandoloekke(){
         int inputFraBruker = -1;
     
         while(inputFraBruker != 0){
           if(inputFraBruker == 1){
-            leggTilNyStudent();
-          } else if(inputFraBruker == 2){
-            leggTilNyttFag();
-          } else if(inputFraBruker == 3){
-            skrivUtAlleStudenterSomTarFag();
-          } else if(inputFraBruker == 4){
-            skrivUtAlleFagSomStudentTar();
-          } else if(inputFraBruker == 5){
-            meldOppStudentTilEmne();
-          } else if(inputFraBruker == 6){
-            meldAvStudentTilEmne();
-          } else if(inputFraBruker == 7){
-            slettStudent();
-          } else if(inputFraBruker == 8){
-            slettFag();
-          } else if(inputFraBruker == 9){
-            finnMestPopulaereFag();
-          } else if(inputFraBruker == 10){
-            finnMestArbeidsommeStudent();
-          } else if(inputFraBruker == 11){
-            skrivUtAlleFagMedTilhorendeStudenter();
-          }
-          meny();
+            //print ut fullstendig oversikt over pasienter
+            System.out.println(pasienter);
+
+            //print ut fullstendig oversikt over leger
+            } else if(inputFraBruker == 2){
+                System.out.println(leger);
+
+            //print ut fullstendig oversikt over legemidler
+            } else if(inputFraBruker == 3){
+                System.out.println(legemidler);
+
+            //print ut fullstendig oversikt over resepter
+            } else if(inputFraBruker == 4){
+                for (Lege lege : leger) {
+                    lege.printResepter();
+                }
+            
+            // legg til eller opprett pasient
+            } else if(inputFraBruker == 5){
+                System.out.print("\nSkriv inn pasientens fulle navn:    ");
+                String pasientnavn = tastatur.nextLine();
+                System.out.print("Skriv inn pasientens personnummer:    ");
+                String personnr = tastatur.nextLine();
+
+                pasienter.leggTil(new Pasient(pasientnavn, personnr));
+                
+                // System.out.println(pasienter);
+
+            // legg til eller opprett lege
+            } else if(inputFraBruker == 6){
+                System.out.print("\nSkriv inn legens navn:    ");
+                String legenavn = tastatur.nextLine();
+                System.out.print("Er legen spesialist? (j/n)   ");
+                String svar = tastatur.nextLine();
+
+                if (svar.equals("j")){
+                    System.out.print("Skriv inn legens kontrollID:   ");
+                    String kontrollID = tastatur.nextLine();
+                    leger.leggTil(new Spesialist(legenavn, kontrollID));
+                }
+                else {
+                    leger.leggTil(new Lege(legenavn));
+                }
+
+                System.out.println(leger);
+
+            // legg til eller opprett legemiddel
+            } else if(inputFraBruker == 7){
+                System.out.print("Hva slags legemiddel er det?\n1. Narkotisk\n2. Vanedannende\n3. Vanlig\n Skriv inn et tall:    ");
+                String type = tastatur.nextLine();
+                System.out.print("\nSkriv inn legemiddelnavn:   ");
+                String legemiddelnavn = tastatur.nextLine();
+                System.out.print("\nSkriv inn virkestoff (mg):   ");
+                Double virkestoff = Double.parseDouble(tastatur.nextLine());
+                System.out.print("\nSkriv inn pris (NOK):   ");
+                int pris = Integer.parseInt(tastatur.nextLine());
+
+                // Narkotisk
+                if (type.equals("1")){
+                    System.out.print("Skriv inn narkotisk styrke:    ");
+                    int styrke = Integer.parseInt(tastatur.nextLine());
+
+                    legemidler.leggTil(new Narkotisk(legemiddelnavn, virkestoff, pris, styrke));
+                }
+                // Vanedannende
+                else if (type.equals("2")){
+                    System.out.print("Skriv inn narkotisk styrke:    ");
+                    int styrke = Integer.parseInt(tastatur.nextLine());
+
+                    legemidler.leggTil(new Vanedannende(legemiddelnavn, virkestoff, pris, styrke));
+                }
+                // Vanlig legemiddel
+                else if (type.equals("3")){
+                    legemidler.leggTil(new Vanlig(legemiddelnavn, virkestoff, pris));
+                }
+                else{
+                    System.out.println("Ikke et gyldig valg!");
+                    kommandoer();
+                }
+
+            // legg til eller opprett resept
+            } else if(inputFraBruker == 8){
+                spoerOmReseptinfo();
+            }
+        //     } else if(inputFraBruker == 9){
+        //     finnMestPopulaereFag();
+        //   } else if(inputFraBruker == 10){
+        //     finnMestArbeidsommeStudent();
+        //   } else if(inputFraBruker == 11){
+        //     skrivUtAlleFagMedTilhorendeStudenter();
+        //   }
+          kommandoer();
           inputFraBruker = Integer.parseInt(tastatur.nextLine());
         }
-      }
+    }
+
+
+public void spoerOmReseptinfo(){
+    System.out.print("Velg en lege fra listen:   ");
+    System.out.println(leger);
+}
