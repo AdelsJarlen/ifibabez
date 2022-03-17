@@ -237,4 +237,15 @@ public class Legesystem {
         }
 
     }
-}
+
+    public void kommandoer() {
+        System.out.println("******** LEGESYSTEM ********");
+        System.out.println("1. Skriv ut fullstendig oversikt \n   over pasienter, leger, legemidler og resepter.");
+        System.out.println("2. Opprett eller legg til nye elementer i systemet");
+        System.out.println("3. Bruke en gitt resept fra listen til en pasient");
+        System.out.println("4. Skriv ut forskjellige former for statistikk");
+        System.out.println("5. Skriv alle data til fil");
+        System.out.println("0. Avslutt");
+    }
+
+    public void 
