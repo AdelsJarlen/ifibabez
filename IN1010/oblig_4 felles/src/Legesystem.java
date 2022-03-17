@@ -258,7 +258,7 @@ public class Legesystem {
         System.out.print("\nSkriv inn et tall:   ");
     }
 
-    public void kommandoloekke(){
+    public void kommandoloekke() throws UlovligUtskrift{
         int inputFraBruker = -1;
     
         while(inputFraBruker != 0){
@@ -360,7 +360,77 @@ public class Legesystem {
     }
 
 
-public void spoerOmReseptinfo(){
-    System.out.print("Velg en lege fra listen:   ");
-    System.out.println(leger);
+    public void spoerOmReseptinfo() throws UlovligUtskrift{
+
+        // VELG LEGE
+
+        System.out.println("Velg en lege fra listen:   ");
+        System.out.println(leger);
+        System.out.print("Skriv inn et tall:   ");
+        int legevalg = Integer.parseInt(tastatur.nextLine());
+        IndeksertListe<Lege> mineleger = new IndeksertListe<>();
+        
+        for (Lege lege : leger) {
+            mineleger.leggTil(lege);
+        }
+
+        Lege minLege = mineleger.hent(legevalg-1);
+
+        System.out.println(minLege);
+
+        // VELG PASIENT
+
+        System.out.println("Velg en pasient fra listen:   ");
+        System.out.println(pasienter);
+        System.out.print("Skriv inn et tall:   ");
+        int pasientvalg = Integer.parseInt(tastatur.nextLine());
+
+        Pasient minPasient = pasienter.hent(pasientvalg-1);
+
+        System.out.println(minPasient);
+
+        // VELG LEGEMIDDEL
+
+        System.out.println("Velg en legemiddel fra listen:   ");
+        System.out.println(legemidler);
+        System.out.print("Skriv inn et tall:   ");
+        int legemiddelvalg = Integer.parseInt(tastatur.nextLine());
+
+        Legemiddel mittlegemiddel = legemidler.hent(legemiddelvalg-1);
+
+        // sjekke hvilken type legemiddel
+
+        System.out.println(mittlegemiddel);
+
+        
+        // VELG RESEPT
+
+        System.out.println("Hva slags resept vil du skrive ut?\n1. hvit\n2. blaa\n3. militaer\n4. p");
+        System.out.print("Skriv inn et tall:    ");
+
+        int reseptvalg = Integer.parseInt(tastatur.nextLine());
+        
+        // hvit resept
+        if (reseptvalg == 1) {
+            System.out.print("Hvor mange reit:    ");
+            int minreit = Integer.parseInt(tastatur.nextLine());
+
+            minLege.skrivHvitResept(mittlegemiddel, minPasient, minreit);
+
+            minLege.printResepter();
+
+        // blaa resept
+        } else if (reseptvalg == 2) {
+        
+        // militaer resept
+        } else if (reseptvalg == 3) {
+
+        // p resept
+        } else if (reseptvalg == 4) {
+
+        } else {
+            System.out.println("Prøv igjen...");
+            kommandoloekke();
+        }
+    }
 }
