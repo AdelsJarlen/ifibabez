@@ -248,4 +248,34 @@ public class Legesystem {
         System.out.println("0. Avslutt");
     }
 
-    public void 
+    public void ordrelokke(){
+        int inputFraBruker = -1;
+    
+        while(inputFraBruker != 0){
+          if(inputFraBruker == 1){
+            leggTilNyStudent();
+          } else if(inputFraBruker == 2){
+            leggTilNyttFag();
+          } else if(inputFraBruker == 3){
+            skrivUtAlleStudenterSomTarFag();
+          } else if(inputFraBruker == 4){
+            skrivUtAlleFagSomStudentTar();
+          } else if(inputFraBruker == 5){
+            meldOppStudentTilEmne();
+          } else if(inputFraBruker == 6){
+            meldAvStudentTilEmne();
+          } else if(inputFraBruker == 7){
+            slettStudent();
+          } else if(inputFraBruker == 8){
+            slettFag();
+          } else if(inputFraBruker == 9){
+            finnMestPopulaereFag();
+          } else if(inputFraBruker == 10){
+            finnMestArbeidsommeStudent();
+          } else if(inputFraBruker == 11){
+            skrivUtAlleFagMedTilhorendeStudenter();
+          }
+          meny();
+          inputFraBruker = Integer.parseInt(tastatur.nextLine());
+        }
+      }
