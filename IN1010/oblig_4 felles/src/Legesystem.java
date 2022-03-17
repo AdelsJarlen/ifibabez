@@ -232,9 +232,9 @@ public class Legesystem {
             } else {
                 break;
             }
-        }
 
-        scanner.close();
+            scanner.close();
+        }
 
     }
 }
