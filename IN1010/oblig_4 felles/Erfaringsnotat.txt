@@ -2,15 +2,23 @@
 Del F: Erfaringsnotat
 
 Skriv MAKS en side til oppgave F1-F3.
+
 F1: ​ Hva gikk bra?
+
+    Gikk veldig bra å skrive sammen og diskutere alternative løsninger.
+    Vi lærte mye og det var gøy å jobbe sammen.
+
 F2: ​ Hva ville dere gitt dere gjort annerledes neste gang?
+
+    Til neste gang ville vi satt oss mer inn i oppgaven før vi valgte hva slags lister de forskjellige objektene skulle legges i
+    Valgte stabel for respeter fordi man ofte henter respeten rett etter man får den fra legen
+    Valgte prioritetskoe for leger for å kunne skrive ut i alfabetisk rekkefølge
+    Valgte å lagre legene i indeksert liste i kommando-ordre for å kunne hente ut legen, selv om vi vet det tar mer plass
+    Vi ville også ha laget enda flere metoder utenfor kommandoloekken for å få mer oversikt og kunne gjenbrukt mer kode
+    Vi ville også prøvd å ta stilling til om legene hadde norske bokstaver om vi hadde mer tid
+
 F3: ​ Hva har dere fått ut av gruppearbeidet
 
-
-velger stabel for respeter fordi man ofte henter respeten rett etter man får den fra legen
-velger prioritetskoe for leger for å kunne skrive ut i alfabetisk rekkefølge
-velger å lagre legene i indeksert liste i kommando-ordre for å kunne hente ut legen
-    vet det tar mer plass
-
-må deale med æ,ø,å
-fikse lege/spesialist exeption
+    Vi har lært mye av hverandre på godt og vondt. 
+    Vi har lært at vi burde bli bedre på å beregne tid.
+    I tillegg har vi blitt enda bedre å bruke github sammen.

@@ -23,7 +23,7 @@ A2: ​ Diskuter samarbeidsform. Vil dere sitte sammen og jobbe, eller fordele o
     Det er viktig at alle er komfortable med verktøyene dere bruker.
         - Vi skal sitte sammen fysisk samt litt digitalt over github 
         - Vi skal prøve å kode litt i par og diskutere de løsnigene vi har kommet frem til
-        - Verktøy: github, mondays, google Docs, vs-code med codetogether-extention
+        - Verktøy: github og google Docs
         - Vi er alle komfortable med de verktøyene
         - Tidsaspekt: Jobbe sammen 3 timer x4, sitte litt hver for oss om det trengs
 
@@ -37,4 +37,3 @@ A3: ​ Velg hvilken løsning dere skal basere dere på.
         - Fordeler: har ryddige kommentarer
         - Fordeler: skrevet med samme stil
         - Ulempler: kan være litt komplisert
-        - Ulemper: er ikke sikkert vi får bruk for dobbeltlenkede lister
