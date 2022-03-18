@@ -335,6 +335,7 @@ public class Legesystem {
             // bruke gitt resept fra liste til gitt pasient
             } else if(inputFraBruker == 9) {
                 System.out.println(pasienter);
+                Pasient minPasient;
 
                 int teller = 1;
                 for (Pasient pasient : pasienter) {
@@ -342,14 +343,23 @@ public class Legesystem {
                     teller++;
                 }
                 System.out.print("Skriv inn et tall:  ");
-                int input = Integer.parseInt(tastatur.nextLine());
+                int pasientvalg = Integer.parseInt(tastatur.nextLine());
+                minPasient = pasienter.hent(pasientvalg-1);
 
-                System.out.println("Pasient valgt er " + pasienter.hent(input-1).hentNavn() + " (Fnr: " + pasienter.hent(input-1).hentFnr() + ")\n");
+                System.out.println("Pasient valgt er " + pasienter.hent(pasientvalg-1).hentNavn() + " (Fnr: " + pasienter.hent(pasientvalg-1).hentFnr() + ")\n");
 
+                // velg resept
                 System.out.println("Hvilken resept vil du bruke?");
-                System.out.println(pasienter.hent(input - 1).hentReseptliste());
-
+                System.out.println(pasienter.hent(pasientvalg - 1).hentReseptliste());
                 
+                IndeksertListe<Resept> mineResepter = new IndeksertListe<>();
+
+                System.out.print("Skriv inn tall:   ");
+                int reseptvalg = Integer.parseInt(tastatur.nextLine());
+
+                Resept minResept = minPasient.hentReseptliste().hent(reseptvalg-1);
+                
+                System.out.println(minResept);
             }
         //   } else if(inputFraBruker == 10){
         //     finnMestArbeidsommeStudent();
