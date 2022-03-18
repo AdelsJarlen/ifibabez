@@ -38,7 +38,6 @@ public class Spesialist extends Lege implements Godkjenningsfritak {
 
     @Override
     public String toString() {
-        return "Navn: " + hentNavn() +
-        "\nKontroll-ID: " + hentKontrollID();
+        return "Navn: " + hentNavn() + "(Kontroll-ID: " + hentKontrollID() + ")";
     }
 }

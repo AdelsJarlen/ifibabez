@@ -42,10 +42,10 @@ public class Vanedannende extends Legemiddel {
     @Override
     public String toString() {
         return "Navn: " + hentNavn() + 
-        "\nVirkestoff: " + hentVirkestoff() + " mg" +
-        "\nPris: " + hentPris() + " kr" +
-        "\nObjekt-ID: " + hentID() +
-        "\nVanedannende styrke: " + hentStyrke();
+        "\n   Virkestoff: " + hentVirkestoff() + " mg" +
+        "\n   Pris: " + hentPris() + " kr" +
+        "\n   Objekt-ID: " + hentID() +
+        "\n   Vanedannende styrke: " + hentStyrke();
     }
     
 }

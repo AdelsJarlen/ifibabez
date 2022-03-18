@@ -42,10 +42,10 @@ public class Narkotisk extends Legemiddel {
     @Override
     public String toString() {
         return "Navn: " + hentNavn() + 
-        "\nVirkestoff: " + hentVirkestoff() + " mg" +
-        "\nPris: " + hentPris() + " kr" +
-        "\nType legemiddel: " + hentKlassenavn() +
-        "\nObjekt-ID: " + hentID() +
-        "\nNarkotisk styrke: " + hentStyrke();
+        "\n   Virkestoff: " + hentVirkestoff() + " mg" +
+        "\n   Pris: " + hentPris() + " kr" +
+        "\n   Type legemiddel: " + hentKlassenavn() +
+        "\n   Objekt-ID: " + hentID() +
+        "\n   Narkotisk styrke: " + hentStyrke();
     }
 }

@@ -39,9 +39,9 @@ public class Pasient {
     @Override
     public String toString() {
       return ("PASIENT\n" +
-              "ID: " + hentID() + ", Navn: " + hentNavn() +
-              "\nFodselsnr: " + hentFnr() +
-              "\nAntall resepter: " + hentReseptliste().stoerrelse());
+              "   Navn: " + hentNavn() + " (ID: " + hentID() + ")" +
+              "\n   Fodselsnr: " + hentFnr() +
+              "\n   Antall resepter: " + hentReseptliste().stoerrelse());
     }
 
     public String enkelString() {
