@@ -54,6 +54,9 @@ public class Pasient {
         for (Resept resept : reseptliste) {
             resultat += (teller + ". " + resept.hentLegemiddel().hentNavn() + " (" + resept.hentReit() + " reit)");
             teller++;
+            if (teller > 2) {
+                resultat += "\n";
+            }
         }
         return resultat;
     }
