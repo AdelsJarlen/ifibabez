@@ -254,9 +254,7 @@ public class Legesystem {
 
             //print ut fullstendig oversikt over resepter
             } else if(inputFraBruker == 4){
-                for (Lege lege : leger) {
-                    lege.printResepter();
-                }
+                System.out.println(resepter);
             
             // legg til eller opprett pasient
             } else if(inputFraBruker == 5){
