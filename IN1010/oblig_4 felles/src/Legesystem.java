@@ -232,7 +232,7 @@ public class Legesystem {
         System.out.print("\nSkriv inn et tall:   ");
     }
 
-    public void kommandoloekke() throws UlovligUtskrift{
+    public void kommandoloekke() throws UlovligUtskrift {
         int inputFraBruker = -1;
     
         while(inputFraBruker != 0){
@@ -290,7 +290,18 @@ public class Legesystem {
                 System.out.print("\nSkriv inn legemiddelnavn:   ");
                 String legemiddelnavn = tastatur.nextLine();
                 System.out.print("\nSkriv inn virkestoff (mg):   ");
-                Double virkestoff = Double.parseDouble(tastatur.nextLine());
+                String virkestoffString = tastatur.nextLine();
+                Double virkestoff = null;
+                try {
+                    virkestoff = Double.parseDouble(virkestoffString);
+                } catch (Exception e) { 
+                    System.err.println("Ikke gyldig flyttall!\n");
+                } 
+                
+                if (virkestoff == null) {
+                    kommandoloekke();
+                }
+
                 System.out.print("\nSkriv inn pris (NOK):   ");
                 int pris = Integer.parseInt(tastatur.nextLine());
 
@@ -320,9 +331,26 @@ public class Legesystem {
             // legg til eller opprett resept
             } else if(inputFraBruker == 8){
                 spoerOmReseptinfo();
+
+            // bruke gitt resept fra liste til gitt pasient
+            } else if(inputFraBruker == 9) {
+                System.out.println(pasienter);
+
+                int teller = 1;
+                for (Pasient pasient : pasienter) {
+                    System.out.println(teller + " Navn: " + pasient.hentNavn() + " (Fnr: " + pasient.hentFnr() + ")");
+                    teller++;
+                }
+                System.out.print("Skriv inn et tall:  ");
+                int input = Integer.parseInt(tastatur.nextLine());
+
+                System.out.println("Pasient valgt er " + pasienter.hent(input-1).hentNavn() + " (Fnr: " + pasienter.hent(input-1).hentFnr() + ")\n");
+
+                System.out.println("Hvilken resept vil du bruke?");
+                System.out.println(pasienter.hent(input - 1).hentReseptliste());
+
+                
             }
-        //     } else if(inputFraBruker == 9){
-        //     finnMestPopulaereFag();
         //   } else if(inputFraBruker == 10){
         //     finnMestArbeidsommeStudent();
         //   } else if(inputFraBruker == 11){
@@ -388,8 +416,19 @@ public class Legesystem {
         if (reseptvalg == 1) {
             System.out.print("Hvor mange reit:    ");
             int minreit = Integer.parseInt(tastatur.nextLine());
+            boolean fortsett = true;
 
-            minLege.skrivHvitResept(mittlegemiddel, minPasient, minreit);
+            try {
+                minLege.skrivHvitResept(mittlegemiddel, minPasient, minreit);
+            } catch (Exception e) { 
+                fortsett = false;
+                System.err.println(minLege.hentNavn() + " har ikke lov aa skrive ut " + mittlegemiddel.hentNavn() + "\n");
+            } 
+            
+            if (!fortsett) {
+                kommandoloekke();
+            }
+            
 
             minLege.printResepter();
 
