@@ -265,8 +265,6 @@ public class Legesystem {
 
                 pasienter.leggTil(new Pasient(pasientnavn, personnr));
                 
-                // System.out.println(pasienter);
-
             // legg til eller opprett lege
             } else if(inputFraBruker == 6){
                 System.out.print("\nSkriv inn legens navn:    ");
