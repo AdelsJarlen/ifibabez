@@ -45,7 +45,7 @@ public class Pasient {
     }
 
     public String enkelString() {
-        return (hentNavn() + "(fnr. " + hentFnr() + ")");
+        return (hentNavn() + " (fnr. " + hentFnr() + ")");
     }
 
     public String reseptlisteString() {
