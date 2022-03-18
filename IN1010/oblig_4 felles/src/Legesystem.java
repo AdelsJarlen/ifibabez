@@ -398,12 +398,28 @@ public class Legesystem {
 
         // blaa resept
         } else if (reseptvalg == 2) {
+            System.out.print("Hvor mange reit:    ");
+            int minreit = Integer.parseInt(tastatur.nextLine());
+
+            minLege.skrivBlaaResept(mittlegemiddel, minPasient, minreit);
+
+            minLege.printResepter();
         
         // militaer resept
         } else if (reseptvalg == 3) {
 
+            minLege.skrivMilResept(mittlegemiddel, minPasient);
+
+            minLege.printResepter();
+
         // p resept
         } else if (reseptvalg == 4) {
+            System.out.print("Hvor mange reit:    ");
+            int minreit = Integer.parseInt(tastatur.nextLine());
+
+            minLege.skrivPResept(mittlegemiddel, minPasient, minreit);
+
+            minLege.printResepter();
 
         } else {
             System.out.println("Prøv igjen...");
