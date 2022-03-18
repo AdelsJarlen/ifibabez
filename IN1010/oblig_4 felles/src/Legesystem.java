@@ -186,7 +186,7 @@ public class Legesystem {
 
             }
 
-            if (resept_linje.contains("p")) {
+            if (resept_linje.contains(",p,")) {
                 String[] info = resept_linje.split(",");
                 int legemiddelNr = Integer.parseInt(info[0]);
                 int pasientID = Integer.parseInt(info[2]);
