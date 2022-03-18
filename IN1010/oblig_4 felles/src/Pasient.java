@@ -1,19 +1,13 @@
 public class Pasient {
 
-    /*******************/
     /* KLASSEVARIABLER */
-    /*******************/    
-
     private String navn;
     private String fnr; // foedselsnummer (String)
     protected int pasientID; // unik ID per pasient
     static int tellerID = 1; // starter paa 1
     Stabel<Resept> reseptliste = new Stabel<>(); // stabel med resepter per pasient
 
-    /****************/
     /* KONSTRUKTOER */
-    /****************/
-
     public Pasient(String navn, String fnr) {
         this.navn = navn;
         this.fnr = fnr;
@@ -21,10 +15,7 @@ public class Pasient {
         tellerID++;
     }
 
-    /***********/
-    /* GETTERE */
-    /***********/
-
+    /* METODER */
     Stabel<Resept> hentReseptliste() {
         return this.reseptliste;
     }
@@ -41,10 +32,6 @@ public class Pasient {
         return this.fnr;
     }
 
-    /*****************/
-    /* ANDRE METODER */
-    /*****************/
-  
     void leggTilResept(Resept nyResept) {
         this.reseptliste.leggTil(nyResept);
     }
@@ -55,6 +42,10 @@ public class Pasient {
               "ID: " + hentID() + ", Navn: " + hentNavn() +
               "\nFodselsnr: " + hentFnr() +
               "\nAntall resepter: " + hentReseptliste().stoerrelse());
+    }
+
+    public String enkelString() {
+        return (hentNavn() + "(fnr. " + hentFnr() + ")");
     }
 }
   
