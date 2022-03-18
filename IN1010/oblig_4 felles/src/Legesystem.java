@@ -1,12 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Legesystem {
 
-    protected IndeksertListe<Resept> utskrevneResepter;
-    protected Stabel<Resept> resepter;
+    protected Stabel<Resept> resepter = new Stabel<>();
     protected IndeksertListe<Pasient> pasienter = new IndeksertListe<>();
     protected Prioritetskoe<Lege> leger = new Prioritetskoe<>();
     protected IndeksertListe<Legemiddel> legemidler = new IndeksertListe<>();
@@ -132,6 +132,7 @@ public class Legesystem {
                 for (Lege lege : leger) {
                     if (lege.hentNavn().equals(legenavn)) {
                         lege.skrivHvitResept(lm, pasient, reit);
+                        resepter.leggTil(new HvitResept(lm, lege, pasient, reit));
                         skrevetUt = true;
                     }
                 }
@@ -154,6 +155,7 @@ public class Legesystem {
                 for (Lege lege : leger) {
                     if (lege.hentNavn().equals(legenavn)) {
                         lege.skrivBlaaResept(lm, pasient, reit);
+                        resepter.leggTil(new BlaaResept(lm, lege, pasient, reit));
                         skrevetUt = true;
                     }
                 }
@@ -176,6 +178,7 @@ public class Legesystem {
                 for (Lege lege : leger) {
                     if (lege.hentNavn().equals(legenavn)) {
                         lege.skrivMilResept(lm, pasient);
+                        resepter.leggTil(new MilResept(lm, lege, pasient));
                         skrevetUt = true;
                     }
                 }
@@ -199,6 +202,7 @@ public class Legesystem {
                 for (Lege lege : leger) {
                     if (lege.hentNavn().equals(legenavn)) {
                         lege.skrivPResept(lm, pasient, reit);
+                        resepter.leggTil(new PResept(lm, lege, pasient, reit));
                         skrevetUt = true;
                     }
                 }
@@ -220,25 +224,25 @@ public class Legesystem {
         System.out.println("2. Skriv ut fullstendig oversikt over leger");
         System.out.println("3. Skriv ut fullstendig oversikt over legemidler");
         System.out.println("4. Skriv ut fullstendig oversikt over resepter");
-        System.out.println("5. Opprett eller legg til ny pasient");
-        System.out.println("6. Opprett eller legg til ny lege");
-        System.out.println("7. Opprett eller legg til ny legemiddel");
-        System.out.println("8. Opprett eller legg til ny resept");
-        System.out.println("9. Bruke en gitt resept fra listen til en pasient");
-        System.out.println("10. Skriv ut forskjellige former for statistikk");
+        System.out.println("5. Legg til ny pasient");
+        System.out.println("6. Legg til ny lege");
+        System.out.println("7. Legg til ny legemiddel");
+        System.out.println("8. Legg til ny resept");
+        System.out.println("9. Bruke en resept fra listen til en pasient");
+        System.out.println("10. Skriv ut statistikk");
         System.out.println("11. Skriv alle data til fil");
         System.out.println("0. Avslutt");
 
         System.out.print("\nSkriv inn et tall:   ");
     }
 
-    public void kommandoloekke() throws UlovligUtskrift {
+    public void kommandoloekke() throws UlovligUtskrift, FileNotFoundException {
         int inputFraBruker = -1;
     
         while(inputFraBruker != 0){
-          if(inputFraBruker == 1){
+            if(inputFraBruker == 1){
             //print ut fullstendig oversikt over pasienter
-            System.out.println(pasienter);
+                System.out.println(pasienter);
 
             //print ut fullstendig oversikt over leger
             } else if(inputFraBruker == 2){
@@ -342,7 +346,7 @@ public class Legesystem {
                     teller++;
                 }
 
-                System.out.print("Skriv inn et tall:  ");
+                System.out.print("Skriv inn et tall:   ");
                 int pasientvalg = Integer.parseInt(tastatur.nextLine());
                 minPasient = pasienter.hent(pasientvalg-1);
 
@@ -364,19 +368,58 @@ public class Legesystem {
                 } else {
                     System.out.println("Kunne ikke bruke resept paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn() + " (ingen reit igjen)");
                 }
+
+            } else if (inputFraBruker == 10) {
+                System.out.println("1. Vis resepter paa vanedannende legemidler");
+                System.out.println("2. Vis resepter paa narkotiske legemidler");
+                System.out.println("3. Oversikt over mulig misbruk av narkotika");
+
+                System.out.print("\nSkriv inn et tall:   ");
+                int input = Integer.parseInt(tastatur.nextLine());
+
+                if (input == 1) {
+                    int teller = 0;
+                    for (Resept resept : resepter) {
+                        
+                        if (resept.hentLegemiddel() instanceof Vanedannende) {
+                            teller++;
+                        }
+                    }
+                    System.out.println("Totalt antall resepter paa vanedannende legemidler: " + teller);
+                } else if (input == 2) {
+                    int teller = 0;
+                    for (Resept resept : resepter) {
+                        
+                        if (resept.hentLegemiddel() instanceof Narkotisk) {
+                            teller++;
+                        }
+                    }
+                    System.out.println("Totalt antall resepter paa narkotiske legemidler: " + teller);
+                } else if (input == 3) {
+                    System.out.println("\nLeger som har skrevet ut resept paa narkotiske legemidler:");
+                    for (Resept resept : resepter) {
+                        if (resept.hentLegemiddel() instanceof Narkotisk) {
+                            System.out.println("- " + resept.hentLege().hentNavn() + " har skrevet ut resept paa " + resept.hentLegemiddel().hentNavn() + ".\n");
+                        }
+                    }
+                    System.out.println("\nPasienter som har minst én gyldig resept paa narkotiske legemidler:");
+                    for (Resept resept : resepter) {
+                        if (resept.hentLegemiddel() instanceof Narkotisk && resept.hentReit() > 0) {
+                            System.out.println("- " + resept.hentPasient().hentNavn() + " har gyldig resept paa " + resept.hentLegemiddel().hentNavn() + ".\n");
+                        }
+                    }
+                } else {
+                    kommandoloekke();
+                }
+            } else if(inputFraBruker == 11) {
+                skrivTilFil();
             }
-        //   } else if(inputFraBruker == 10){
-        //     finnMestArbeidsommeStudent();
-        //   } else if(inputFraBruker == 11){
-        //     skrivUtAlleFagMedTilhorendeStudenter();
-        //   }
           kommandoer();
           inputFraBruker = Integer.parseInt(tastatur.nextLine());
         }
     }
 
-
-    public void spoerOmReseptinfo() throws UlovligUtskrift{
+    public void spoerOmReseptinfo() throws UlovligUtskrift, FileNotFoundException{
 
         // VELG LEGE
 
@@ -475,5 +518,48 @@ public class Legesystem {
             System.out.println("Prøv igjen...");
             kommandoloekke();
         }
+    }
+
+    public void skrivTilFil() throws FileNotFoundException {
+        File ny_fil = new File("data_fra_legesystem.txt");
+        PrintWriter pw = new PrintWriter(ny_fil);
+
+        pw.println("# Pasienter (navn, fnr)");
+        for (Pasient pasient : pasienter) {
+            pw.println(pasient.hentNavn() + "," + pasient.hentFnr());
+        }
+        pw.println("# Legemidler (navn,type,pris,virkestoff,[styrke])");
+        for (Legemiddel lm : legemidler) {
+            if (lm instanceof Vanedannende) {
+                pw.println(lm.hentNavn() + "," + lm.hentKlassenavn() + "," 
+                + lm.hentPris() + "," + ((int) lm.hentVirkestoff()) + "," + ((Vanedannende) lm).hentStyrke());
+            } else if (lm instanceof Narkotisk) {
+                pw.println(lm.hentNavn() + "," + lm.hentKlassenavn() + "," + lm.hentPris() + "," + ((int) lm.hentVirkestoff()) + "," + ((Narkotisk) lm).hentStyrke());
+            } else {
+                pw.println(lm.hentNavn() + "," + lm.hentKlassenavn() + "," + lm.hentPris() + "," + ((int) lm.hentVirkestoff()));
+            }
+        }
+        pw.println("# Leger (navn,kontrollid / 0 hvis vanlig lege)");
+        for (Lege lege : leger) {
+            if (lege instanceof Spesialist) {
+                pw.println(lege.hentNavn() + "," + ((Spesialist) lege).hentKontrollID());
+            } else {
+                pw.println(lege.hentNavn() + ",0");
+            }
+        }
+        pw.println("# Resepter (legemiddelNummer,legeNavn,pasientID,type,[reit])");
+        for (Resept resept : resepter) {
+            if (resept instanceof MilResept) {
+                pw.println(resept.hentLegemiddel().hentID() + "," + resept.hentLege().hentNavn() + "," +
+                resept.hentPasientID() + ",militaer");
+            } else if (resept instanceof PResept) {
+                pw.println(resept.hentLegemiddel().hentID() + "," + resept.hentLege().hentNavn() + "," +
+                resept.hentPasientID() + ",p," + resept.hentReit());
+            } else {
+                pw.println(resept.hentLegemiddel().hentID() + "," + resept.hentLege().hentNavn() + "," +
+                resept.hentPasientID() + "," + resept.farge() + "," + resept.hentReit());
+            }
+        }
+        pw.close();
     }
 }

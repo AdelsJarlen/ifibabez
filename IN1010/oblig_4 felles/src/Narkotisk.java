@@ -9,18 +9,18 @@ public class Narkotisk extends Legemiddel {
     /* KLASSEVARIABLER */
     /*******************/
 
-    protected int narkotisk;
-    protected String klassenavn = getClass().getSimpleName();
+    protected int styrke;
+    protected String klassenavn = getClass().getSimpleName().toLowerCase();
 
     /****************/
     /* KONSTRUKTOER */
     /****************/
 
-    public Narkotisk(String navn, double virkestoff, int pris, int narkotisk) {
+    public Narkotisk(String navn, double virkestoff, int pris, int styrke) {
         super(navn, virkestoff, pris); // henter variabler fra parent-klassen
 
         // Definerer narkotisk styrke som egen variabel
-        this.narkotisk = narkotisk;
+        this.styrke = styrke;
     }
     
     /***********/
@@ -31,8 +31,8 @@ public class Narkotisk extends Legemiddel {
         return klassenavn;
     }
 
-    public int hentNarkotisk() {
-        return narkotisk;
+    public int hentStyrke() {
+        return styrke;
     }
 
     /*****************/
@@ -46,6 +46,6 @@ public class Narkotisk extends Legemiddel {
         "\nPris: " + hentPris() + " kr" +
         "\nType legemiddel: " + hentKlassenavn() +
         "\nObjekt-ID: " + hentID() +
-        "\nNarkotisk styrke: " + hentNarkotisk();
+        "\nNarkotisk styrke: " + hentStyrke();
     }
 }

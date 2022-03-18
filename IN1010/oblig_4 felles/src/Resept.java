@@ -53,6 +53,10 @@ abstract class Resept {
         return pasient.hentID();
     }
 
+    public Pasient hentPasient() {
+        return pasient;
+    }
+
     public int hentReit() {
         return reit;
     }

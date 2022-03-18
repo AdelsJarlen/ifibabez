@@ -9,7 +9,7 @@ public class Vanlig extends Legemiddel {
     /* KLASSEVARIABLER */
     /*******************/
 
-    protected String klassenavn = getClass().getSimpleName();
+    protected String klassenavn = getClass().getSimpleName().toLowerCase();
     
     /****************/
     /* KONSTRUKTOER */

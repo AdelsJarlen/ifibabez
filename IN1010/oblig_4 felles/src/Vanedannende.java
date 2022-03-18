@@ -10,17 +10,17 @@ public class Vanedannende extends Legemiddel {
     /* KLASSEVARIABLER */
     /*******************/
 
-    protected int vanedannende;
-    protected String klassenavn = getClass().getSimpleName();
+    protected int styrke;
+    protected String klassenavn = getClass().getSimpleName().toLowerCase();
 
     /****************/
     /* KONSTRUKTOER */
     /****************/
 
-    public Vanedannende(String navn, double virkestoff, int pris, int vanedannende) {
+    public Vanedannende(String navn, double virkestoff, int pris, int styrke) {
         super(navn, virkestoff, pris);
 
-        this.vanedannende = vanedannende;
+        this.styrke = styrke;
     }
 
     /***********/
@@ -31,8 +31,8 @@ public class Vanedannende extends Legemiddel {
         return klassenavn;
     }
 
-    public int hentVanedannende() {
-        return vanedannende;
+    public int hentStyrke() {
+        return styrke;
     }
 
     /*****************/
@@ -45,7 +45,7 @@ public class Vanedannende extends Legemiddel {
         "\nVirkestoff: " + hentVirkestoff() + " mg" +
         "\nPris: " + hentPris() + " kr" +
         "\nObjekt-ID: " + hentID() +
-        "\nVanedannende styrke: " + hentVanedannende();
+        "\nVanedannende styrke: " + hentStyrke();
     }
     
 }
