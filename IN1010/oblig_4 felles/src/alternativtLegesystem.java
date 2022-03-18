@@ -208,7 +208,8 @@ public class alternativtLegesystem {
                 }
 
             }
-        }
         scanner.close();
+        }
+        
     }
 }
