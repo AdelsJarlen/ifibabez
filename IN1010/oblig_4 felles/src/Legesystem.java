@@ -487,7 +487,8 @@ public class Legesystem {
                 kommandoloekke();
             }
             
-            System.out.println("Resept lagt til.");
+            System.out.println("\n... La til hvit resept paa " + mittlegemiddel.hentNavn() + " for " + 
+            minPasient.hentNavn() + " (" + minreit + " reit).");
             
 
         // blaa resept
@@ -497,14 +498,15 @@ public class Legesystem {
 
             minLege.skrivBlaaResept(mittlegemiddel, minPasient, minreit);
 
-            System.out.println("Resept lagt til.");
+            System.out.println("\n... La til blaa resept paa " + mittlegemiddel.hentNavn() + " for " + 
+            minPasient.hentNavn() + " (" + minreit + " reit).");
         
         // militaer resept
         } else if (reseptvalg == 3) {
 
             minLege.skrivMilResept(mittlegemiddel, minPasient);
 
-            System.out.println("Resept lagt til.");
+            System.out.println("\n... La til militaerresept paa " + mittlegemiddel.hentNavn() + " for " + minPasient.hentNavn() + ".");
 
         // p resept
         } else if (reseptvalg == 4) {
@@ -513,10 +515,11 @@ public class Legesystem {
 
             minLege.skrivPResept(mittlegemiddel, minPasient, minreit);
 
-            System.out.println("Resept lagt til.");
+            System.out.println("\n... La til P-resept paa " + mittlegemiddel.hentNavn() + " for " + 
+            minPasient.hentNavn() + " (" + minreit + " reit).");
 
         } else {
-            System.out.println("Prøv igjen...");
+            System.out.println("Noe gikk galt. Prøv igjen...");
             kommandoloekke();
         }
     }
