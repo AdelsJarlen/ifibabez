@@ -5,7 +5,7 @@ public class Pasient {
     private String fnr; // foedselsnummer (String)
     protected int pasientID; // unik ID per pasient
     static int tellerID = 1; // starter paa 1
-    Stabel<Resept> reseptliste = new Stabel<>(); // stabel med resepter per pasient
+    IndeksertListe<Resept> reseptliste = new IndeksertListe<>(); // stabel med resepter per pasient
 
     /* KONSTRUKTOER */
     public Pasient(String navn, String fnr) {
@@ -16,7 +16,7 @@ public class Pasient {
     }
 
     /* METODER */
-    Stabel<Resept> hentReseptliste() {
+    IndeksertListe<Resept> hentReseptliste() {
         return this.reseptliste;
     }
 
