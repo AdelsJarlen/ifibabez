@@ -285,11 +285,11 @@ public class Legesystem {
 
             // legg til eller opprett legemiddel
             } else if(inputFraBruker == 7){
-                System.out.print("Hva slags legemiddel er det?\n1. Narkotisk\n2. Vanedannende\n3. Vanlig\n Skriv inn et tall:    ");
+                System.out.print("Hva slags legemiddel er det?\n1. Narkotisk\n2. Vanedannende\n3. Vanlig\nSkriv inn et tall:    ");
                 String type = tastatur.nextLine();
-                System.out.print("\nSkriv inn legemiddelnavn:   ");
+                System.out.print("Skriv inn legemiddelnavn:   ");
                 String legemiddelnavn = tastatur.nextLine();
-                System.out.print("\nSkriv inn virkestoff (mg):   ");
+                System.out.print("Skriv inn virkestoff (mg):   ");
                 String virkestoffString = tastatur.nextLine();
                 Double virkestoff = null;
                 try {
@@ -302,7 +302,7 @@ public class Legesystem {
                     kommandoloekke();
                 }
 
-                System.out.print("\nSkriv inn pris (NOK):   ");
+                System.out.print("Skriv inn pris (NOK):   ");
                 int pris = Integer.parseInt(tastatur.nextLine());
 
                 // Narkotisk
@@ -356,11 +356,10 @@ public class Legesystem {
                 int reseptvalg = Integer.parseInt(tastatur.nextLine());
 
                 // Resept minResept = minPasient.hentReseptliste().hent(reseptvalg-1);
-                
-                minPasient.hentReseptliste().hent(reseptvalg-1).bruk();
 
                 if (minPasient.hentReseptliste().hent(reseptvalg-1).hentReit() > 0) {
-                    System.out.println("\nDu har brukt: " + pasienter.hent(pasientvalg - 1).reseptlisteString());
+                    minPasient.hentReseptliste().hent(reseptvalg-1).bruk();
+                    System.out.println("\nDu har brukt: " + pasienter.hent(pasientvalg-1).reseptlisteString());
                 } else {
                     System.out.println("Kunne ikke bruke resept paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn() + " (ingen reit igjen)");
                 }
@@ -436,7 +435,13 @@ public class Legesystem {
         // VELG PASIENT
 
         System.out.println("Velg en pasient fra listen:   ");
-        System.out.println(pasienter);
+        System.out.println("####################");
+        int teller = 1;
+        for (Pasient pasient : pasienter) {
+            System.out.println(teller + ". " + pasient.enkelString());
+            teller++;
+        }
+        System.out.println("####################");
         System.out.print("Skriv inn et tall:   ");
         int pasientvalg = Integer.parseInt(tastatur.nextLine());
 
@@ -446,7 +451,7 @@ public class Legesystem {
 
         // VELG LEGEMIDDEL
 
-        System.out.println("Velg en legemiddel fra listen:   ");
+        System.out.println("Velg et legemiddel fra listen:   ");
         System.out.println(legemidler);
         System.out.print("Skriv inn et tall:   ");
         int legemiddelvalg = Integer.parseInt(tastatur.nextLine());
