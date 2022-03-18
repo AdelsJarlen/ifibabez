@@ -264,6 +264,8 @@ public class Legesystem {
                 String personnr = tastatur.nextLine();
 
                 pasienter.leggTil(new Pasient(pasientnavn, personnr));
+
+                System.out.println("\n... La til pasienten " + pasientnavn + ".");
                 
             // legg til eller opprett lege
             } else if(inputFraBruker == 6){
@@ -281,10 +283,10 @@ public class Legesystem {
                     leger.leggTil(new Lege(legenavn));
                 }
 
-                System.out.println(leger);
+                System.out.println("\n... La til legen " + legenavn + ".");
 
             // legg til eller opprett legemiddel
-            } else if(inputFraBruker == 7){
+            } else if(inputFraBruker == 7) {
                 System.out.print("Hva slags legemiddel er det?\n1. Narkotisk\n2. Vanedannende\n3. Vanlig\nSkriv inn et tall:    ");
                 String type = tastatur.nextLine();
                 System.out.print("Skriv inn legemiddelnavn:   ");
@@ -292,10 +294,11 @@ public class Legesystem {
                 System.out.print("Skriv inn virkestoff (mg):   ");
                 String virkestoffString = tastatur.nextLine();
                 Double virkestoff = null;
+                
                 try {
                     virkestoff = Double.parseDouble(virkestoffString);
                 } catch (Exception e) { 
-                    System.err.println("Ikke gyldig flyttall!\n");
+                    System.err.println(virkestoffString + " er ikke et gyldig flyttall. Proev igjen.\n");
                 } 
                 
                 if (virkestoff == null) {
@@ -323,9 +326,10 @@ public class Legesystem {
                 else if (type.equals("3")){
                     legemidler.leggTil(new Vanlig(legemiddelnavn, virkestoff, pris));
                 }
-                else{
-                    System.out.println("Ikke et gyldig valg!");
-                    kommandoer();
+
+                else {
+                    System.out.println(type + " er ikke et gyldig valg. Proev igjen.");
+                    kommandoer(); // viser listen med kommandoer igjen (hovedmeny)
                 }
 
             // legg til eller opprett resept
@@ -416,6 +420,8 @@ public class Legesystem {
         }
     }
 
+    /* KJOERES HVIS BRUKER VIL LEGGE TIL EN HELT NY RESEPT */
+    // 
     public void spoerOmReseptinfo() throws UlovligUtskrift, FileNotFoundException{
 
         // VELG LEGE
@@ -496,16 +502,16 @@ public class Legesystem {
         // blaa resept
         } else if (reseptvalg == 2) {
             System.out.print("Hvor mange reit:    ");
-            int minreit = Integer.parseInt(tastatur.nextLine());
+            int minreit = Integer.parseInt(tastatur.nextLine()); // leser input som int
 
-            minLege.skrivBlaaResept(mittlegemiddel, minPasient, minreit);
+            minLege.skrivBlaaResept(mittlegemiddel, minPasient, minreit); // skriver ut resepten fra Lege-objektet
 
             System.out.println("\n... La til blaa resept paa " + mittlegemiddel.hentNavn() + " for " + 
             minPasient.hentNavn() + " (" + minreit + " reit).");
         
         // militaer resept
         } else if (reseptvalg == 3) {
-
+            // har ikke reit, trenger bare lm og pasient
             minLege.skrivMilResept(mittlegemiddel, minPasient);
 
             System.out.println("\n... La til militaerresept paa " + mittlegemiddel.hentNavn() + " for " + minPasient.hentNavn() + ".");
@@ -513,19 +519,22 @@ public class Legesystem {
         // p resept
         } else if (reseptvalg == 4) {
             System.out.print("Hvor mange reit:    ");
-            int minreit = Integer.parseInt(tastatur.nextLine());
+            int minreit = Integer.parseInt(tastatur.nextLine()); // leser input fra bruker som int
 
-            minLege.skrivPResept(mittlegemiddel, minPasient, minreit);
+            minLege.skrivPResept(mittlegemiddel, minPasient, minreit); // skriver ut fra Lege-objektet
 
             System.out.println("\n... La til P-resept paa " + mittlegemiddel.hentNavn() + " for " + 
             minPasient.hentNavn() + " (" + minreit + " reit).");
 
         } else {
-            System.out.println("Noe gikk galt. Prøv igjen...");
-            kommandoloekke();
+            System.out.println("Noe gikk galt. Proev igjen...");
+            kommandoloekke(); // kjoerer hovedmeny og kommandosjekk paa nytt
         }
     }
 
+    /* SKRIVER ALL INFOEN FRA LISTE-OBJEKTENE TIL EN NY TXT-FIL */
+    // bruker PrintWriter for aa lagre innholdet i listene leger, pasienter, legemidler og resepter
+    // til en ny txt-fil. Standard filnavn er data_fra_legesystem.txt.
     public void skrivTilFil() throws FileNotFoundException {
         File ny_fil = new File("data_fra_legesystem.txt");
         PrintWriter pw = new PrintWriter(ny_fil);
