@@ -6,25 +6,16 @@ et objekt av child-klassen Spesialist.
 
 public class Lege implements Comparable<Lege> {
 
-    /*******************/
     /* KLASSEVARIABLER */
-    /*******************/
-
     private String navn;
     private IndeksertListe<Resept> utskrevneResepter = new IndeksertListe<>();
 
-    /****************/
     /* KONSTRUKTOER */
-    /****************/
-
     public Lege(String navn) {
         this.navn = navn;
     }
 
-    /***********/
     /* METODER */
-    /***********/
-
     public String hentNavn() {
         return navn;
     }
