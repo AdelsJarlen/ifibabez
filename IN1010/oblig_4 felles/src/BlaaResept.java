@@ -7,17 +7,11 @@ Disse er final fordi de aldri skal endres.
 
 public class BlaaResept extends Resept {
 
-    /*******************/
     /* KLASSEVARIABLER */
-    /*******************/
-
     static final int rabatt = 75;
     static final String farge = "blaa";
 
-    /****************/
     /* KONSTRUKTOER */
-    /****************/
-
     public BlaaResept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit) {
         super(legemiddel, utskrivendeLege, pasient, reit); // henter variabler fra Resept
     }
