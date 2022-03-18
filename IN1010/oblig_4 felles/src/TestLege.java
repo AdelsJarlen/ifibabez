@@ -3,8 +3,6 @@ public class TestLege {
         
         /* OPPRETTER LEGE-OBJEKTER */
         Lege bob = new Lege("Dr. Bob Kåre Ytrearne");
-        Lege yasmin = new Lege("Dr. Yasmin Urdula");
-        Lege aese = new Lege("Dr. Æse Bergeland");
         Lege zara = new Lege("Dr. Zara Zulu");
 
         /* OPPRETTER PASIENT-OBJEKTER */
