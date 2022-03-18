@@ -4,9 +4,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Legesystem {
-    
-    // maa finne ut hvordan reseptlisten i Pasient.java skal oppdateres
-    // skal pasient legge til resept, eller skal resept legge til paa pasient?
 
     protected IndeksertListe<Resept> utskrevneResepter;
     protected Stabel<Resept> resepter;
