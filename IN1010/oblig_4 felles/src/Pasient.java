@@ -47,6 +47,15 @@ public class Pasient {
     public String enkelString() {
         return (hentNavn() + "(fnr. " + hentFnr() + ")");
     }
+
+    public String reseptlisteString() {
+        String resultat = "";
+        int teller = 1;
+        for (Resept resept : reseptliste) {
+            resultat += (teller + ". " + resept.hentLegemiddel().hentNavn());
+        }
+        return resultat;
+    }
 }
   
    
