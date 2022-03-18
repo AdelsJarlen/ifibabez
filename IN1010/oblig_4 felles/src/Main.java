@@ -5,7 +5,7 @@ public class Main {
 
         Legesystem legesystem = new Legesystem();
 
-        // legesystem.lesFraFil("legedata.txt");
+        legesystem.lesFraFil("legedata.txt");
 
         legesystem.kommandoloekke();
     }
