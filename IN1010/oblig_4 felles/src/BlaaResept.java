@@ -41,14 +41,13 @@ public class BlaaResept extends Resept {
     // Bruker substring().toUpperCase() for aa faa stor bokstav paa farge
     @Override
     public String toString() {
-        return "Reseptfarge: " + farge().substring(0, 1).toUpperCase() + farge().substring(1).toLowerCase() +
-        "\nLegemiddel: " + legemiddel.hentNavn() + 
-        "\nUtskrivende lege: " + utskrivendeLege.hentNavn() +
-        "\nPasient-ID: " + hentPasientID() +
-        "\nAntall bruk igjen: " + hentReit() +
-        "\nRabatt: " + hentRabatt() + "%" +
-        "\nPris aa betale: " + prisAaBetale() + " kr" +
-        "\nObjekt-ID: " + hentID();
+        return "BLAA RESEPT (ID: " + hentID() + "):" +
+        "\n   Legemiddel: " + legemiddel.hentNavn() + 
+        "\n   Utskrivende lege: " + utskrivendeLege.hentNavn() +
+        "\n   Pasient-ID: " + hentPasientID() +
+        "\n   Antall bruk igjen: " + hentReit() +
+        "\n   Rabatt: " + hentRabatt() + "%" +
+        "\n   Pris aa betale: " + prisAaBetale() + " kr";
     }
     
 }

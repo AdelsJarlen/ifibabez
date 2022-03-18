@@ -49,14 +49,12 @@ public class MilResept extends HvitResept {
     // Bruker substring().toUpperCase() for aa faa stor bokstav paa farge og paa reseptType
     @Override
     public String toString() {
-        return "Reseptfarge: " + farge().substring(0, 1).toUpperCase() + farge().substring(1).toLowerCase() +
-        "\nType: " + hentReseptType().substring(0,1).toUpperCase() + hentReseptType().substring(1).toLowerCase() +
-        "\nLegemiddel: " + legemiddel.hentNavn() + 
-        "\nUtskrivende lege: " + utskrivendeLege.hentNavn() +
-        "\nPasient-ID: " + hentPasientID() +
-        "\nAntall bruk igjen: " + hentReit() +
-        "\nRabatt: " + hentRabatt() + "%" +
-        "\nPris aa betale: " + prisAaBetale() + " kr" +
-        "\nObjekt-ID: " + hentID();
+        return "MILITAERRESEPT (hvit) (ID: " + hentID() + "):" +
+        "\n   Legemiddel: " + legemiddel.hentNavn() + 
+        "\n   Utskrivende lege: " + utskrivendeLege.hentNavn() +
+        "\n   Pasient-ID: " + hentPasientID() +
+        "\n   Antall bruk igjen: " + hentReit() +
+        "\n   Rabatt: " + hentRabatt() + "%" +
+        "\n   Pris aa betale: " + prisAaBetale() + " kr";
     }
 }
