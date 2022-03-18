@@ -346,7 +346,7 @@ public class Legesystem {
                 int pasientvalg = Integer.parseInt(tastatur.nextLine());
                 minPasient = pasienter.hent(pasientvalg-1);
 
-                System.out.println("Pasient valgt er " + pasienter.hent(pasientvalg-1).enkelString() + ")\n");
+                System.out.println("Valgt pasient: " + pasienter.hent(pasientvalg-1).enkelString() + "\n");
 
                 // velg resept
                 System.out.println("Hvilken resept vil du bruke?");
@@ -359,7 +359,9 @@ public class Legesystem {
 
                 if (minPasient.hentReseptliste().hent(reseptvalg-1).hentReit() > 0) {
                     minPasient.hentReseptliste().hent(reseptvalg-1).bruk();
-                    System.out.println("\nDu har brukt: " + pasienter.hent(pasientvalg-1).reseptlisteString());
+                    System.out.println("\n... Du har naa brukt resepten paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn()
+                    + "for pasient " + pasienter.hent(pasientvalg-1).hentNavn() + ". Resepten har " + minPasient.hentReseptliste().hent(reseptvalg-1).hentReit() + 
+                    " reit igjen.");
                 } else {
                     System.out.println("Kunne ikke bruke resept paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn() + " (ingen reit igjen)");
                 }
@@ -460,12 +462,12 @@ public class Legesystem {
 
         // sjekke hvilken type legemiddel
 
-        System.out.println(mittlegemiddel);
+        System.out.println("Valgt legemiddel: \n" + mittlegemiddel);
 
         
         // VELG RESEPT
 
-        System.out.println("Hva slags resept vil du skrive ut?\n1. hvit\n2. blaa\n3. militaer\n4. p");
+        System.out.println("Hva slags resept vil du skrive ut?\n1. hvit\n2. blaa\n3. militaer\n4. P");
         System.out.print("Skriv inn et tall:    ");
 
         int reseptvalg = Integer.parseInt(tastatur.nextLine());
@@ -480,7 +482,7 @@ public class Legesystem {
                 minLege.skrivHvitResept(mittlegemiddel, minPasient, minreit);
             } catch (Exception e) { 
                 fortsett = false;
-                System.err.println(minLege.hentNavn() + " har ikke lov aa skrive ut " + mittlegemiddel.hentNavn() + "\n");
+                System.err.println(minLege.hentNavn() + " har ikke lov til aa skrive ut " + mittlegemiddel.hentNavn() + ".\n");
             } 
             
             if (!fortsett) {
