@@ -52,7 +52,8 @@ public class Pasient {
         String resultat = "";
         int teller = 1;
         for (Resept resept : reseptliste) {
-            resultat += (teller + ". " + resept.hentLegemiddel().hentNavn());
+            resultat += (teller + ". " + resept.hentLegemiddel().hentNavn() + " (" + resept.hentReit() + " reit)");
+            teller++;
         }
         return resultat;
     }
