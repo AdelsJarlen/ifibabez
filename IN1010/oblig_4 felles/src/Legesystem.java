@@ -314,6 +314,7 @@ public class Legesystem {
                     int styrke = Integer.parseInt(tastatur.nextLine());
 
                     legemidler.leggTil(new Narkotisk(legemiddelnavn, virkestoff, pris, styrke));
+                    System.out.println("\n... La til legemiddelet " + legemiddelnavn + ".");
                 }
                 // Vanedannende
                 else if (type.equals("2")){
@@ -321,10 +322,12 @@ public class Legesystem {
                     int styrke = Integer.parseInt(tastatur.nextLine());
 
                     legemidler.leggTil(new Vanedannende(legemiddelnavn, virkestoff, pris, styrke));
+                    System.out.println("\n... La til legemiddelet " + legemiddelnavn + ".");
                 }
                 // Vanlig legemiddel
                 else if (type.equals("3")){
                     legemidler.leggTil(new Vanlig(legemiddelnavn, virkestoff, pris));
+                    System.out.println("\n... La til legemiddelet " + legemiddelnavn + ".");
                 }
 
                 else {
@@ -334,7 +337,7 @@ public class Legesystem {
 
             // legg til eller opprett resept
             } else if(inputFraBruker == 8){
-                spoerOmReseptinfo();
+                spoerOmReseptinfo(); // sjekker detaljene for hver 
 
             // bruke gitt resept fra liste til gitt pasient
             } else if(inputFraBruker == 9) {
@@ -373,7 +376,7 @@ public class Legesystem {
             } else if (inputFraBruker == 10) {
                 System.out.println("1. Vis resepter paa vanedannende legemidler");
                 System.out.println("2. Vis resepter paa narkotiske legemidler");
-                System.out.println("3. Oversikt over mulig misbruk av narkotika");
+                System.out.println("3. Vis oversikt over mulig misbruk av narkotika");
 
                 System.out.print("\nSkriv inn et tall:   ");
                 int input = Integer.parseInt(tastatur.nextLine());
@@ -386,7 +389,7 @@ public class Legesystem {
                             teller++;
                         }
                     }
-                    System.out.println("Totalt antall resepter paa vanedannende legemidler: " + teller);
+                    System.out.println("Det er totalt " + teller + " resepter paa vanedannende legemidler i legesystemet.");
                 } else if (input == 2) {
                     int teller = 0;
                     for (Resept resept : resepter) {
@@ -395,7 +398,7 @@ public class Legesystem {
                             teller++;
                         }
                     }
-                    System.out.println("Totalt antall resepter paa narkotiske legemidler: " + teller);
+                    System.out.println("Det er totalt " + teller + " resepter paa narkotiske legemidler i legesystemet.");
                 } else if (input == 3) {
                     System.out.println("\nLeger som har skrevet ut resept paa narkotiske legemidler:");
                     for (Resept resept : resepter) {
@@ -410,7 +413,7 @@ public class Legesystem {
                         }
                     }
                 } else {
-                    kommandoloekke();
+                    kommandoloekke(); // kjoerer hovedmenyen og kommandosjekken paa nytt
                 }
             } else if(inputFraBruker == 11) {
                 skrivTilFil();
