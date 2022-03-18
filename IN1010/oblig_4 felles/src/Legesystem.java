@@ -400,7 +400,7 @@ public class Legesystem {
                             System.out.println("- " + resept.hentLege().hentNavn() + " har skrevet ut resept paa " + resept.hentLegemiddel().hentNavn() + ".\n");
                         }
                     }
-                    System.out.println("\nPasienter som har minst én gyldig resept paa narkotiske legemidler:");
+                    System.out.println("\nPasienter som har minst en gyldig resept paa narkotiske legemidler:");
                     for (Resept resept : resepter) {
                         if (resept.hentLegemiddel() instanceof Narkotisk && resept.hentReit() > 0) {
                             System.out.println("- " + resept.hentPasient().hentNavn() + " har gyldig resept paa " + resept.hentLegemiddel().hentNavn() + ".\n");
