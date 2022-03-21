@@ -48,7 +48,7 @@ public class PResept extends HvitResept {
     // Bruker substring().toUpperCase() for aa faa stor bokstav paa farge. P-resept er alltid med stor P uansett
     @Override
     public String toString() {
-        return "PRESEPT (hvit) (ID: " + hentID() + "):" +
+        return "P-RESEPT (hvit) (ID: " + hentID() + "):" +
         "\n   Legemiddel: " + legemiddel.hentNavn() + 
         "\n   Utskrivende lege: " + utskrivendeLege.hentNavn() +
         "\n   Pasient-ID: " + hentPasientID() +
