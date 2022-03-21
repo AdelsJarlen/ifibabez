@@ -357,8 +357,8 @@ public class Legesystem {
                 }
 
             // legg til eller opprett resept
-            } else if(inputFraBruker == 8) {
-                spoerOmReseptinfo(); // sjekker detaljene for hver 
+            } else if (inputFraBruker == 8) {
+                leggTilResept(); // sjekker detaljene for hver 
             
             } else if (inputFraBruker == 9) {
                 System.out.print("Skriv inn filnavn:   ");
@@ -479,7 +479,7 @@ public class Legesystem {
      * @throws UlovligUtskrift
      * @throws FileNotFoundException
      */
-    public void spoerOmReseptinfo() throws UlovligUtskrift, FileNotFoundException {
+    public void leggTilResept() throws UlovligUtskrift, FileNotFoundException {
 
         // VELG LEGE //
         // skriver ut listen over leger og henter input som int
