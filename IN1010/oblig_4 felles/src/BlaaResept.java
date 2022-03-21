@@ -16,10 +16,7 @@ public class BlaaResept extends Resept {
         super(legemiddel, utskrivendeLege, pasient, reit); // henter variabler fra Resept
     }
 
-    /***********/
     /* GETTERE */
-    /***********/
-
     @Override
     public String farge() {
         return farge;
@@ -29,16 +26,12 @@ public class BlaaResept extends Resept {
         return rabatt;
     }
 
-    /*****************/
     /* ANDRE METODER */
-    /*****************/
-
     @Override
     public int prisAaBetale() {
         return legemiddel.hentPris() * (100-rabatt)/100;
     }
 
-    // Bruker substring().toUpperCase() for aa faa stor bokstav paa farge
     @Override
     public String toString() {
         return "BLAA RESEPT (ID: " + hentID() + "):" +

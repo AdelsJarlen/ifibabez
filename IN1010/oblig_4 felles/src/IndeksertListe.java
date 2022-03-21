@@ -14,8 +14,11 @@ public class IndeksertListe<T> extends Lenkeliste<T> {
         super(); // kaller konstruktoeren til Lenkeliste
     }
     
-    /* METODE FOR AA LEGGE TIL ELEMENT PAA INDEKS */
-    /* ER OGSAA INKLUDERT I LENKELISTE FORDI DEN BRUKES AV PRIORITETSKOE */
+    /**
+     * LEGGER TIL OBJEKT PAA GITT INDEKS
+     * @param pos = indeks der det skal legges til 
+     * @param x = objektet som skal inn i node.data
+     */
     public void leggTil(int pos, T x) {
         // 1. lage midlertidig node med ny data
         Node ny_node = new Node(x);
@@ -62,7 +65,11 @@ public class IndeksertListe<T> extends Lenkeliste<T> {
         }
     }
 
-    /* METODE FOR AA RETURNERE ELEMENT (DATA) PAA OPPGITT INDEKS */
+    /**
+     * METODE FOR AA RETURNERE ELEMENT (DATA) PAA OPPGITT INDEKS
+     * @param pos = indeks som skal hentes
+     * @return = dataen til noden paa gitt indeks
+     */
     public T hent(int pos) {
         // 1. sjekker om indeksen er gyldig
         if(pos < 0 || pos >= super.stoerrelse() || super.stoerrelse() == 0){
@@ -82,7 +89,11 @@ public class IndeksertListe<T> extends Lenkeliste<T> {
           }
     }
 
-    /* METODE FOR AA RETURNERE ELEMENT (SELVE NODEN) PAA OPPGITT INDEKS */
+    /**
+     * METODE FOR AA RETURNERE ELEMENT (SELVE NODEN) PAA OPPGITT INDEKS
+     * @param pos = indeks som skal hentes
+     * @return = Node-objektet paa gitt indeks
+     */
     public Node hentNode(int pos) {
         // 1. setter midlertidig node, begynner paa start
         Node skal_hentes = start;
