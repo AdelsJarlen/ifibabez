@@ -374,23 +374,28 @@ public class Legesystem {
                 int pasientvalg = Integer.parseInt(tastatur.nextLine());
                 minPasient = pasienter.hent(pasientvalg-1);
 
-                System.out.println("Valgt pasient: " + pasienter.hent(pasientvalg-1).enkelString() + "\n");
-
-                // velg resept
-                System.out.println("Hvilken resept vil du bruke?");
-                System.out.println(pasienter.hent(pasientvalg - 1).reseptlisteString());
-                
-                System.out.print("Skriv inn tall:   ");
-                int reseptvalg = Integer.parseInt(tastatur.nextLine());
-
-                // Resept minResept = minPasient.hentReseptliste().hent(reseptvalg-1);
-                if (minPasient.hentReseptliste().hent(reseptvalg-1).hentReit() > 0) {
-                    minPasient.hentReseptliste().hent(reseptvalg-1).bruk();
-                    System.out.println("\n... Du har naa brukt resepten paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn()
-                    + " for pasient " + pasienter.hent(pasientvalg-1).hentNavn() + ". Resepten har " + minPasient.hentReseptliste().hent(reseptvalg-1).hentReit() + 
-                    " reit igjen.");
+                if (minPasient.hentReseptliste().stoerrelse() == 0) {
+                    System.out.println("Pasienten har ingen resepter.");
                 } else {
-                    System.out.println("Kunne ikke bruke resept paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn() + " (ingen reit igjen)");
+
+                    System.out.println("Valgt pasient: " + minPasient.enkelString() + "\n");
+
+                    // velg resept
+                    System.out.println("Hvilken resept vil du bruke?");
+                    System.out.println(pasienter.hent(pasientvalg - 1).reseptlisteString());
+                    
+                    System.out.print("Skriv inn tall:   ");
+                    int reseptvalg = Integer.parseInt(tastatur.nextLine());
+
+                    Resept minResept = minPasient.hentReseptliste().hent(reseptvalg-1);
+                    if (minResept.hentReit() > 0) {
+                        minResept.bruk();
+                        System.out.println("\n... Du har naa brukt resepten paa " + minResept.hentLegemiddel().hentNavn()
+                        + " for pasient " + minPasient.hentNavn() + ". Resepten har " + minResept.hentReit() + 
+                        " reit igjen.");
+                    } else {
+                        System.out.println("Kunne ikke bruke resept paa " + minResept.hentLegemiddel().hentNavn() + " (ingen reit igjen)");
+                    }
                 }
 
             } else if (inputFraBruker == 11) {
