@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
  
-public class LegesystemGUI implements ActionListener {
+public class LegesystemGUI extends Legesystem implements ActionListener {
 
     static JButton jb1;
     static JButton jb2;
@@ -21,7 +21,8 @@ public class LegesystemGUI implements ActionListener {
     static JMenuItem m1_2;
 
     public LegesystemGUI() {
-    }
+        super();
+    } 
      
     public static void main(String[] args) {
 
@@ -34,12 +35,15 @@ public class LegesystemGUI implements ActionListener {
         frame.setPreferredSize(new Dimension(250,200));
         
         // Define new buttons with different width on help of the ---
-        jb1 = new JButton("Vis eksisterende elementer");  
-        // jb1.addActionListener(this);      
+        jb1 = new JButton("Vis eksisterende elementer");
+        jb1.addActionListener(new LegesystemGUI());      
         jb2 = new JButton("Legg til nye elementer");
+        jb2.addActionListener(new LegesystemGUI());      
         jb3 = new JButton("Bruk en resept");
+        jb3.addActionListener(new LegesystemGUI());      
         jb4 = new JButton("Skriv ut statistikk");
-        
+        jb4.addActionListener(new LegesystemGUI());      
+            
         // Define the panel to hold the buttons 
         JPanel panel1 = new JPanel(new GridLayout(4,4));
         // JPanel panel2 = new JPanel();
@@ -59,7 +63,7 @@ public class LegesystemGUI implements ActionListener {
         
         // Set up the title for different panels
         panel1.setBorder(BorderFactory.createTitledBorder("Hva vil du gjøre?"));
-        panel1.setSize(new Dimension(500,250));
+        panel1.setSize(new Dimension(250,250));
                 
         // Add the buttons into the panel with three different alignment options
         jb1.setAlignmentX(Component.CENTER_ALIGNMENT);
