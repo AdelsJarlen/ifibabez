@@ -340,6 +340,11 @@ public class Legesystem {
             // legg til eller opprett resept
             } else if(inputFraBruker == 8){
                 spoerOmReseptinfo(); // sjekker detaljene for hver 
+            
+            } else if (inputFraBruker == 9) {
+                System.out.println("Skriv inn filnavn:   ");
+                String brukervalg = tastatur.nextLine();
+                lesFraFil(brukervalg);
 
             // bruke gitt resept fra liste til gitt pasient
             } else if(inputFraBruker == 10) {
@@ -639,9 +644,9 @@ public class Legesystem {
     }
 
     public void kjoer() throws UlovligUtskrift, FileNotFoundException {
-        System.out.println("####################################\n" +
-                           "## Velkommen til vaartlegesystem! ##\n" +
-                           "####################################");
+        System.out.println("#####################################\n" +
+                           "## Velkommen til vaart legesystem! ##\n" +
+                           "#####################################");
         kommandoloekke();
     }
 }
