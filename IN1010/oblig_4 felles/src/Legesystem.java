@@ -458,8 +458,10 @@ public class Legesystem {
                 inputFraBruker = Integer.parseInt(tastatur.nextLine());
             } else if (brukervalg.equals("n")) {
                 inputFraBruker = 0;
+            } else {
+                System.out.println("Ugyldig input. Avslutter programmet.");
+                inputFraBruker = 0;
             }
-            
         }
     }
 
