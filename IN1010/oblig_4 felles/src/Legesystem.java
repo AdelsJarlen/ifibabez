@@ -545,6 +545,7 @@ public class Legesystem {
 
             try {
                 minLege.skrivHvitResept(mittlegemiddel, minPasient, minreit);
+                resepter.leggTil(new HvitResept(mittlegemiddel, minLege, minPasient, minreit));
             } catch (Exception e) { 
                 fortsett = false;
                 System.err.println(minLege.hentNavn() + " har ikke lov til aa skrive ut " + mittlegemiddel.hentNavn() + ".\n");
@@ -564,6 +565,7 @@ public class Legesystem {
             int minreit = Integer.parseInt(tastatur.nextLine()); // leser input som int
 
             minLege.skrivBlaaResept(mittlegemiddel, minPasient, minreit); // skriver ut resepten fra Lege-objektet
+            resepter.leggTil(new BlaaResept(mittlegemiddel, minLege, minPasient, minreit)); // lagrer ny resept i reseptlisten ogsaa
 
             System.out.println("\n... La til blaa resept paa " + mittlegemiddel.hentNavn() + " for " + 
             minPasient.hentNavn() + " (" + minreit + " reit).");
@@ -572,6 +574,7 @@ public class Legesystem {
         } else if (reseptvalg == 3) {
             // har ikke reit, trenger bare lm og pasient
             minLege.skrivMilResept(mittlegemiddel, minPasient);
+            resepter.leggTil(new MilResept(mittlegemiddel, minLege, minPasient)); // lagrer ny resept i reseptlisten ogsaa
 
             System.out.println("\n... La til militaerresept paa " + mittlegemiddel.hentNavn() + " for " + minPasient.hentNavn() + ".");
 
@@ -581,6 +584,7 @@ public class Legesystem {
             int minreit = Integer.parseInt(tastatur.nextLine()); // leser input fra bruker som int
 
             minLege.skrivPResept(mittlegemiddel, minPasient, minreit); // skriver ut fra Lege-objektet
+            resepter.leggTil(new PResept(mittlegemiddel, minLege, minPasient, minreit)); // lagrer ny resept i reseptlisten ogsaa
 
             System.out.println("\n... La til P-resept paa " + mittlegemiddel.hentNavn() + " for " + 
             minPasient.hentNavn() + " (" + minreit + " reit).");
