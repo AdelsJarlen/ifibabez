@@ -24,6 +24,7 @@ public class Legesystem {
         Koe<String> resepterTxt = new Koe<>();
 
         while (scanner.hasNextLine()) {
+            
             String linje = scanner.nextLine(); // lagrer foerste linje
 
             if (linje.contains("Pasient")) {
@@ -219,7 +220,7 @@ public class Legesystem {
     private Scanner tastatur = new Scanner(System.in);
 
     public void kommandoer() {
-        System.out.println("\n******** LEGESYSTEM ********");
+        System.out.println("******** LEGESYSTEM ********");
         System.out.println("1. Skriv ut fullstendig oversikt over pasienter");
         System.out.println("2. Skriv ut fullstendig oversikt over leger");
         System.out.println("3. Skriv ut fullstendig oversikt over legemidler");
@@ -228,12 +229,13 @@ public class Legesystem {
         System.out.println("6. Legg til ny lege");
         System.out.println("7. Legg til ny legemiddel");
         System.out.println("8. Legg til ny resept");
-        System.out.println("9. Bruke en resept fra listen til en pasient");
-        System.out.println("10. Skriv ut statistikk");
-        System.out.println("11. Skriv alle data til fil");
+        System.out.println("9. Legg til fra fil");
+        System.out.println("10. Bruke en resept fra listen til en pasient");
+        System.out.println("11. Skriv ut statistikk");
+        System.out.println("12. Skriv alle data til fil");
         System.out.println("0. Avslutt");
 
-        System.out.print("\nSkriv inn et tall:   ");
+        System.out.print("\nSkriv inn kommando (tall):   ");
     }
 
     public void kommandoloekke() throws UlovligUtskrift, FileNotFoundException {
@@ -340,7 +342,7 @@ public class Legesystem {
                 spoerOmReseptinfo(); // sjekker detaljene for hver 
 
             // bruke gitt resept fra liste til gitt pasient
-            } else if(inputFraBruker == 9) {
+            } else if(inputFraBruker == 10) {
                 Pasient minPasient;
 
                 int teller = 1;
@@ -363,7 +365,6 @@ public class Legesystem {
                 int reseptvalg = Integer.parseInt(tastatur.nextLine());
 
                 // Resept minResept = minPasient.hentReseptliste().hent(reseptvalg-1);
-
                 if (minPasient.hentReseptliste().hent(reseptvalg-1).hentReit() > 0) {
                     minPasient.hentReseptliste().hent(reseptvalg-1).bruk();
                     System.out.println("\n... Du har naa brukt resepten paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn()
@@ -373,7 +374,7 @@ public class Legesystem {
                     System.out.println("Kunne ikke bruke resept paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn() + " (ingen reit igjen)");
                 }
 
-            } else if (inputFraBruker == 10) {
+            } else if (inputFraBruker == 11) {
                 System.out.println("1. Vis resepter paa vanedannende legemidler");
                 System.out.println("2. Vis resepter paa narkotiske legemidler");
                 System.out.println("3. Vis oversikt over mulig misbruk av narkotika");
@@ -415,37 +416,47 @@ public class Legesystem {
                 } else {
                     kommandoloekke(); // kjoerer hovedmenyen og kommandosjekken paa nytt
                 }
-            } else if(inputFraBruker == 11) {
+            } else if(inputFraBruker == 12) {
                 skrivTilFil();
             }
-          kommandoer();
-          inputFraBruker = Integer.parseInt(tastatur.nextLine());
+            System.out.println("\nVil du fortsette? (j/n)");
+            String brukervalg = tastatur.nextLine();
+            if (brukervalg.equals("j")) {
+                kommandoer();
+                inputFraBruker = Integer.parseInt(tastatur.nextLine());
+            } else if (brukervalg.equals("n")) {
+                inputFraBruker = 0;
+            }
+            
         }
     }
 
     /* KJOERES HVIS BRUKER VIL LEGGE TIL EN HELT NY RESEPT */
-    // 
-    public void spoerOmReseptinfo() throws UlovligUtskrift, FileNotFoundException{
+    // henter detaljer fra bruker og oppretter riktig reseptobjekt
+    public void spoerOmReseptinfo() throws UlovligUtskrift, FileNotFoundException {
 
-        // VELG LEGE
-
+        // VELG LEGE //
+        // skriver ut listen over leger og henter input som int
         System.out.println("Velg en lege fra listen:   ");
-        System.out.println(leger);
+        System.out.println(leger); // skriver ut prioritetskoen med leger
         System.out.print("Skriv inn et tall:   ");
-        int legevalg = Integer.parseInt(tastatur.nextLine());
+        int legevalg = Integer.parseInt(tastatur.nextLine()); // parser inten fra bruker
+
+        // lager ny liste med legene for aa kunne hente paa indeks
         IndeksertListe<Lege> mineleger = new IndeksertListe<>();
         
+        // loekke for aa legge til alle
         for (Lege lege : leger) {
             mineleger.leggTil(lege);
         }
 
-        Lege minLege = mineleger.hent(legevalg-1);
+        Lege minLege = mineleger.hent(legevalg-1); // henter valgt lege
+        System.out.println("Valgt lege: " + minLege); // 
 
-        System.out.println(minLege);
-
-        // VELG PASIENT
-
+        // VELG PASIENT //
+        // skriver ut liste med alle pasienter (forenklet toString())
         System.out.println("Velg en pasient fra listen:   ");
+
         System.out.println("####################");
         int teller = 1;
         for (Pasient pasient : pasienter) {
@@ -453,33 +464,32 @@ public class Legesystem {
             teller++;
         }
         System.out.println("####################");
+
         System.out.print("Skriv inn et tall:   ");
-        int pasientvalg = Integer.parseInt(tastatur.nextLine());
+        int pasientvalg = Integer.parseInt(tastatur.nextLine()); // parser int fra bruker
 
-        Pasient minPasient = pasienter.hent(pasientvalg-1);
+        Pasient minPasient = pasienter.hent(pasientvalg-1); // henter paa indeks
 
-        System.out.println(minPasient);
+        System.out.println("Valgt pasient: " + minPasient.hentNavn());
 
-        // VELG LEGEMIDDEL
-
+        // VELG LEGEMIDDEL //
+        // skriver ut liste over legemidler
         System.out.println("Velg et legemiddel fra listen:   ");
-        System.out.println(legemidler);
+        System.out.println(legemidler); // skriver ut full liste med legemidler
         System.out.print("Skriv inn et tall:   ");
-        int legemiddelvalg = Integer.parseInt(tastatur.nextLine());
+        int legemiddelvalg = Integer.parseInt(tastatur.nextLine()); // parser int fra bruker
 
-        Legemiddel mittlegemiddel = legemidler.hent(legemiddelvalg-1);
+        Legemiddel mittlegemiddel = legemidler.hent(legemiddelvalg-1); // henter paa indeks
 
         // sjekke hvilken type legemiddel
-
-        System.out.println("Valgt legemiddel: \n" + mittlegemiddel);
+        System.out.println("Valgt legemiddel: \n" + mittlegemiddel.hentNavn());
 
         
-        // VELG RESEPT
-
-        System.out.println("Hva slags resept vil du skrive ut?\n1. hvit\n2. blaa\n3. militaer\n4. P");
+        // VELG RESEPT // 
+        System.out.println("Hva slags resept vil du skrive ut?\n1. Hvit\n2. Blaa\n3. Militaer\n4. P-resept");
         System.out.print("Skriv inn et tall:    ");
 
-        int reseptvalg = Integer.parseInt(tastatur.nextLine());
+        int reseptvalg = Integer.parseInt(tastatur.nextLine()); // parser fra brukeren
         
         // hvit resept
         if (reseptvalg == 1) {
@@ -579,5 +589,59 @@ public class Legesystem {
             }
         }
         pw.close();
+    }
+
+    public void skrivTilFil(String filnavn) throws FileNotFoundException {
+        if (!(filnavn.contains(".txt"))) {
+            System.out.println("Filen maa vaere en .txt-fil");
+            return;
+        }
+        File ny_fil = new File(filnavn);
+        PrintWriter pw = new PrintWriter(ny_fil);
+
+        pw.println("# Pasienter (navn, fnr)");
+        for (Pasient pasient : pasienter) {
+            pw.println(pasient.hentNavn() + "," + pasient.hentFnr());
+        }
+        pw.println("# Legemidler (navn,type,pris,virkestoff,[styrke])");
+        for (Legemiddel lm : legemidler) {
+            if (lm instanceof Vanedannende) {
+                pw.println(lm.hentNavn() + "," + lm.hentKlassenavn() + "," 
+                + lm.hentPris() + "," + ((int) lm.hentVirkestoff()) + "," + ((Vanedannende) lm).hentStyrke());
+            } else if (lm instanceof Narkotisk) {
+                pw.println(lm.hentNavn() + "," + lm.hentKlassenavn() + "," + lm.hentPris() + "," + ((int) lm.hentVirkestoff()) + "," + ((Narkotisk) lm).hentStyrke());
+            } else {
+                pw.println(lm.hentNavn() + "," + lm.hentKlassenavn() + "," + lm.hentPris() + "," + ((int) lm.hentVirkestoff()));
+            }
+        }
+        pw.println("# Leger (navn,kontrollid / 0 hvis vanlig lege)");
+        for (Lege lege : leger) {
+            if (lege instanceof Spesialist) {
+                pw.println(lege.hentNavn() + "," + ((Spesialist) lege).hentKontrollID());
+            } else {
+                pw.println(lege.hentNavn() + ",0");
+            }
+        }
+        pw.println("# Resepter (legemiddelNummer,legeNavn,pasientID,type,[reit])");
+        for (Resept resept : resepter) {
+            if (resept instanceof MilResept) {
+                pw.println(resept.hentLegemiddel().hentID() + "," + resept.hentLege().hentNavn() + "," +
+                resept.hentPasientID() + ",militaer");
+            } else if (resept instanceof PResept) {
+                pw.println(resept.hentLegemiddel().hentID() + "," + resept.hentLege().hentNavn() + "," +
+                resept.hentPasientID() + ",p," + resept.hentReit());
+            } else {
+                pw.println(resept.hentLegemiddel().hentID() + "," + resept.hentLege().hentNavn() + "," +
+                resept.hentPasientID() + "," + resept.farge() + "," + resept.hentReit());
+            }
+        }
+        pw.close();
+    }
+
+    public void kjoer() throws UlovligUtskrift, FileNotFoundException {
+        System.out.println("####################################\n" +
+                           "## Velkommen til vaartlegesystem! ##\n" +
+                           "####################################");
+        kommandoloekke();
     }
 }
