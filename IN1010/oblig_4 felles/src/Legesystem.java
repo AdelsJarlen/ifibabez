@@ -118,7 +118,7 @@ public class Legesystem {
         for (String lege_linje : legerTxt) {
             String[] info = lege_linje.split(",");
             int takk_for_mellomrom_bitches = Integer.parseInt(info[1].trim());
-            if (takk_for_mellomrom_bitches == 0) { // maatte legge til mellomrom fordi dere suger
+            if (takk_for_mellomrom_bitches == 0) { // maatte trimme mellomrom for aa lese Dr. Cox-linjen
                 leger.leggTil(new Lege(info[0]));
             } else {
                 leger.leggTil(new Spesialist(info[0], info[1]));  
