@@ -38,8 +38,7 @@ public class Pasient {
 
     @Override
     public String toString() {
-      return ("PASIENT\n" +
-              "   Navn: " + hentNavn() + " (ID: " + hentID() + ")" +
+      return ("Navn: " + hentNavn() + " (ID: " + hentID() + ")" +
               "\n   Fodselsnr: " + hentFnr() +
               "\n   Antall resepter: " + hentReseptliste().stoerrelse());
     }
