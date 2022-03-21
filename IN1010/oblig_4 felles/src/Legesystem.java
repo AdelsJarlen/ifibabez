@@ -224,12 +224,12 @@ public class Legesystem {
         System.out.println("4. Skriv ut fullstendig oversikt over resepter");
         System.out.println("5. Legg til ny pasient");
         System.out.println("6. Legg til ny lege");
-        System.out.println("7. Legg til ny legemiddel");
+        System.out.println("7. Legg til nytt legemiddel");
         System.out.println("8. Legg til ny resept");
         System.out.println("9. Legg til fra fil");
-        System.out.println("10. Bruke en resept fra listen til en pasient");
+        System.out.println("10. Bruk resept fra listen til en pasient");
         System.out.println("11. Skriv ut statistikk");
-        System.out.println("12. Skriv alle data til .txt-fil");
+        System.out.println("12. Lagre all data til .txt-fil");
         System.out.println("0. Avslutt");
 
         System.out.print("\nSkriv inn kommando (tall):   ");
@@ -244,8 +244,8 @@ public class Legesystem {
     public void kommandoloekke() throws UlovligUtskrift, FileNotFoundException {
         int inputFraBruker = -1;
     
-        while(inputFraBruker != 0){
-            if(inputFraBruker == 1){
+        while(inputFraBruker != 0) {
+            if(inputFraBruker == 1) {
             //print ut fullstendig oversikt over pasienter
                 if (pasienter.stoerrelse() == 0) {
                     System.out.println("Det er ingen pasienter i systemet ennaa.");
