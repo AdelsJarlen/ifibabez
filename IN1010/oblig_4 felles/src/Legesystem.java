@@ -247,29 +247,33 @@ public class Legesystem {
             //print ut fullstendig oversikt over pasienter
                 if (pasienter.stoerrelse() == 0) {
                     System.out.println("Det er ingen pasienter i systemet ennaa.");
+                } else {
+                    System.out.println(pasienter);
                 }
-                System.out.println(pasienter);
 
             //print ut fullstendig oversikt over leger
             } else if (inputFraBruker == 2){
                 if (leger.stoerrelse() == 0) {
                     System.out.println("Det er ingen leger i systemet ennaa.");
+                } else {
+                    System.out.println(leger);
                 }
-                System.out.println(leger);
 
             //print ut fullstendig oversikt over legemidler
             } else if (inputFraBruker == 3){
                 if (legemidler.stoerrelse() == 0) {
                     System.out.println("Det er ingen legemidler i systemet ennaa.");
+                } else {
+                    System.out.println(legemidler);
                 }
-                System.out.println(legemidler);
 
             //print ut fullstendig oversikt over resepter
             } else if (inputFraBruker == 4){
                 if (resepter.stoerrelse() == 0) {
                     System.out.println("Det er ingen resepter i systemet ennaa.");
+                } else {
+                    System.out.println(resepter);
                 }
-                System.out.println(resepter);
             
             // legg til eller opprett pasient
             } else if (inputFraBruker == 5){
