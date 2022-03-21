@@ -10,9 +10,10 @@ public class Legesystem {
     protected IndeksertListe<Pasient> pasienter = new IndeksertListe<>();
     protected Prioritetskoe<Lege> leger = new Prioritetskoe<>();
     protected IndeksertListe<Legemiddel> legemidler = new IndeksertListe<>();
+    protected Scanner tastatur = new Scanner(System.in);
 
     /**
-     * 
+     * LESER INN INFO FRA FIL (filnavn) OG LAGRER OBJEKTER I LEGESYSTEM-LISTENE 
      * @param filnavn
      * @throws FileNotFoundException
      * @throws UlovligUtskrift
@@ -20,11 +21,11 @@ public class Legesystem {
      */
     public void lesFraFil(String filnavn) throws FileNotFoundException, UlovligUtskrift, NoSuchElementException {
 
+        // oppretter fil-objekt og en filleser (scanner) 
         File data = new File(filnavn);
         Scanner scanner = new Scanner(data);
 
-        /* LESER INN ALLE SEKSJONENE I TXT-FILEN */
-
+        // midlertidige lister for aa lagre hver seksjon i txt-filen
         Koe<String> pasienterTxt = new Koe<>();
         Koe<String> legemidlerTxt = new Koe<>();
         Koe<String> legerTxt = new Koe<>();
@@ -84,39 +85,35 @@ public class Legesystem {
             }
         }
 
+        // legger inn alle pasient-linjer som egne objekter i pasienter-listen
         for (String pasient_linje : pasienterTxt) {
             String[] info = pasient_linje.split(",");
             pasienter.leggTil(new Pasient(info[0], info[1]));
         }
 
+        // legger inn alle legemidler som egne objekter i legemiddel-listen
         for (String legemiddel_linje : legemidlerTxt) {
+            String[] info = legemiddel_linje.split(",");
+            String navn = info[0];
+            double virkestoff = Double.parseDouble(info[3]);
+            int pris = Integer.parseInt(info[2]);
+
             if (legemiddel_linje.contains("narkotisk")) {
-                String[] info = legemiddel_linje.split(",");
-                String navn = info[0];
-                double virkestoff = Double.parseDouble(info[3]);
-                int pris = Integer.parseInt(info[2]);
-                int styrke = Integer.parseInt(info[4]);
+                int styrke = Integer.parseInt(info[4]); // henter styrke ogsaa hvis narkotisk
                 legemidler.leggTil(new Narkotisk(navn, virkestoff, pris, styrke));
             }
 
             if (legemiddel_linje.contains("vanedannende")) {
-                String[] info = legemiddel_linje.split(",");
-                String navn = info[0];
-                double virkestoff = Double.parseDouble(info[3]);
-                int pris = Integer.parseInt(info[2]);
-                int styrke = Integer.parseInt(info[4]);
+                int styrke = Integer.parseInt(info[4]); // henter styrke ogsaa hvis vanedannende
                 legemidler.leggTil(new Vanedannende(navn, virkestoff, pris, styrke));
             }
-
+            
             if (legemiddel_linje.contains("vanlig")) {
-                String[] info = legemiddel_linje.split(",");
-                String navn = info[0];
-                double virkestoff = Double.parseDouble(info[3]);
-                int pris = Integer.parseInt(info[2]);
                 legemidler.leggTil(new Vanlig(navn, virkestoff, pris));
             }
         }
 
+        // legger inn alle leger som egne objekter i leger-listen
         for (String lege_linje : legerTxt) {
             String[] info = lege_linje.split(",");
             int takk_for_mellomrom_bitches = Integer.parseInt(info[1].trim());
@@ -127,13 +124,15 @@ public class Legesystem {
             }  
         }
 
+        // legger til alle resepter som egne objekter i resepter-listen
         for (String resept_linje : resepterTxt) {
+            String[] info = resept_linje.split(",");
+            int legemiddelNr = Integer.parseInt(info[0]);
+            int pasientID = Integer.parseInt(info[2]);
+            String legenavn = info[1];
+            
             if (resept_linje.contains("hvit")) {
-                String[] info = resept_linje.split(",");
-                int legemiddelNr = Integer.parseInt(info[0]);
-                int pasientID = Integer.parseInt(info[2]);
-                int reit = Integer.parseInt(info[4]);
-                String legenavn = info[1];
+                int reit = Integer.parseInt(info[4]); // henter reit hvis hvit
                 Legemiddel lm = legemidler.hent(legemiddelNr-1);
                 Pasient pasient = pasienter.hent(pasientID-1);
                 boolean skrevetUt = false;
@@ -152,11 +151,7 @@ public class Legesystem {
             }
 
             if (resept_linje.contains("blaa")) {
-                String[] info = resept_linje.split(",");
-                int legemiddelNr = Integer.parseInt(info[0]);
-                int pasientID = Integer.parseInt(info[2]);
-                int reit = Integer.parseInt(info[4]);
-                String legenavn = info[1];
+                int reit = Integer.parseInt(info[4]); // henter reit hvis blaa
                 Legemiddel lm = legemidler.hent(legemiddelNr-1);
                 Pasient pasient = pasienter.hent(pasientID-1);
                 boolean skrevetUt = false;
@@ -176,10 +171,6 @@ public class Legesystem {
             }
 
             if (resept_linje.contains("militaer")) {
-                String[] info = resept_linje.split(",");
-                int legemiddelNr = Integer.parseInt(info[0]);
-                int pasientID = Integer.parseInt(info[2]);
-                String legenavn = info[1];
                 Legemiddel lm = legemidler.hent(legemiddelNr-1);
                 Pasient pasient = pasienter.hent(pasientID-1);
                 boolean skrevetUt = false;
@@ -199,11 +190,7 @@ public class Legesystem {
             }
 
             if (resept_linje.contains(",p,")) {
-                String[] info = resept_linje.split(",");
-                int legemiddelNr = Integer.parseInt(info[0]);
-                int pasientID = Integer.parseInt(info[2]);
-                int reit = Integer.parseInt(info[4]);
-                String legenavn = info[1];
+                int reit = Integer.parseInt(info[4]); // henter reit hvis P-resept
                 Legemiddel lm = legemidler.hent(legemiddelNr-1);
                 Pasient pasient = pasienter.hent(pasientID-1);
                 boolean skrevetUt = false;
@@ -225,8 +212,9 @@ public class Legesystem {
         }
     }
 
-    private Scanner tastatur = new Scanner(System.in);
-
+    /**
+     * SKRIVER UT LISTE MED KOMMANDOER TIL BRUKEREN (HOVEDMENY)
+     */
     public void kommandoer() {
         System.out.println("******** LEGESYSTEM ********");
         System.out.println("1. Skriv ut fullstendig oversikt over pasienter");
@@ -247,7 +235,8 @@ public class Legesystem {
     }
 
     /**
-     * 
+     * KJOERER FULL LOEKKE FOR AA SJEKKE BRUKERINPUT OG KALLE PAA METODER
+     * skal printe til bruker hvis feil input, vil fortsette o.l.
      * @throws UlovligUtskrift
      * @throws FileNotFoundException
      */
@@ -367,7 +356,7 @@ public class Legesystem {
                 }
 
             // legg til eller opprett resept
-            } else if(inputFraBruker == 8){
+            } else if(inputFraBruker == 8) {
                 spoerOmReseptinfo(); // sjekker detaljene for hver 
             
             } else if (inputFraBruker == 9) {
@@ -649,6 +638,12 @@ public class Legesystem {
         pw.close();
     }
 
+    /**
+     * SKRIV TIL FIL MED SPESIFISERT FILNAVN
+     * kjoeres hvis bruker ikke velger "d" for default filnavn
+     * @param filnavn
+     * @throws FileNotFoundException
+     */
     public void skrivTilFil(String filnavn) throws FileNotFoundException {
         
         if (!(filnavn.contains(".txt"))) {
@@ -700,6 +695,7 @@ public class Legesystem {
 
     /**
      * OPPSTARTSLOEKKE FOR LEGESYSTEMET
+     * skriver ut overskrift/header foerste gang og initer loekken
      * @throws UlovligUtskrift
      * @throws FileNotFoundException
      */
