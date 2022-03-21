@@ -6,27 +6,18 @@ hvor sterkt vanedannende legemiddelet er.
 
 public class Vanedannende extends Legemiddel {
 
-    /*******************/
     /* KLASSEVARIABLER */
-    /*******************/
-
     protected int styrke;
     protected String klassenavn = getClass().getSimpleName().toLowerCase();
 
-    /****************/
     /* KONSTRUKTOER */
-    /****************/
-
     public Vanedannende(String navn, double virkestoff, int pris, int styrke) {
         super(navn, virkestoff, pris);
 
         this.styrke = styrke;
     }
 
-    /***********/
     /* GETTERE */
-    /***********/
-
     public String hentKlassenavn() {
         return klassenavn;
     }
@@ -35,15 +26,13 @@ public class Vanedannende extends Legemiddel {
         return styrke;
     }
 
-    /*****************/
     /* ANDRE METODER */
-    /*****************/
-
     @Override
     public String toString() {
         return "Navn: " + hentNavn() + 
         "\n   Virkestoff: " + hentVirkestoff() + " mg" +
         "\n   Pris: " + hentPris() + " kr" +
+        "\n   Type legemiddel: " + hentKlassenavn() +
         "\n   Objekt-ID: " + hentID() +
         "\n   Vanedannende styrke: " + hentStyrke();
     }

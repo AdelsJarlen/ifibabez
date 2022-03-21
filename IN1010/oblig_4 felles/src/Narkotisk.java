@@ -5,17 +5,11 @@ men skal i tillegg ha
 
 public class Narkotisk extends Legemiddel {
 
-    /*******************/
     /* KLASSEVARIABLER */
-    /*******************/
-
     protected int styrke;
     protected String klassenavn = getClass().getSimpleName().toLowerCase();
 
-    /****************/
     /* KONSTRUKTOER */
-    /****************/
-
     public Narkotisk(String navn, double virkestoff, int pris, int styrke) {
         super(navn, virkestoff, pris); // henter variabler fra parent-klassen
 
@@ -23,10 +17,7 @@ public class Narkotisk extends Legemiddel {
         this.styrke = styrke;
     }
     
-    /***********/
-    /* GETTERE */
-    /***********/
-    
+    /* GETTERE */    
     public String hentKlassenavn() {
         return klassenavn;
     }
@@ -35,10 +26,7 @@ public class Narkotisk extends Legemiddel {
         return styrke;
     }
 
-    /*****************/
     /* ANDRE METODER */
-    /*****************/
-
     @Override
     public String toString() {
         return "Navn: " + hentNavn() + 

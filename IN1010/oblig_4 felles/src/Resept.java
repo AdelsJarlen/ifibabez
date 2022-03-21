@@ -19,10 +19,7 @@ abstract class Resept {
     protected static int antObjekter;
     protected int objektID;
 
-    /****************/
     /* KONSTRUKTOER */
-    /****************/
-
     public Resept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit) {
         this.legemiddel = legemiddel;
         this.utskrivendeLege = utskrivendeLege;
@@ -33,10 +30,7 @@ abstract class Resept {
         objektID = antObjekter; // gir unik objektID for resepten
     }
 
-    /***********/
     /* GETTERE */
-    /***********/
-
     public int hentId() {
         return objektID;
     }
@@ -69,20 +63,14 @@ abstract class Resept {
         return antObjekter;
     }
 
-    /***********/
     /* SETTERE */
-    /***********/
-
     // Lager egen metode for aa redusere Reit i tilfelle man vil bruke resepten
     // flere ganger paa samme tid
     public void brukReit(int antGanger) {
         reit -= antGanger;
     }
 
-    /*****************/
     /* ANDRE METODER */
-    /*****************/
-
     public boolean bruk() {
 
         if (hentReit() == 0) {
@@ -93,10 +81,7 @@ abstract class Resept {
         }
     }
 
-    /*********************/
     /* ABSTRAKTE METODER */
-    /*********************/
-
     abstract public String farge();
     
     abstract public int prisAaBetale();
