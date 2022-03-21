@@ -11,6 +11,7 @@ public class Legesystem {
     protected Prioritetskoe<Lege> leger = new Prioritetskoe<>();
     protected IndeksertListe<Legemiddel> legemidler = new IndeksertListe<>();
 
+    
     public void lesFraFil(String filnavn) throws FileNotFoundException, UlovligUtskrift, NoSuchElementException {
 
         File data = new File(filnavn);

@@ -27,9 +27,11 @@ public class MilResept extends HvitResept {
     /* GETTERE */
     /***********/
 
+
     public int hentRabatt() {
         return rabatt;
     }
+
 
     public String hentReseptType() {
         return reseptType;
@@ -46,7 +48,6 @@ public class MilResept extends HvitResept {
         return legemiddel.hentPris() * (100-rabatt)/100;
     }
     
-    // Bruker substring().toUpperCase() for aa faa stor bokstav paa farge og paa reseptType
     @Override
     public String toString() {
         return "MILITAERRESEPT (hvit) (ID: " + hentID() + "):" +
