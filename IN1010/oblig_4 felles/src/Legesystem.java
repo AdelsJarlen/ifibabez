@@ -447,7 +447,7 @@ public class Legesystem {
             } else if(inputFraBruker == 12) {
                 System.out.print("Skriv inn filnavn ('d' for aa bruke default):   ");
                 String brukervalg = tastatur.nextLine();
-                if (brukervalg.equals("d")) {
+                if (!(brukervalg.equals("d"))) {
                     System.out.println("\n... Lagret data til fil: " + brukervalg);
                     skrivTilFil(brukervalg);
                 } else {
