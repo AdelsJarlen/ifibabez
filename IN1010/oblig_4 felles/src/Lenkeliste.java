@@ -235,7 +235,11 @@ abstract class Lenkeliste <T> implements Liste <T> {
 
         // 4. loekke saa lenge det er flere elementer i listen
         while (gjeldende != null) {
-            resultat = resultat.concat(teller + ". " + gjeldende.data + "\n"); // oppdaterer resultat med dataen fra elementet
+            if (teller < stoerrelse()) {
+                resultat = resultat.concat(teller + ". " + gjeldende.data + "\n\n"); // oppdaterer resultat med dataen fra elementet
+            } else {
+                resultat = resultat.concat(teller + ". " + gjeldende.data + "\n"); // oppdaterer resultat med dataen fra elementet
+            }
             gjeldende = gjeldende.neste; // gaar videre til neste element
             teller++; // oeker telleren med 1
         }

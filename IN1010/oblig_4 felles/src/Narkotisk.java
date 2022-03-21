@@ -29,11 +29,9 @@ public class Narkotisk extends Legemiddel {
     /* ANDRE METODER */
     @Override
     public String toString() {
-        return "Navn: " + hentNavn() + 
+        return "Navn: " + hentNavn() + " (ID: " + hentID() + ")" +
         "\n   Virkestoff: " + hentVirkestoff() + " mg" +
         "\n   Pris: " + hentPris() + " kr" +
-        "\n   Type legemiddel: " + hentKlassenavn() +
-        "\n   Objekt-ID: " + hentID() +
-        "\n   Narkotisk styrke: " + hentStyrke();
+        "\n   Type: " + hentKlassenavn() + " (styrke: " + hentStyrke() + ")";
     }
 }

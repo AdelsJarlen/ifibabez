@@ -21,10 +21,9 @@ public class Vanlig extends Legemiddel {
     /* ANDRE METODER */
     @Override
     public String toString() {
-        return "Navn: " + hentNavn() + 
+        return "Navn: " + hentNavn() + " (ID: " + hentID() + ")" +
         "\n   Virkestoff: " + hentVirkestoff() + " mg" +
         "\n   Pris: " + hentPris() + " kr" +
-        "\n   Type legemiddel: " + hentKlassenavn() +
-        "\n   Objekt-ID: " + hentID();
+        "\n   Type: " + hentKlassenavn();
     }
 }
