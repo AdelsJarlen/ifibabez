@@ -251,28 +251,28 @@ public class Legesystem {
                 System.out.println(pasienter);
 
             //print ut fullstendig oversikt over leger
-            } else if(inputFraBruker == 2){
+            } else if (inputFraBruker == 2){
                 if (leger.stoerrelse() == 0) {
                     System.out.println("Det er ingen leger i systemet ennaa.");
                 }
                 System.out.println(leger);
 
             //print ut fullstendig oversikt over legemidler
-            } else if(inputFraBruker == 3){
+            } else if (inputFraBruker == 3){
                 if (legemidler.stoerrelse() == 0) {
                     System.out.println("Det er ingen legemidler i systemet ennaa.");
                 }
                 System.out.println(legemidler);
 
             //print ut fullstendig oversikt over resepter
-            } else if(inputFraBruker == 4){
+            } else if (inputFraBruker == 4){
                 if (resepter.stoerrelse() == 0) {
                     System.out.println("Det er ingen resepter i systemet ennaa.");
                 }
                 System.out.println(resepter);
             
             // legg til eller opprett pasient
-            } else if(inputFraBruker == 5){
+            } else if (inputFraBruker == 5){
                 System.out.print("\nSkriv inn pasientens fulle navn:    ");
                 String pasientnavn = tastatur.nextLine();
                 System.out.print("Skriv inn pasientens personnummer:    ");
@@ -283,7 +283,7 @@ public class Legesystem {
                 System.out.println("\n... La til pasienten " + pasientnavn + ".");
                 
             // legg til eller opprett lege
-            } else if(inputFraBruker == 6){
+            } else if (inputFraBruker == 6){
                 System.out.print("\nSkriv inn legens navn:    ");
                 String legenavn = tastatur.nextLine();
                 System.out.print("Er legen spesialist? (j/n)   ");
@@ -301,7 +301,7 @@ public class Legesystem {
                 System.out.println("\n... La til legen " + legenavn + ".");
 
             // legg til eller opprett legemiddel
-            } else if(inputFraBruker == 7) {
+            } else if (inputFraBruker == 7) {
                 System.out.print("Hva slags legemiddel er det?\n1. Narkotisk\n2. Vanedannende\n3. Vanlig\nSkriv inn et tall:    ");
                 String type = tastatur.nextLine();
                 System.out.print("Skriv inn legemiddelnavn:   ");
@@ -361,7 +361,7 @@ public class Legesystem {
                 System.out.println("\n... La inn elementer fra fil: " + brukervalg);
 
             // bruke gitt resept fra liste til gitt pasient
-            } else if(inputFraBruker == 10) {
+            } else if (inputFraBruker == 10) {
                 Pasient minPasient;
 
                 int teller = 1;
@@ -375,7 +375,7 @@ public class Legesystem {
                 minPasient = pasienter.hent(pasientvalg-1);
 
                 if (minPasient.hentReseptliste().stoerrelse() == 0) {
-                    System.out.println("Pasienten har ingen resepter.");
+                    System.out.println(minPasient.hentNavn() + " har ingen resepter.");
                 } else {
 
                     System.out.println("Valgt pasient: " + minPasient.enkelString() + "\n");
