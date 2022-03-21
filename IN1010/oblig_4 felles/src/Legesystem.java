@@ -11,6 +11,13 @@ public class Legesystem {
     protected Prioritetskoe<Lege> leger = new Prioritetskoe<>();
     protected IndeksertListe<Legemiddel> legemidler = new IndeksertListe<>();
 
+    /**
+     * 
+     * @param filnavn
+     * @throws FileNotFoundException
+     * @throws UlovligUtskrift
+     * @throws NoSuchElementException
+     */
     public void lesFraFil(String filnavn) throws FileNotFoundException, UlovligUtskrift, NoSuchElementException {
 
         File data = new File(filnavn);
@@ -239,6 +246,11 @@ public class Legesystem {
         System.out.print("\nSkriv inn kommando (tall):   ");
     }
 
+    /**
+     * 
+     * @throws UlovligUtskrift
+     * @throws FileNotFoundException
+     */
     public void kommandoloekke() throws UlovligUtskrift, FileNotFoundException {
         int inputFraBruker = -1;
     
@@ -444,6 +456,7 @@ public class Legesystem {
                 } else {
                     kommandoloekke(); // kjoerer hovedmenyen og kommandosjekken paa nytt
                 }
+            
             } else if(inputFraBruker == 12) {
                 System.out.print("Skriv inn filnavn ('d' for aa bruke default):   ");
                 String brukervalg = tastatur.nextLine();
@@ -469,8 +482,12 @@ public class Legesystem {
         }
     }
 
-    /* KJOERES HVIS BRUKER VIL LEGGE TIL EN HELT NY RESEPT */
-    // henter detaljer fra bruker og oppretter riktig reseptobjekt
+    /**
+     * KJOERES HVIS BRUKER VIL LEGGE TIL EN HELT NY RESEPT
+     * henter detaljer fra bruker og oppretter riktig reseptobjekt
+     * @throws UlovligUtskrift
+     * @throws FileNotFoundException
+     */
     public void spoerOmReseptinfo() throws UlovligUtskrift, FileNotFoundException {
 
         // VELG LEGE //
@@ -583,9 +600,12 @@ public class Legesystem {
         }
     }
 
-    /* SKRIVER ALL INFOEN FRA LISTE-OBJEKTENE TIL EN NY TXT-FIL */
-    // bruker PrintWriter for aa lagre innholdet i listene leger, pasienter, legemidler og resepter
-    // til en ny txt-fil. Standard filnavn er data_fra_legesystem.txt.
+    /**
+     * SKRIVER ALL INFOEN FRA LISTE-OBJEKTENE TIL EN NY TXT-FIL
+     * bruker PrintWriter for aa lagre innholdet i listene leger, pasienter, legemidler og resepter
+     * til en ny txt-fil. Standard filnavn er data_fra_legesystem.txt.
+     * @throws FileNotFoundException
+     */
     public void skrivTilFil() throws FileNotFoundException {
         File ny_fil = new File("data_fra_legesystem.txt");
         PrintWriter pw = new PrintWriter(ny_fil);
@@ -630,10 +650,12 @@ public class Legesystem {
     }
 
     public void skrivTilFil(String filnavn) throws FileNotFoundException {
+        
         if (!(filnavn.contains(".txt"))) {
             System.out.println("Filen maa vaere en .txt-fil");
             return;
         }
+
         File ny_fil = new File(filnavn);
         PrintWriter pw = new PrintWriter(ny_fil);
 
@@ -676,6 +698,11 @@ public class Legesystem {
         pw.close();
     }
 
+    /**
+     * OPPSTARTSLOEKKE FOR LEGESYSTEMET
+     * @throws UlovligUtskrift
+     * @throws FileNotFoundException
+     */
     public void kjoer() throws UlovligUtskrift, FileNotFoundException {
         System.out.println("#####################################\n" +
                            "## Velkommen til vaart legesystem! ##\n" +
