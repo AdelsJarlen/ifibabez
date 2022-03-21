@@ -217,7 +217,7 @@ public class Legesystem {
      * SKRIVER UT LISTE MED KOMMANDOER TIL BRUKEREN (HOVEDMENY)
      */
     public void kommandoer() {
-        System.out.println("******** LEGESYSTEM ********");
+        System.out.println("****************** LEGESYSTEM ******************");
         System.out.println("1. Skriv ut fullstendig oversikt over pasienter");
         System.out.println("2. Skriv ut fullstendig oversikt over leger");
         System.out.println("3. Skriv ut fullstendig oversikt over legemidler");
