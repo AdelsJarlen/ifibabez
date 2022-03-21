@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Legesystem {
 
+    /* KLASSEVARIABLER */
     protected Stabel<Resept> resepter = new Stabel<>();
     protected IndeksertListe<Pasient> pasienter = new IndeksertListe<>();
     protected Prioritetskoe<Lege> leger = new Prioritetskoe<>();
