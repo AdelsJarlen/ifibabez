@@ -23,6 +23,7 @@ public class Legesystem {
         Koe<String> legerTxt = new Koe<>();
         Koe<String> resepterTxt = new Koe<>();
 
+        // kjoerer saa lenge filen har flere linjer
         while (scanner.hasNextLine()) {
             
             String linje = scanner.nextLine(); // lagrer foerste linje
@@ -232,7 +233,7 @@ public class Legesystem {
         System.out.println("9. Legg til fra fil");
         System.out.println("10. Bruke en resept fra listen til en pasient");
         System.out.println("11. Skriv ut statistikk");
-        System.out.println("12. Skriv alle data til fil");
+        System.out.println("12. Skriv alle data til .txt-fil");
         System.out.println("0. Avslutt");
 
         System.out.print("\nSkriv inn kommando (tall):   ");
@@ -244,18 +245,30 @@ public class Legesystem {
         while(inputFraBruker != 0){
             if(inputFraBruker == 1){
             //print ut fullstendig oversikt over pasienter
+                if (pasienter.stoerrelse() == 0) {
+                    System.out.println("Det er ingen pasienter i systemet ennaa.");
+                }
                 System.out.println(pasienter);
 
             //print ut fullstendig oversikt over leger
             } else if(inputFraBruker == 2){
+                if (leger.stoerrelse() == 0) {
+                    System.out.println("Det er ingen leger i systemet ennaa.");
+                }
                 System.out.println(leger);
 
             //print ut fullstendig oversikt over legemidler
             } else if(inputFraBruker == 3){
+                if (legemidler.stoerrelse() == 0) {
+                    System.out.println("Det er ingen legemidler i systemet ennaa.");
+                }
                 System.out.println(legemidler);
 
             //print ut fullstendig oversikt over resepter
             } else if(inputFraBruker == 4){
+                if (resepter.stoerrelse() == 0) {
+                    System.out.println("Det er ingen resepter i systemet ennaa.");
+                }
                 System.out.println(resepter);
             
             // legg til eller opprett pasient
@@ -342,9 +355,10 @@ public class Legesystem {
                 spoerOmReseptinfo(); // sjekker detaljene for hver 
             
             } else if (inputFraBruker == 9) {
-                System.out.println("Skriv inn filnavn:   ");
+                System.out.print("Skriv inn filnavn:   ");
                 String brukervalg = tastatur.nextLine();
                 lesFraFil(brukervalg);
+                System.out.println("\n... La inn elementer fra fil: " + brukervalg);
 
             // bruke gitt resept fra liste til gitt pasient
             } else if(inputFraBruker == 10) {
@@ -373,7 +387,7 @@ public class Legesystem {
                 if (minPasient.hentReseptliste().hent(reseptvalg-1).hentReit() > 0) {
                     minPasient.hentReseptliste().hent(reseptvalg-1).bruk();
                     System.out.println("\n... Du har naa brukt resepten paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn()
-                    + "for pasient " + pasienter.hent(pasientvalg-1).hentNavn() + ". Resepten har " + minPasient.hentReseptliste().hent(reseptvalg-1).hentReit() + 
+                    + " for pasient " + pasienter.hent(pasientvalg-1).hentNavn() + ". Resepten har " + minPasient.hentReseptliste().hent(reseptvalg-1).hentReit() + 
                     " reit igjen.");
                 } else {
                     System.out.println("Kunne ikke bruke resept paa " + minPasient.hentReseptliste().hent(reseptvalg-1).hentLegemiddel().hentNavn() + " (ingen reit igjen)");
@@ -422,9 +436,17 @@ public class Legesystem {
                     kommandoloekke(); // kjoerer hovedmenyen og kommandosjekken paa nytt
                 }
             } else if(inputFraBruker == 12) {
-                skrivTilFil();
+                System.out.print("Skriv inn filnavn ('d' for aa bruke default):   ");
+                String brukervalg = tastatur.nextLine();
+                if (brukervalg.equals("d")) {
+                    System.out.println("\n... Lagret data til fil: " + brukervalg);
+                    skrivTilFil(brukervalg);
+                } else {
+                    System.out.println("\n... Lagret data til fil: data_fra_legesystem.txt");
+                    skrivTilFil();
+                }
             }
-            System.out.println("\nVil du fortsette? (j/n)");
+            System.out.print("\nVil du fortsette? (j/n)   ");
             String brukervalg = tastatur.nextLine();
             if (brukervalg.equals("j")) {
                 kommandoer();
