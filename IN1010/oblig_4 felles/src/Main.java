@@ -7,6 +7,6 @@ public class Main {
 
         legesystem.lesFraFil("legedata.txt");
 
-        legesystem.kommandoloekke();
+        legesystem.kjoer();
     }
 }
