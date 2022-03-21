@@ -484,7 +484,13 @@ public class Legesystem {
         // VELG LEGE //
         // skriver ut listen over leger og henter input som int
         System.out.println("Velg en lege fra listen:   ");
-        System.out.println(leger); // skriver ut prioritetskoen med leger
+        System.out.println("####################");
+        int teller = 1;
+        for (Lege lege : leger) {
+            System.out.println(teller + ". " + lege);
+            teller++;
+        }
+        System.out.println("####################");; // skriver ut prioritetskoen med leger
         System.out.print("Skriv inn et tall:   ");
         int legevalg = Integer.parseInt(tastatur.nextLine()); // parser inten fra bruker
 
@@ -504,7 +510,7 @@ public class Legesystem {
         System.out.println("Velg en pasient fra listen:   ");
 
         System.out.println("####################");
-        int teller = 1;
+        teller = 1;
         for (Pasient pasient : pasienter) {
             System.out.println(teller + ". " + pasient.enkelString());
             teller++;
