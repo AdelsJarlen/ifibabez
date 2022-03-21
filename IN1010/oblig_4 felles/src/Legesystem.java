@@ -370,6 +370,8 @@ public class Legesystem {
             } else if (inputFraBruker == 10) {
                 Pasient minPasient;
 
+                System.out.println("Velg en pasient fra listen:");
+
                 int teller = 1;
                 for (Pasient pasient : pasienter) {
                     System.out.println(teller + ". " + pasient.enkelString());
@@ -383,7 +385,6 @@ public class Legesystem {
                 if (minPasient.hentReseptliste().stoerrelse() == 0) {
                     System.out.println(minPasient.hentNavn() + " har ingen resepter.");
                 } else {
-
                     System.out.println("Valgt pasient: " + minPasient.enkelString() + "\n");
 
                     // velg resept
