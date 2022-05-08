@@ -8,25 +8,16 @@ Disse variablene er final fordi de aldri skal endres.
 
 public class PResept extends HvitResept {
 
-    /*******************/
     /* KLASSEVARIABLER */
-    /*******************/
-
     static final String reseptType = "P-resept";
     static final int rabatt = 108;
 
-    /****************/
     /* KONSTRUKTOER */
-    /****************/
-
     public PResept(Legemiddel legemiddel, Lege utskrivendeLege, Pasient pasient, int reit) {
         super(legemiddel, utskrivendeLege, pasient, reit);
     }
 
-    /***********/
     /* GETTERE */
-    /***********/
-
     public int hentRabatt() {
         return rabatt;
     }
@@ -35,10 +26,7 @@ public class PResept extends HvitResept {
         return reseptType;
     }
     
-    /*****************/
     /* ANDRE METODER */
-    /*****************/
-
     // Returnerer 0 hvis totalen er mindre enn 0, ellers rabattert pris
     @Override
     public int prisAaBetale() {
