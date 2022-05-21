@@ -1,20 +1,20 @@
-#ifndef EnkelKnapp_H
-#define EnkelKnapp_H
-
+#ifndef EnkelKnapp_h
+#define EnkelKnapp_h
 #include <OneButton.h>
+#include "NeoPixelLED.h"
 
-class EnkelKnapp
+class EnkelKnapp 
 {
     public:
-        EnkelKnapp(int _pin);
-        void signal(int index, int r, int g, int b);
-        void off();
+        EnkelKnapp(int pin, NeoPixelLED npLED);
+        void tick();
+        void startLED(int index, int r, int g, int b);
     ;
 
     private:
         int _pin;
-        int _led_count;
-        int _default_brightness = 200;
+        NeoPixelLED npLED;
+        OneButton btn;
     ;
 };
 
