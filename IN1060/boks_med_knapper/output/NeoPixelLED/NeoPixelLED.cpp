@@ -6,7 +6,7 @@ NeoPixelLED::NeoPixelLED(int _led_count, int _pin)
 };
 
 // Ved mottakelse av signal vil lyset pulsere i x antall sekunder.
-void LED::signal(int index) 
+void NeoPixelLED::signal(int index)
 {
   int interval = 15;
   long startTime = millis();
@@ -23,9 +23,11 @@ void LED::signal(int index)
         // Delay between each point of sine wave.
         if (startTime - currentTime >= interval) {
           brightness = (radius / 2) + (radius / 2) * sin(angle);      // Generates points on a sign wave.
+          
           strip.setBrightness(brightness);
           strip.setPixelColor(index, 255, 255, 255);                    // Sends sine wave information to pin 9.
           strip.show();
+
           startTime = millis();
         }
     }
@@ -33,3 +35,8 @@ void LED::signal(int index)
     radius = radius - 40;
   }
 };
+
+void NeoPixelLED::off() 
+{
+  strip.clear();
+}

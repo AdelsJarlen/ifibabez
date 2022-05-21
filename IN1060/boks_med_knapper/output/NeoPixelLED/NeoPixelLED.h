@@ -8,6 +8,7 @@ class NeoPixelLED
     public:
         NeoPixelLED(int _led_count, int _pin);
         void signal(int index);
+        void off();
     ;
 
     private:
