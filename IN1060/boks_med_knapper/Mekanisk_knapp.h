@@ -1,5 +1,8 @@
 // Copyright Pololu Corporation.  For more information, see http://www.pololu.com/
 
+#ifndef MEKANISK_KNAPP_H
+#define MEKANISK_KNAPP_H
+
 /*! \file Pushbutton.h
  *
  * This is the main header file for the %Pushbutton library.
@@ -176,3 +179,5 @@ private:
   bool _pullUp;
   bool _defaultState;
 };
+
+#endif
