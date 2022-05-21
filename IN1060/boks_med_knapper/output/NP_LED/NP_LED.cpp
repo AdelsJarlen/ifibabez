@@ -1,6 +1,6 @@
-#include "NeoPixelLED.h"
+#include "NP_LED.h"
 
-NeoPixelLED::NeoPixelLED(int _led_count, int _pin) 
+NP_LED::NP_LED(int _led_count, int _pin) 
 {
   Adafruit_NeoPixel strip(_led_count, _pin, NEO_GRB + NEO_KHZ800);
 };

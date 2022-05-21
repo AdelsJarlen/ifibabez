@@ -4,7 +4,7 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "IN1060/**"
+                "IN1060/boks_med_knapper/output/NeoPixelLED/"
             ],
             "defines": [],
             "macFrameworkPath": [
