@@ -1,6 +1,7 @@
 // Copyright Pololu Corporation.  For more information, see http://www.pololu.com/
 
 #include "Mekanisk_knapp.h"
+#include <Arduino.h>
 
 // \cond
 

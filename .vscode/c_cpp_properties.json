@@ -4,7 +4,18 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "IN1060/boks_med_knapper/output/NeoPixelLED/"
+                "/Applications/Arduino.app/Contents/Java/libraries",
+                "/Applications/Arduino.app/Contents/Java/hardware/tools/avr/avr/include",
+                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/variants/standard"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": false,
+                "path": [
+                    "/Applications/Arduino.app/Contents/Java/"
+                ]
+            },
+            "forcedInclude": [
+                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/Arduino.h"
             ],
             "defines": [],
             "macFrameworkPath": [
