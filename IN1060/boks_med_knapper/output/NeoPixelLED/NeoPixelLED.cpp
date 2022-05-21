@@ -1,12 +1,14 @@
 #include "NeoPixelLED.h"
 
-NeoPixelLED::NeoPixelLED(int _led_count, int _pin) 
+NeoPixelLED::NeoPixelLED(int led_count, int pin) 
 {
+  _led_count = led_count;
+  _pin = pin;
   Adafruit_NeoPixel strip(_led_count, _pin, NEO_GRB + NEO_KHZ800);
 };
 
-// Ved mottakelse av signal vil lyset pulsere i x antall sekunder.
-void NeoPixelLED::signal(int index)
+// Naar signaliserer til 
+void NeoPixelLED::signal(int index, int r, int g, int b)
 {
   int interval = 15;
   long startTime = millis();
@@ -15,24 +17,42 @@ void NeoPixelLED::signal(int index)
 
   while (radius > 0) {
     
-    for (int i = 0; i < 360; i++) {                         // 360 degrees of an imaginary circle.
+    // 360 grader av en tenkt sirkel
+    for (int i = 0; i < 360; i++) {                         
   
         long currentTime = millis();
-        float angle = radians(i);                             // Converts degrees to radians.
+
+        // setter LED paa indeks index til oppgitt farge
+        strip.setPixelColor(index, r, g, b);                        
+
+         // konverterer grad til radianer
+        float angle = radians(i);      
     
-        // Delay between each point of sine wave.
+        // kjoerer kun innenfor et gitt intervall
+        // uten delay() for aa ikke sperre traaden
         if (startTime - currentTime >= interval) {
-          brightness = (radius / 2) + (radius / 2) * sin(angle);      // Generates points on a sign wave.
+
+          // regner ut punktet vha. sinuskurven som utgjoer lysstyrken
+          brightness = (radius / 2) + (radius / 2) * sin(angle);      
           
+          // sender lysstyrken og oppgitt farge til NeoPixel-objektet 
           strip.setBrightness(brightness);
-          strip.setPixelColor(index, 255, 255, 255);                    // Sends sine wave information to pin 9.
+
+          // turn on the LED                  
           strip.show();
 
+          // 
           startTime = millis();
         }
     }
 
-    radius = radius - 40;
+    if (radius <= 0) {
+      // skrur av den leden som er i bruk
+      strip.setPixelColor(index, 0, 0, 0);
+      return;
+    } else {
+      radius = radius - 40;
+    }
   }
 };
 
