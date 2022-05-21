@@ -1,11 +1,11 @@
-#ifndef LED_H
-#define LED_H
+#ifndef NP_LED_H
+#define NP_LED_H
 #include <Adafruit_NeoPixel.h>
 
-class LED
+class NP_LED
 {
     public:
-        LED(int _led_count, int _pin);
+        NP_LED(int _led_count, int _pin);
         void signal(int index);
     ;
 
@@ -13,6 +13,7 @@ class LED
         Adafruit_NeoPixel strip;
         int _pin;
         int _led_count;
+        int _default_brightness = 200;
     ;
 };
 
