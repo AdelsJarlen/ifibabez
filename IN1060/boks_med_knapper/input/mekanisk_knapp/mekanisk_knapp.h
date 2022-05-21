@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include <Arduino.h>
+// #include <Arduino.h>
 
 /*! Indicates the that pull-up resistor should be disabled. */
 #define PULL_UP_DISABLED    0
