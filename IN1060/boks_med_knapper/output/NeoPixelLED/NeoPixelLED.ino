@@ -3,7 +3,6 @@
  * på Adafruit NeoPixel-bibliotek.
  * Inneholder headerfilen "NeoPixelLED.h" og 
  * funksjonsimplementasjonen "NeoPixelLED.cpp".
- * 
  */
 
 void setup() {

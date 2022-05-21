@@ -1,11 +1,12 @@
-#ifndef NP_LED_H
-#define NP_LED_H
+#ifndef NeoPixelLED_H
+#define NeoPixelLED_H
+
 #include <Adafruit_NeoPixel.h>
 
-class NP_LED
+class NeoPixelLED
 {
     public:
-        NP_LED(int _led_count, int _pin);
+        NeoPixelLED(int _led_count, int _pin);
         void signal(int index);
     ;
 
