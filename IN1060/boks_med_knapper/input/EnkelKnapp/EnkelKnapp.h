@@ -13,7 +13,7 @@ class EnkelKnapp
 
     private:
         int _pin;
-        NeoPixelLED npLED;
+        NeoPixelLED& npLED;
         OneButton btn;
     ;
 };

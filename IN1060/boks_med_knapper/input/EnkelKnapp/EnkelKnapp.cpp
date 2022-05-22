@@ -6,10 +6,9 @@
  * @param pin GPIO-pinen knappen er koblet til.
  * @param npLED et objekt av klassen NeoPixelLED (LED-stripen som skal brukes).
  */
-EnkelKnapp::EnkelKnapp(int pin, NeoPixelLED &npLED)
+EnkelKnapp::EnkelKnapp(int pin, NeoPixelLED &npLED) : npLED(&npLED) {}
 {
     _pin = pin;
-    npLED = npLED;
     btn = OneButton(pin, true, true);
 }
 
@@ -27,7 +26,7 @@ void EnkelKnapp::tick()
  * for RGB-dioden paa oppgitt indeks og med oppgitt RGB-verdi.
  * @param pin 
  */
-void EnkelKnapp::startLED(int pin, int r, int g, int b)
+void EnkelKnapp::startLED(int index, int r, int g, int b)
 {
-    npLED.signal(pin, r, g, b);
+    npLED.signal(index, r, g, b);
 }
