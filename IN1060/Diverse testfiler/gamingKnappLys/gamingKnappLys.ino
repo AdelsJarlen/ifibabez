@@ -1,24 +1,51 @@
 #include <OneButton.h>
 #include <Adafruit_NeoPixel.h>
 
+#define BUTTON_1 10
+#define BUTTON_2 11
+#define BUTTON_3 12
 
-#define BUTTON_PIN A4
-#define LED_PIN    A3
-#define LED_COUNT 3
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+#define LED_1    A2
+#define LED_2    A3
+#define LED_3    A4
+#define LED_COUNT 1
 
-OneButton btn(BUTTON_PIN, true, true);
-int buttonState;
-bool state;
+#define BUZZER A5
+
+Adafruit_NeoPixel led1(LED_COUNT, LED_1, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel led2(LED_COUNT, LED_2, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel led3(LED_COUNT, LED_3, NEO_GRB + NEO_KHZ800);
+
+OneButton btn1(BUTTON_1, true, true);
+OneButton btn2(BUTTON_2, true, true);
+OneButton btn3(BUTTON_3, true, true);
+
+int btn1State;
+int btn2State;
+int btn3State;
+
+bool state1;
+bool state2;
+bool state3;
 
 void setup() {
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   Serial.begin(115200);
   Serial.println("... starter serial");
+  
   btn.attachClick(handleClick);
-  strip.begin();
-  strip.clear();
-  strip.setBrightness(150);
+  
+  led1.begin();
+  led1.clear();
+  led1.setBrightness(150);
+
+  strip2.begin();
+  strip2.clear();
+  strip2.setBrightness(150);
+
+  strip3.begin();
+  strip4.clear();
+  strip5.setBrightness(150);
   state = true;
 }
 
