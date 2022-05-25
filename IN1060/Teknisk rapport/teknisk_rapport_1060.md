@@ -1,6 +1,24 @@
 # Teknisk rapport – IN1060
 
+**Gruppenavn:** Ifibabez
 
+**Medlemmer:** Julie Haukås, Martine Røsand Hernæs, Synne Markmanrud, Ola Juul Holm og Jørgen Andresen Osberg 
+
+**Brukergruppe:** <span style="color:orange;">**Kvinnelige helsearbeidere på Ullern Vaksinesenter i alder 20 til 30 år.**</span>
+
+
+
+Den endelige tekniske løsningen for Ifibabez-prosjektet er et resultat av flere iterasjoner og eksperimentering med ulike komponenter og 3D-printede elementer.
+
+
+
+## Tidlig Tinkercad-schematic som viser de sentrale komponentene
+
+![](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/Enkel schematic tinkercad.png)
+
+
+
+## Liste over alle komponenter som er brukt i den endelige artefakten
 
 | Komponent                                                    | Antall |
 | ------------------------------------------------------------ | ------ |
@@ -9,14 +27,17 @@
 | Adafruit NeoPixel Flora v2 RGB LED                           | 3      |
 | Gateron Ink V2 Box 2021 (pink)                               | 3      |
 | Adafruit prototyping-board (kuttet til å passe ESP32-kontrolleren) | 1      |
-| Sunfounder passive buzzer modul til Arduino                  | 1      |
+| Sunfounder passive buzzer-modul til Arduino                  | 1      |
 | Oppladbart LiPo-batteri (1200mAh) til kontrolleren           | 1      |
 | Power rocker switch (Double Pole Single Throw)               | 1      |
 | Slide switch/toggle switch (Single Pole Single Throw)        | 1      |
-|                                                              |        |
+| 3D-printede elementer (toppknapper, bunnplate til knappene, boks og bunnplate) | //     |
 | Diverse custom-kabler som er kuttet og loddet                | //     |
+| Små skruer og muttere til å feste de 3D-printede elementene til hverandre | //     |
 
 
+
+## Full hookup-schematic for mikrokontrolleren vi bruker
 
 ![graphical_datasheet_ESP32-S2_thing_plus](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/graphical_datasheet_ESP32-S2_thing_plus.png)
 
