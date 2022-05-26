@@ -1,4 +1,4 @@
-# Teknisk rapport – IN1060
+## Teknisk rapport – IN1060
 
 **Gruppenavn:** Ifibabez
 
@@ -8,17 +8,25 @@
 
 
 
-Den endelige tekniske løsningen for Ifibabez-prosjektet er et resultat av flere iterasjoner og eksperimentering med ulike komponenter og 3D-printede elementer.
+### Introduksjon
+
+Den endelige tekniske løsningen for å lage en fungerende artefakt vi kunne filme og vise til brukerne er et resultat av flere iterasjoner og mye eksperimentering med ulike komponenter og 3D-printede elementer. Som man kan se i bildet under og i videoen, består løsningen av en 3D-printet boks med en Arduino/mikrokontroller, 
 
 
 
-## Tidlig Tinkercad-schematic som viser de sentrale komponentene
+### Bilde av ferdig artefakt
+
+![IMG_3102](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/Bilder av prototype/IMG_3102.JPG)
+
+
+
+### Tidlig Tinkercad-schematic som viser de sentrale komponentene
 
 ![](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/Enkel schematic tinkercad.png)
 
 
 
-## Liste over alle komponenter som er brukt i den endelige artefakten
+### Liste over alle komponenter som er brukt i den endelige artefakten
 
 | Komponent                                                    | Antall |
 | ------------------------------------------------------------ | ------ |
@@ -37,7 +45,7 @@ Den endelige tekniske løsningen for Ifibabez-prosjektet er et resultat av flere
 
 
 
-## Full hookup-schematic for mikrokontrolleren vi bruker
+### Full hookup-schematic for mikrokontrolleren vi bruker
 
 ![graphical_datasheet_ESP32-S2_thing_plus](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/graphical_datasheet_ESP32-S2_thing_plus.png)
 
