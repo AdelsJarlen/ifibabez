@@ -12,7 +12,7 @@ class NeoPixelLED
     ;
 
     private:
-        Adafruit_NeoPixel strip;
+        Adafruit_NeoPixel flora;
         int _pin;
         int _led_count;
         int _default_brightness = 200;

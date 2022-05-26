@@ -8,8 +8,7 @@
                 "/Applications/Arduino.app/Contents/Java/libraries",
                 "/Applications/Arduino.app/Contents/Java/hardware/tools/avr/avr/include",
                 "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/variants/standard",
-                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino",
-                "${workspaceFolder}/boks_med_knapper/output/NeoPixelLED"
+                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,
