@@ -2,14 +2,16 @@
 #define WifiManager_h
 
 #include <WiFi.h>
-#include <NTPClient.h>
 #include <WiFiUdp.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+#include <HardwareSerial.h>
 
 class WifiManager
 {
     public:
-        WifiManager();
-        WifiManager(char * ssid, char * password, char * domain, int port);
+        WifiManager(HardwareSerial& hwSerial);
+        WifiManager(char * ssid, char * password, char * domain, char * scriptID, int port, HardwareSerial& hwSerial);
         void connectToWiFi();
         void requestTime();
         void requestURL();
@@ -21,7 +23,11 @@ class WifiManager
         char * _password;
         char * _domain;
         char * _ntp;
+        char * _scriptID;
+        char * _scriptURL;
         int _port;
+        int _vaxNumber;
+        HardWareSerial& _hwSerial;
         unsigned long _gmtOffset;
         unsigned int _dstOffset;
     ;
