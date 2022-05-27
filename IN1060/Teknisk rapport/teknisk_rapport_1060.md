@@ -603,14 +603,16 @@ void VaxButton::playTone()
 #define WifiManager_h
 
 #include <WiFi.h>
-#include <NTPClient.h>
 #include <WiFiUdp.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+#include <HardwareSerial.h>
 
 class WifiManager
 {
     public:
-        WifiManager();
-        WifiManager(char * ssid, char * password, char * domain, int port);
+        WifiManager(HardWareSerial& hwSerial);
+        WifiManager(char * ssid, char * password, char * domain, char * scriptID, int port, HardWareSerial& hwSerial);
         void connectToWiFi();
         void requestTime();
         void requestURL();
@@ -622,14 +624,17 @@ class WifiManager
         char * _password;
         char * _domain;
         char * _ntp;
+        char * _scriptID;
+        char * _scriptURL;
         int _port;
+        int _vaxNumber;
+        HardWareSerial& _hwSerial;
         unsigned long _gmtOffset;
         unsigned int _dstOffset;
     ;
 };
 
 #endif
-
 ````
 
 
@@ -643,17 +648,21 @@ class WifiManager
  * @brief Oppretter en WifiManager med standard innstillinger.
  * Er fortrinnsvis en forenkling til bruk ved testing, altsaa naar
  * man har samme nettverksnavn, passord, domene og port. 
+ * @param hwSerial : referanse til et serial-objekt for logging
  */
-WifiManager::WifiManager() 
+WifiManager::WifiManager(HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
 {
-  // WiFi network name and password:
-  _ssid = "Oppe IAV4";
-  _password = "pappabetaler";
+  _ssid = "WIFI_NAME";
+  _password = "WIFI_PASSWORD";
 
-  // Internet domain to request from:
-  _domain = "https://www.aftenposten.no/";
+  _domain = "http://example.com/";
   _ntp = "europe.pool.ntp.org";
   _port = 80;
+
+  _scriptID = "AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t"
+  _scriptURL = "https://script.google.com/macros/s/AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t/exec"
+
+  _vaxNumber = 0;
 }
 
 /**
@@ -662,9 +671,11 @@ WifiManager::WifiManager()
  * @param ssid : nettverksnavnet
  * @param password : nettverkspassordet
  * @param domain : domenet man skal koble til
+ * @param scriptID : IDen til Google Script-webappen som skal motta requests
  * @param port : porten man skal bruke
+ * @param hwSerial : referanse til et Serial-objekt for aa logge det som skjer
  */
-WifiManager::WifiManager(char * ssid, char * password, char * domain, int port) 
+WifiManager::WifiManager(char * ssid, char * password, char * domain, char * scriptID, int port, HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
 {
   // WiFi network name and password:
   _ssid = ssid;
@@ -672,9 +683,15 @@ WifiManager::WifiManager(char * ssid, char * password, char * domain, int port)
 
   // Internet domain to request from:
   _domain = domain;
+  _scriptID = scriptID;
   _port = port;
 
   _ntp = "europe.pool.ntp.org";
+
+  _scriptID = "AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t"
+  _scriptURL = "https://script.google.com/macros/s/AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t/exec"
+
+  _vaxNumber = 0;
 }
 
 /**
@@ -684,102 +701,156 @@ WifiManager::WifiManager(char * ssid, char * password, char * domain, int port)
 void WifiManager::connectToWiFi()
 {
   
-  Serial.println("Connecting to WiFi network: " + String(_ssid));
+  _hwSerial.println("Connecting to WiFi network: " + String(_ssid));
 
   WiFi.begin(_ssid, _password);
 
   while (WiFi.status() != WL_CONNECTED) 
   {
     delay(500);
-    Serial.print(".");
+    _hwSerial.print(".");
   }
 
-  Serial.println();
-  Serial.println("WiFi connected!");
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+  _hwSerial.println();
+  _hwSerial.println("WiFi connected!");
+  _hwSerial.print("IP address: ");
+  _hwSerial.println(WiFi.localIP());
 }
 
 /**
- * @brief 
- * 
+ * @brief Requester en URL og printer HTTP-responsen linje for linje.
+ * Fortrinnsvis til bruk ved testing og debugging.
  */
 void WifiManager::requestURL()
 {
   
+  // sjekker om kortet er koblet til WiFi, kobler til hvis ikke
   if (WiFi.status() != WL_CONNECTED)
   {
     connectToWiFi();
   }
   
-  Serial.println("Connecting to domain: " + String(_domain));
+  _hwSerial.println("Connecting to domain: " + String(_domain));
 
-  // Use WiFiClient class to create TCP connections
+  // oppretter en WiFiClient for aa opprette en connection til domenet
   WiFiClient client;
+  
   if (!client.connect(_domain, _port))
   {
-    Serial.println("connection failed");
+    _hwSerial.println("connection failed");
     return;
   }
 
-  Serial.println("Connected!");
+  _hwSerial.println("Connected!");
 
-  // This will send the request to the server
+  // sender selve GET-requesten til domenet
   client.print((String)"GET / HTTP/1.1\r\n" +
                "Host: " + String(_domain) + "\r\n" +
                "Connection: close\r\n\r\n");
   
+  // sjekker requesten opp mot et timeout-intervall (5 sekunder)
   unsigned long timeout = millis();
 
   while (client.available() == 0) 
   {
     if (millis() - timeout > 5000) 
     {
-      Serial.println(">>> Client Timeout !");
-      client.stop();
+      _hwSerial.println(">>> Client Timeout !");
+      client.stop(); // stopper klienten hvis det tar for lang tid
       return;
     }
   }
 
-  // Read all the lines of the reply from server and print them to Serial
+  // printer responseBodyen linje for linje
   while (client.available()) 
   {
     String line = client.readStringUntil('\r');
-    Serial.print(line);
+    _hwSerial.print(line);
   }
 
-  Serial.println();
-  Serial.println("closing connection");
-  client.stop();
+  _hwSerial.println();
+  _hwSerial.println("closing connection");
+  client.stop(); // lukker klienten naar alt er ferdig
 }
 
 /**
- * @brief 
- * 
+ * @brief Henter dato og klokkeslett fra en av NTP-serverne i
+ * Europa. Kan brukes dersom vi faar til aa sende print request med
+ * custom label/txt til printeren.
  */
 void WifiManager::requestTime()
 {
+
+  // sjekker om WiFi er koblet til
   if (WiFi.status() != WL_CONNECTED)
   {
     connectToWiFi();
   }
 
+  // henter ut en Timestructure fra epochTime fra NTP-serveren
   struct tm timeinfo;
+
   if(!getLocalTime(&timeinfo)){
-    Serial.println("Failed to obtain time");
+    _hwSerial.println("Failed to obtain time");
     return;
   }
 
-  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+  // skriver ut formatert tidspunkt med standardformat (dd/mm/YYYY kl. HH:MM)
+  _hwSerial.println(&timeinfo, "%d/%m/%Y kl. %H:%M");
 }
 
 /**
- * @brief 
- * @param vaxType : 
+ * @brief Sender en POST-request til Google Script med
+ * vaksinetype og vaksinenummer.
+ * @param vaxType : vaksinetypen som har blitt trykket, sendes fra knappen
  */
 void WifiManager::sendUpdateRequest(char * vaxType)
 {
+  // sjekker om WiFi er koblet til
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    connectToWiFi();
+  }
+
+  // starter en HTTPclient for aa ha lettere tilgang paa POST-requests
+  HTTPClient http;
+
+  _hwSerial.print(_scriptURL);
+  _hwSerial.print("Making a request");
+
+  // aapner en connection
+  http.begin(url);
   
+  // definerer at vi skal sende JSON
+  http.addHeader("Content-Type", "application/json");
+
+  // genererer et JSON-objekt med dataen vaar
+  StaticJsonDocument<200> jsonDoc;
+
+  jsonDoc["vaxType"] = vaxType;
+  jsonDoc["vaxNumber"] = _vaxNumber;
+  
+  // konverterer JSON til String som kan sendes
+  String requestBody;
+  serializeJson(jsonDoc, requestBody);
+  
+  // sender selve requesten og lagrer responskoden
+  int httpResponseCode = http.POST(requestBody);
+
+  // sjekker status paa handlingen
+  if (httpResponseCode > 0) {
+    _hwSerial.print("HTTP Response code: ");
+    _hwSerial.println(httpResponseCode);
+    String payload = http.getString();
+    _hwSerial.println(payload);
+  }
+  else {
+    _hwSerial.print("Error code: ");
+    _hwSerial.println(httpResponseCode);
+  }
+
+    // oeker vaksinetelleren vaar til slutt
+    _vaxNumber++;
 }
 ````
 
@@ -788,11 +859,248 @@ void WifiManager::sendUpdateRequest(char * vaxType)
 ### 3.4.4 Google script
 
 ````js
+function doGet(e){
+  Logger.log("--- doGet ---");
+ 
+ var vaxType = "", vaxNumber = 0;
+ 
+  try {
+    
+    // lagrer verdiene fra ESP32-requesten
+    vaxType = e.parameters.vaxType;
+    vaxNumber = e.parameters.vaxNumber;
+ 
+    // kaller lagre-funksjonen for aa legge inn verdiene i regnearket
+    saveData(vaxType, vaxNumber);
+ 
+    return ContentService.createTextOutput("Wrote:\n  vaxType: " + vaxType + "\n  vaxNumber: " + vaxNumber);
+ 
+  } catch(error) { 
+    Logger.log(error);    
+    return ContentService.createTextOutput("error occured...." + error.message 
+                                            + "\n" + new Date() 
+                                            + "\nvaxType: " + vaxType +
+                                            + "\nvaxNumber: " + vaxNumber);
+  }  
+}
+ 
+
+function saveData(vaxType, vaxNumber){
+  Logger.log("--- save_data ---"); 
+ 
+ 
+  try {
+
+    // oppretter et nytt DateTime-objekt for aa lagre dato og klokkeslett for requesten
+    var dateTime = new Date();
+    var formattedDate = Utilities.formatDate(dateTime, SpreadsheetApp.getActive().getSpreadsheetTimeZone(), 'dd/mm/yyyy');
+    var formattedTime = Utilities.formatDate(dateTime, SpreadsheetApp.getActive().getSpreadsheetTimeZone(), 'HH:mm')
+ 
+    // URLen til Google-regnearket der resultatene skal loggfoeres
+    var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1XnFOaI3ALkc4_oeiKNlrGAXcazPyHHj6WqELLz3wmyA/edit#");
+    var dataLoggerSheet = ss.getSheetByName("Hovedark");
+ 
+    // hent forrige rad som ble endret og gaa 1 videre
+    var row = dataLoggerSheet.getLastRow() + 1;
+
+    // hopper over header-raden
+    if (row == 1) {return;}
+ 
+    // vi er naa kommet til neste ledige rad som ikke er headerne, saa vi kan sette inn dataen
+    dataLoggerSheet.getRange("A" + row).setValue(formattedDate); // DATO
+    dataLoggerSheet.getRange("B" + row).setValue(formattedTime); // KLOKKESLETT
+    dataLoggerSheet.getRange("C" + row).setValue(vaxType); // Vaksinetype
+    dataLoggerSheet.getRange("D" + row).setValue(vaxNumber); // Vaksinenummer (vaksine nummer N i dag)
+  }
+ 
+  catch(error) {
+    Logger.log(JSON.stringify(error));
+  }
+ 
+  Logger.log("--- saveData end---"); 
+}
 ````
 
 
 
 ## 3.5 OTA-innstillinger
+
+````c++
+/*
+ * OTAWebUpdater.ino Example from ArduinoOTA Library
+ * Rui Santos 
+ * Complete Project Details https://randomnerdtutorials.com
+ */
+
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <WebServer.h>
+#include <ESPmDNS.h>
+#include <Update.h>
+
+const char* host = "esp32";
+const char* ssid = "REPLACE_WITH_YOUR_SSID";
+const char* password = "REPLACE_WITH_YOUR_PASSWORD";
+
+WebServer server(80);
+
+/*
+ * Login page
+ */
+const char* loginIndex = 
+ "<form name='loginForm'>"
+    "<table width='20%' bgcolor='A09F9F' align='center'>"
+        "<tr>"
+            "<td colspan=2>"
+                "<center><font size=4><b>ESP32 Login Page</b></font></center>"
+                "<br>"
+            "</td>"
+            "<br>"
+            "<br>"
+        "</tr>"
+        "<td>Username:</td>"
+        "<td><input type='text' size=25 name='userid'><br></td>"
+        "</tr>"
+        "<br>"
+        "<br>"
+        "<tr>"
+            "<td>Password:</td>"
+            "<td><input type='Password' size=25 name='pwd'><br></td>"
+            "<br>"
+            "<br>"
+        "</tr>"
+        "<tr>"
+            "<td><input type='submit' onclick='check(this.form)' value='Login'></td>"
+        "</tr>"
+    "</table>"
+"</form>"
+"<script>"
+    "function check(form)"
+    "{"
+    "if(form.userid.value=='admin' && form.pwd.value=='admin')"
+    "{"
+    "window.open('/serverIndex')"
+    "}"
+    "else"
+    "{"
+    " alert('Error Password or Username')/*displays error message*/"
+    "}"
+    "}"
+"</script>";
+ 
+/*
+ * Server Index Page
+ */
+ 
+const char* serverIndex = 
+"<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>"
+"<form method='POST' action='#' enctype='multipart/form-data' id='upload_form'>"
+   "<input type='file' name='update'>"
+        "<input type='submit' value='Update'>"
+    "</form>"
+ "<div id='prg'>progress: 0%</div>"
+ "<script>"
+  "$('form').submit(function(e){"
+  "e.preventDefault();"
+  "var form = $('#upload_form')[0];"
+  "var data = new FormData(form);"
+  " $.ajax({"
+  "url: '/update',"
+  "type: 'POST',"
+  "data: data,"
+  "contentType: false,"
+  "processData:false,"
+  "xhr: function() {"
+  "var xhr = new window.XMLHttpRequest();"
+  "xhr.upload.addEventListener('progress', function(evt) {"
+  "if (evt.lengthComputable) {"
+  "var per = evt.loaded / evt.total;"
+  "$('#prg').html('progress: ' + Math.round(per*100) + '%');"
+  "}"
+  "}, false);"
+  "return xhr;"
+  "},"
+  "success:function(d, s) {"
+  "console.log('success!')" 
+ "},"
+ "error: function (a, b, c) {"
+ "}"
+ "});"
+ "});"
+ "</script>";
+
+/*
+ * setup function
+ */
+void setup(void) {
+  Serial.begin(115200);
+
+  // Connect to WiFi network
+  WiFi.begin(ssid, password);
+  Serial.println("");
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to ");
+  Serial.println(ssid);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  /*use mdns for host name resolution*/
+  if (!MDNS.begin(host)) { //http://esp32.local
+    Serial.println("Error setting up MDNS responder!");
+    while (1) {
+      delay(1000);
+    }
+  }
+  Serial.println("mDNS responder started");
+  /*return index page which is stored in serverIndex */
+  server.on("/", HTTP_GET, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/html", loginIndex);
+  });
+  server.on("/serverIndex", HTTP_GET, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/html", serverIndex);
+  });
+  /*handling uploading firmware file */
+  server.on("/update", HTTP_POST, []() {
+    server.sendHeader("Connection", "close");
+    server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
+    ESP.restart();
+  }, []() {
+    HTTPUpload& upload = server.upload();
+    if (upload.status == UPLOAD_FILE_START) {
+      Serial.printf("Update: %s\n", upload.filename.c_str());
+      if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
+        Update.printError(Serial);
+      }
+    } else if (upload.status == UPLOAD_FILE_WRITE) {
+      /* flashing firmware to ESP*/
+      if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
+        Update.printError(Serial);
+      }
+    } else if (upload.status == UPLOAD_FILE_END) {
+      if (Update.end(true)) { //true to set the size to the current progress
+        Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
+      } else {
+        Update.printError(Serial);
+      }
+    }
+  });
+  server.begin();
+}
+
+void loop(void) {
+  server.handleClient();
+  delay(1);
+}
+
+````
 
 
 
