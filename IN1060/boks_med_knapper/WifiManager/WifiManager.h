@@ -2,7 +2,8 @@
 #define WifiManager_h
 
 #include <WiFi.h>
-#include <time.h>
+#include <Time.h>
+
 
 class WifiManager
 {

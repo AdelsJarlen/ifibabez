@@ -1,5 +1,5 @@
-#include <WiFiManager.h>
-#include <time.h>
+#include <WifiManager.h>
+
 
 WifiManager::WifiManager() 
 {
@@ -100,6 +100,6 @@ void WifiManager::requestTime()
   {
     connectToWiFi();
   }
-
-  configTime(_gmtOffset, _dstOffset, _ntp);
+  
+  
 }
