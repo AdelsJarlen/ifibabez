@@ -19,7 +19,8 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,
                 "path": [
-                    "/Applications/Arduino.app/Contents/Java/"
+                    "/Applications/Arduino.app/Contents/Java/",
+                    "~/Library/Arduino15/packages/esp32/hardware/esp32/2.0.3/libraries/**"
                 ]
             },
             "forcedInclude": [

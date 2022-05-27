@@ -100,15 +100,14 @@ void WifiManager::requestTime()
   {
     connectToWiFi();
   }
+
   
-  WiFiUDP ntpUDP;
-  NTPClient timeClient(ntpUDP);
 
-  // Variables to save date and time
-  String formattedDate;
-  String timeStamp;
-
-  timeClient.begin();
-  timeClient.setTimeOffset(7200);
+  struct tm timeinfo;
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Failed to obtain time");
+    return;
+  }
+  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
   
 }
