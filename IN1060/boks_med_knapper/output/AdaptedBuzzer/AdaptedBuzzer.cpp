@@ -8,10 +8,10 @@
  */
 AdaptedBuzzer::AdaptedBuzzer(uint8_t buzzerPin)
 {
-    _buzzerPin = buzzerPin;
+    _buzzerPin = buzzerPin; // assigner buzzerPinen
     _playing = false;
  
-    int _melody[26] = {
+    int _melody[26] = { // definerer melodien
         NOTE_E5, NOTE_E5, NOTE_E5,
         NOTE_E5, NOTE_E5, NOTE_E5,
         NOTE_E5, NOTE_G5, NOTE_C5, NOTE_D5,
@@ -22,7 +22,7 @@ AdaptedBuzzer::AdaptedBuzzer(uint8_t buzzerPin)
         NOTE_D5, NOTE_G5
         };
 
-    int _noteDurations[26] = {
+    int _noteDurations[26] = { // og meloditonenes varighet
         8, 8, 4,
         8, 8, 4,
         8, 8, 8, 8,
@@ -33,12 +33,11 @@ AdaptedBuzzer::AdaptedBuzzer(uint8_t buzzerPin)
         4, 4
     };
 
-    unsigned long previousMillis = 0;
+    unsigned long previousMillis = 0; // variabel for non-blocking pauser
 }
 
 /**
- * @brief 
- * 
+ * @brief Spiller av en standardtone fra pitches.h (C4) med varighet paa 500 ms.
  */
 void AdaptedBuzzer::playTone()
 {
@@ -55,10 +54,9 @@ void AdaptedBuzzer::playTone()
 }
 
 /**
- * @brief 
- * 
- * @param frequency 
- * @param duration 
+ * @brief Spiller av en gitt tone med en gitt varighet.
+ * @param frequency : tonen fra pithces.h som skal spilles av
+ * @param duration : varighet i millisekunder
  */
 void AdaptedBuzzer::playTone(unsigned int frequency, unsigned long duration)
 {
@@ -74,6 +72,10 @@ void AdaptedBuzzer::playTone(unsigned int frequency, unsigned long duration)
     setPlaying(false);
 }
 
+/**
+ * @brief Spiller en melodi med non-blocking timing.
+ * Inspirert av Arduinos eget "blink without delay"-eksempel.
+ */
 void AdaptedBuzzer::playMelody()
 {
     int pauseBetweenNotes;
@@ -101,8 +103,7 @@ void AdaptedBuzzer::playMelody()
 }
 
 /**
- * @brief 
- * 
+ * @brief Kaller noTone() paa buzzeren for aa stoppe tonen.
  */
 void AdaptedBuzzer::stopTone() 
 {
@@ -110,9 +111,8 @@ void AdaptedBuzzer::stopTone()
 }
 
 /**
- * @brief 
- * 
- * @param value 
+ * @brief Endrer verdien av playing.
+ * @param value : ny verdi
  */
 void AdaptedBuzzer::setPlaying(bool value)
 {
@@ -120,10 +120,9 @@ void AdaptedBuzzer::setPlaying(bool value)
 }
 
 /**
- * @brief Enkel getter for aa sjekke om tone
- * 
- * @return true 
- * @return false 
+ * @brief Sjekker om buzzeren spiller en tone.
+ * @return true : hvis tone spilles
+ * @return false : hvis buzzeren er av
  */
 bool AdaptedBuzzer::isPlaying()
 {

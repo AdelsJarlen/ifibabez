@@ -1,8 +1,9 @@
 #include <InputMonitor.h>
 
-#define BUTTON_1 13
-#define BUTTON_2 12
-#define BUTTON_3 11
+
+int BUTTON_1 = 13;
+int BUTTON_2 = 12;
+int BUTTON_3 = 11;
 
 #define LED_1 A2
 #define LED_2 A1
@@ -25,9 +26,7 @@ VaxButton btn3(BUTTON_3, led3);
 void setup() 
 {
   Serial.begin(115200);
-  Serial.print(F("... Starter serial med baud rate 115200"));
-
-  
+  Serial.print(F("... Starter serial med baud rate 115200"));  
 }
 
 void loop() 
