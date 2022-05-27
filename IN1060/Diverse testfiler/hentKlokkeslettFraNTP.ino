@@ -38,7 +38,7 @@ void setup() {
   // GMT +8 = 28800
   // GMT -1 = -3600
   // GMT 0 = 0
-  timeClient.setTimeOffset(3600);
+  timeClient.setTimeOffset(7200);
 }
 void loop() {
   while(!timeClient.update()) {

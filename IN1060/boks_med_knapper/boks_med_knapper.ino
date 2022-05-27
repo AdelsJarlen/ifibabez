@@ -14,15 +14,25 @@
 
 // InputMonitor inpMonitor(BUTTON_1, BUTTON_2, BUTTON_3, LED_1, LED_2, LED_3);
 
+NeoPixelLED led1(0, LED_1);
+NeoPixelLED led2(0, LED_2);
+NeoPixelLED led3(0, LED_3);
 
+VaxButton btn1(BUTTON_1, led1);
+VaxButton btn2(BUTTON_2, led2);
+VaxButton btn3(BUTTON_3, led3);
 
 void setup() 
 {
-  // put your setup code here, to run once:
+  Serial.begin(115200);
+  Serial.print(F("... Starter serial med baud rate 115200"));
 
+  
 }
 
 void loop() 
 {
-  // inpMonitor.refresh();
+  btn1.tick();
+  btn2.tick();
+  btn3.tick();
 }
