@@ -1,6 +1,10 @@
 #include <WifiManager.h>
 
-
+/**
+ * @brief Oppretter en WifiManager med standard innstillinger.
+ * Er fortrinnsvis en forenkling til bruk ved testing, altsaa naar
+ * man har samme nettverksnavn, passord, domene og port. 
+ */
 WifiManager::WifiManager() 
 {
   // WiFi network name and password:
@@ -13,6 +17,14 @@ WifiManager::WifiManager()
   _port = 80;
 }
 
+/**
+ * @brief Oppretter en WifiManager med innstillinger fra argumentene
+ * som sendes i metodekallet.
+ * @param ssid : nettverksnavnet
+ * @param password : nettverkspassordet
+ * @param domain : domenet man skal koble til
+ * @param port : porten man skal bruke
+ */
 WifiManager::WifiManager(char * ssid, char * password, char * domain, int port) 
 {
   // WiFi network name and password:
@@ -26,6 +38,10 @@ WifiManager::WifiManager(char * ssid, char * password, char * domain, int port)
   _ntp = "europe.pool.ntp.org";
 }
 
+/**
+ * @brief Initer WiFi-objektet fra WiFi-klassen (WiFiClass i WiFi.h) og
+ * kobler til det internettet som ble oppgitt i konstruktoeren.
+ */
 void WifiManager::connectToWiFi()
 {
   
@@ -45,6 +61,10 @@ void WifiManager::connectToWiFi()
   Serial.println(WiFi.localIP());
 }
 
+/**
+ * @brief 
+ * 
+ */
 void WifiManager::requestURL()
 {
   
@@ -94,6 +114,10 @@ void WifiManager::requestURL()
   client.stop();
 }
 
+/**
+ * @brief 
+ * 
+ */
 void WifiManager::requestTime()
 {
   if (WiFi.status() != WL_CONNECTED)
@@ -101,13 +125,16 @@ void WifiManager::requestTime()
     connectToWiFi();
   }
 
-  
-
   struct tm timeinfo;
   if(!getLocalTime(&timeinfo)){
     Serial.println("Failed to obtain time");
     return;
   }
+
   Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+}
+
+void WifiManager::sendUpdateRequest(char * vaxType)
+{
   
 }

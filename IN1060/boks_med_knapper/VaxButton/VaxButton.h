@@ -4,6 +4,7 @@
 #include <OneButton.h>
 #include <NeoPixelLED.h>
 #include <VaxBuzzer.h>
+#include <WifiManager.h>
 
 /**
  * @brief Klassedefinisjon for VaxButton. 
@@ -14,7 +15,7 @@
 class VaxButton 
 {
     public:
-        VaxButton(int pin, NeoPixelLED& npLED, VaxBuzzer& buzzer); // konstrukoer
+        VaxButton(int pin, char* vaxType, NeoPixelLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager); // konstrukoer
         void tick(); 
         void startLED(int index, int r, int g, int b);
         void playTone();
@@ -22,9 +23,11 @@ class VaxButton
 
     private:
         int _pin;
+        char* _vaxType;
         NeoPixelLED& _npLED;
         OneButton _btn;
         VaxBuzzer& _buzzer;
+        WifiManager& _wifiManager;
         static void handleClick(void *ptr);
     ;
 };

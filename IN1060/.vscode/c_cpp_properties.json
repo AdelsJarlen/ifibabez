@@ -3,24 +3,25 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/boks_med_knapper/libraries/",
-                "${workspaceFolder}/boks_med_knapper/libraries/NTPClient",
-                "${workspaceFolder}/boks_med_knapper/VaxBuzzer/",
-                "${workspaceFolder}/boks_med_knapper/NeoPixelLED/",
-                "${workspaceFolder}/boks_med_knapper/VaxButton/",
-                "${workspaceFolder}/boks_med_knapper/WifiManager/",
-                "/Applications/Arduino.app/Contents/Java/libraries",
+                "${workspaceFolder}/boks_med_knapper/**",
+
+                "${workspaceFolder}/boks_med_knapper/libraries/NTPClient/**",
+                "${workspaceFolder}/boks_med_knapper/libraries/WiFi/**",
+                "${workspaceFolder}/boks_med_knapper/VaxBuzzer/**",
+                "${workspaceFolder}/boks_med_knapper/NeoPixelLED/**",
+                "${workspaceFolder}/boks_med_knapper/VaxButton/**",
+                "${workspaceFolder}/boks_med_knapper/WifiManager/**",
+
+                "/Applications/Arduino.app/Contents/Java/libraries/**",
                 "/Applications/Arduino.app/Contents/Java/hardware/tools/avr/avr/include",
                 "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/variants/standard",
-                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino",
-                "~/Library/Arduino15/packages/esp32/hardware/esp32/2.0.3/libraries/WiFi"
+                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,
                 "path": [
-                    "/Applications/Arduino.app/Contents/Java/",
-                    "~/Library/Arduino15/packages/esp32/hardware/esp32/2.0.3/libraries/**"
+                    "/Applications/Arduino.app/Contents/Java/**",
+                    "${workspaceFolder}/boks_med_knapper/**"
                 ]
             },
             "forcedInclude": [

@@ -486,6 +486,7 @@ bool VaxBuzzer::isPlaying()
 #include <OneButton.h>
 #include <NeoPixelLED.h>
 #include <VaxBuzzer.h>
+#include <WifiManager.h>
 
 /**
  * @brief Klassedefinisjon for VaxButton. 
@@ -495,22 +496,22 @@ bool VaxBuzzer::isPlaying()
  */
 class VaxButton 
 {
-    private:
-        int _pin;
-        NeoPixelLED& _npLED;
-        OneButton _btn;
-        VaxBuzzer& _buzzer;
-        static void handleClick(void *ptr);
-    ;
-  
-  	public:
-        VaxButton(int pin, NeoPixelLED& npLED, VaxBuzzer& buzzer); // konstrukoer
+    public:
+        VaxButton(int pin, char* vaksinetype, NeoPixelLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager); // konstrukoer
         void tick(); 
         void startLED(int index, int r, int g, int b);
         void playTone();
     ;
 
-    
+    private:
+        int _pin;
+        char* _vaksinetype;
+        NeoPixelLED& _npLED;
+        OneButton _btn;
+        VaxBuzzer& _buzzer;
+        WifiManager& _wifiManager;
+        static void handleClick(void *ptr);
+    ;
 };
 
 #endif
@@ -527,12 +528,15 @@ class VaxButton
 
 /**
  * @brief Oppretter et nytt objekt av klassen VaxButton med Member Initializer List.
- * @param pin GPIO-pinen knappen er koblet til.
- * @param npLED et objekt av klassen NeoPixelLED (LED-stripen som skal brukes).
+ * @param pin : GPIO-pinen knappen er koblet til
+ * @param vaksinetype : vaksinetypen knappen representerer (som char array)
+ * @param npLED : en referanse til et objekt av klassen NeoPixelLED (LED-stripen som skal brukes)
+ * @param buzzer : en referanse til et objekt av klassen VaxBuzzer
  */
-VaxButton::VaxButton(int pin, NeoPixelLED& npLED, VaxBuzzer& buzzer) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer)
+VaxButton::VaxButton(int pin, char* vaksinetype, NeoPixelLED& npLED, VaxBuzzer& buzzer) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer)
 {
     _pin = pin;
+    _vaksinetype = vaksinetype;
     _btn.attachClick(handleClick, this); // forteller OneButton-knappen hva den skal gjoere ved hvert trykk 
 }
 
@@ -540,7 +544,7 @@ VaxButton::VaxButton(int pin, NeoPixelLED& npLED, VaxBuzzer& buzzer) : _btn(pin,
  * @brief Callback-funksjon med C++-pointer tilbake til this, altsaa knappen.
  * Kaller startLED-funksjonen naar knappen trykkes, med hvitt lys som default.
  * Kaller ogsaa playTone()-funksjonen paa AdaptedButton med default innstillinger.
- * @param ptr C-style pointer til instansen av denne klassen
+ * @param ptr : C-style pointer til instansen av denne klassen
  */
 void VaxButton::handleClick(void *ptr) 
 {
@@ -561,7 +565,10 @@ void VaxButton::tick()
 /**
  * @brief Starter LED-syklusen i NeoPixel-stripen
  * for RGB-dioden paa oppgitt indeks og med oppgitt RGB-verdi.
- * @param pin 
+ * @param index : indeks for leden i "flora"-objektet (hvis man har flere koblet i serie)
+ * @param r : Roed verdi (RGB, 0-255)
+ * @param g : Groenn verdi (RGB, 0-255)
+ * @param b : Blaa verdi (RGB, 0-255)
  */
 void VaxButton::startLED(int index, int r, int g, int b)
 {
@@ -592,6 +599,37 @@ void VaxButton::playTone()
 ### 3.4.2 WifiManager.h
 
 ````c++
+#ifndef WifiManager_h
+#define WifiManager_h
+
+#include <WiFi.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
+
+class WifiManager
+{
+    public:
+        WifiManager();
+        WifiManager(char * ssid, char * password, char * domain, int port);
+        void connectToWiFi();
+        void requestTime();
+        void requestURL();
+        void sendUpdateRequest();
+    ;
+
+    private:
+        char * _ssid;
+        char * _password;
+        char * _domain;
+        char * _ntp;
+        int _port;
+        unsigned long _gmtOffset;
+        unsigned int _dstOffset;
+    ;
+};
+
+#endif
+
 ````
 
 
@@ -599,6 +637,150 @@ void VaxButton::playTone()
 ### 3.4.3 WifiManager.cpp
 
 ````c++
+#include <WifiManager.h>
+
+/**
+ * @brief Oppretter en WifiManager med standard innstillinger.
+ * Er fortrinnsvis en forenkling til bruk ved testing, altsaa naar
+ * man har samme nettverksnavn, passord, domene og port. 
+ */
+WifiManager::WifiManager() 
+{
+  // WiFi network name and password:
+  _ssid = "Oppe IAV4";
+  _password = "pappabetaler";
+
+  // Internet domain to request from:
+  _domain = "https://www.aftenposten.no/";
+  _ntp = "europe.pool.ntp.org";
+  _port = 80;
+}
+
+/**
+ * @brief Oppretter en WifiManager med innstillinger fra argumentene
+ * som sendes i metodekallet.
+ * @param ssid : nettverksnavnet
+ * @param password : nettverkspassordet
+ * @param domain : domenet man skal koble til
+ * @param port : porten man skal bruke
+ */
+WifiManager::WifiManager(char * ssid, char * password, char * domain, int port) 
+{
+  // WiFi network name and password:
+  _ssid = ssid;
+  _password = password;
+
+  // Internet domain to request from:
+  _domain = domain;
+  _port = port;
+
+  _ntp = "europe.pool.ntp.org";
+}
+
+/**
+ * @brief Initer WiFi-objektet fra WiFi-klassen (WiFiClass i WiFi.h) og
+ * kobler til det internettet som ble oppgitt i konstruktoeren.
+ */
+void WifiManager::connectToWiFi()
+{
+  
+  Serial.println("Connecting to WiFi network: " + String(_ssid));
+
+  WiFi.begin(_ssid, _password);
+
+  while (WiFi.status() != WL_CONNECTED) 
+  {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println();
+  Serial.println("WiFi connected!");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+
+/**
+ * @brief 
+ * 
+ */
+void WifiManager::requestURL()
+{
+  
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    connectToWiFi();
+  }
+  
+  Serial.println("Connecting to domain: " + String(_domain));
+
+  // Use WiFiClient class to create TCP connections
+  WiFiClient client;
+  if (!client.connect(_domain, _port))
+  {
+    Serial.println("connection failed");
+    return;
+  }
+
+  Serial.println("Connected!");
+
+  // This will send the request to the server
+  client.print((String)"GET / HTTP/1.1\r\n" +
+               "Host: " + String(_domain) + "\r\n" +
+               "Connection: close\r\n\r\n");
+  
+  unsigned long timeout = millis();
+
+  while (client.available() == 0) 
+  {
+    if (millis() - timeout > 5000) 
+    {
+      Serial.println(">>> Client Timeout !");
+      client.stop();
+      return;
+    }
+  }
+
+  // Read all the lines of the reply from server and print them to Serial
+  while (client.available()) 
+  {
+    String line = client.readStringUntil('\r');
+    Serial.print(line);
+  }
+
+  Serial.println();
+  Serial.println("closing connection");
+  client.stop();
+}
+
+/**
+ * @brief 
+ * 
+ */
+void WifiManager::requestTime()
+{
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    connectToWiFi();
+  }
+
+  struct tm timeinfo;
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Failed to obtain time");
+    return;
+  }
+
+  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+}
+
+/**
+ * @brief 
+ * @param vaxType : 
+ */
+void WifiManager::sendUpdateRequest(char * vaxType)
+{
+  
+}
 ````
 
 
