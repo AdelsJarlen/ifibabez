@@ -2,8 +2,8 @@
 #define WifiManager_h
 
 #include <WiFi.h>
-#include <Time.h>
-
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
 class WifiManager
 {

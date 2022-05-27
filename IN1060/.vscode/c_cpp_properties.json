@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/boks_med_knapper/libraries/",
-                "${workspaceFolder}/boks_med_knapper/AdaptedBuzzer/",
+                "${workspaceFolder}/boks_med_knapper/libraries/NTPClient",
+                "${workspaceFolder}/boks_med_knapper/VaxBuzzer/",
                 "${workspaceFolder}/boks_med_knapper/NeoPixelLED/",
                 "${workspaceFolder}/boks_med_knapper/VaxButton/",
                 "${workspaceFolder}/boks_med_knapper/WifiManager/",
@@ -13,7 +14,7 @@
                 "/Applications/Arduino.app/Contents/Java/hardware/tools/avr/avr/include",
                 "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/variants/standard",
                 "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino",
-                "/Applications/Arduino.app/Contents/Java/libraries/WiFi/src"
+                "~/Library/Arduino15/packages/esp32/hardware/esp32/2.0.3/libraries/WiFi"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,

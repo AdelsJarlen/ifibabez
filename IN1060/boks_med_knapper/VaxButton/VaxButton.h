@@ -3,7 +3,7 @@
 
 #include <OneButton.h>
 #include <NeoPixelLED.h>
-#include <AdaptedBuzzer.h>
+#include <VaxBuzzer.h>
 
 /**
  * @brief Klassedefinisjon for VaxButton. 
@@ -14,7 +14,7 @@
 class VaxButton 
 {
     public:
-        VaxButton(int pin, NeoPixelLED& npLED, AdaptedBuzzer& buzzer); // konstrukoer
+        VaxButton(int pin, NeoPixelLED& npLED, VaxBuzzer& buzzer); // konstrukoer
         void tick(); 
         void startLED(int index, int r, int g, int b);
         void playTone();
@@ -24,7 +24,7 @@ class VaxButton
         int _pin;
         NeoPixelLED& _npLED;
         OneButton _btn;
-        AdaptedBuzzer& _buzzer;
+        VaxBuzzer& _buzzer;
         static void handleClick(void *ptr);
     ;
 };

@@ -5,7 +5,7 @@
  * @param pin GPIO-pinen knappen er koblet til.
  * @param npLED et objekt av klassen NeoPixelLED (LED-stripen som skal brukes).
  */
-VaxButton::VaxButton(int pin, NeoPixelLED& npLED, AdaptedBuzzer& buzzer) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer)
+VaxButton::VaxButton(int pin, NeoPixelLED& npLED, VaxBuzzer& buzzer) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer)
 {
     _pin = pin;
     _btn.attachClick(handleClick, this); // forteller OneButton-knappen hva den skal gjoere ved hvert trykk 

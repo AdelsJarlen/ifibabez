@@ -101,5 +101,14 @@ void WifiManager::requestTime()
     connectToWiFi();
   }
   
+  WiFiUDP ntpUDP;
+  NTPClient timeClient(ntpUDP);
+
+  // Variables to save date and time
+  String formattedDate;
+  String timeStamp;
+
+  timeClient.begin();
+  timeClient.setTimeOffset(7200);
   
 }
