@@ -1,12 +1,12 @@
-#include <AdaptedBuzzer.h>
+#include <VaxBuzzer.h>
 #include <pitches.h>
 
 /**
- * @brief Oppretter et nytt AdaptedBuzzer-objekt paa gitt pin.
+ * @brief Oppretter et nytt VaxBuzzer-objekt paa gitt pin.
  * Definerer ogsaa notene i melodien og deres varighet.
  * @param buzzerPin GPIO-pinen buzzeren er koblet til
  */
-AdaptedBuzzer::AdaptedBuzzer(uint8_t buzzerPin)
+VaxBuzzer::VaxBuzzer(uint8_t buzzerPin)
 {
     _buzzerPin = buzzerPin; // assigner buzzerPinen
     _playing = false;
@@ -39,7 +39,7 @@ AdaptedBuzzer::AdaptedBuzzer(uint8_t buzzerPin)
 /**
  * @brief Spiller av en standardtone fra pitches.h (C4) med varighet paa 500 ms.
  */
-void AdaptedBuzzer::playTone()
+void VaxBuzzer::playTone()
 {
     unsigned long startTime = millis();
     tone(_buzzerPin, NOTE_C4, 500);
@@ -58,7 +58,7 @@ void AdaptedBuzzer::playTone()
  * @param frequency : tonen fra pithces.h som skal spilles av
  * @param duration : varighet i millisekunder
  */
-void AdaptedBuzzer::playTone(unsigned int frequency, unsigned long duration)
+void VaxBuzzer::playTone(unsigned int frequency, unsigned long duration)
 {
     unsigned long startTime = millis();
     tone(_buzzerPin, frequency, duration);
@@ -76,7 +76,7 @@ void AdaptedBuzzer::playTone(unsigned int frequency, unsigned long duration)
  * @brief Spiller en melodi med non-blocking timing.
  * Inspirert av Arduinos eget "blink without delay"-eksempel.
  */
-void AdaptedBuzzer::playMelody()
+void VaxBuzzer::playMelody()
 {
     int pauseBetweenNotes;
     unsigned long currentMillis = millis();
@@ -105,7 +105,7 @@ void AdaptedBuzzer::playMelody()
 /**
  * @brief Kaller noTone() paa buzzeren for aa stoppe tonen.
  */
-void AdaptedBuzzer::stopTone() 
+void VaxBuzzer::stopTone() 
 {
     noTone(_buzzerPin);
 }
@@ -114,7 +114,7 @@ void AdaptedBuzzer::stopTone()
  * @brief Endrer verdien av playing.
  * @param value : ny verdi
  */
-void AdaptedBuzzer::setPlaying(bool value)
+void VaxBuzzer::setPlaying(bool value)
 {
     _playing = value;
 }
@@ -124,7 +124,7 @@ void AdaptedBuzzer::setPlaying(bool value)
  * @return true : hvis tone spilles
  * @return false : hvis buzzeren er av
  */
-bool AdaptedBuzzer::isPlaying()
+bool VaxBuzzer::isPlaying()
 {
     return _playing;
 }

@@ -1,18 +1,18 @@
-#ifndef AdaptedBuzzer_h
-#define AdaptedBuzzer_h
+#ifndef VaxBuzzer_h
+#define VaxBuzzer_h
 
 #include <pitches.h>
 
 /**
- * @brief Klassedefinisjon for klassen AdaptedBuzzer. Holder styr paa en
+ * @brief Klassedefinisjon for klassen VaxBuzzer. Holder styr paa en
  * buzzerPin og har funksjonalitet for aa spille av standard pipelyd eller en
  * gitt tone i en gitt varighet. Inneholder også en standard melodi med 
  * informasjon om tonenes varighet og en non-blocking melodi-funksjon.
  */
-class AdaptedBuzzer
+class VaxBuzzer
 {
     public:
-        AdaptedBuzzer(uint8_t buzzerPin);
+        VaxBuzzer(uint8_t buzzerPin);
         void playTone();
         void playTone(unsigned int frequency, unsigned long duration);
         void playMelody();
