@@ -21,7 +21,8 @@
                 "limitSymbolsToIncludedHeaders": false,
                 "path": [
                     "/Applications/Arduino.app/Contents/Java/**",
-                    "${workspaceFolder}/boks_med_knapper/**"
+                    "${workspaceFolder}/boks_med_knapper/**",
+                    "~/Library/Arduino15/packages/esp32/hardware/esp32/2.0.3/libraries/**"
                 ]
             },
             "forcedInclude": [
