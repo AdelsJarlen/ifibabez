@@ -199,17 +199,18 @@ Da vi begynte å sette sammen komponentene til artefakten testet vi noen forskje
 
 class NeoPixelLED
 {
-    public:
-        NeoPixelLED(int led_count, int pin); // konstruktoer
-        void signal(int index, int r, int g, int b); // hovedfunksjon for aa starte LED-sekvens
-        void off(); // skrur av LED-en helt
-    ;
-
     private:
         Adafruit_NeoPixel flora; // lagrer NeoPixel-objektet med Adafruits custom-klasse
         int _pin;
         int _led_count;
         int _default_brightness = 200;
+    ;
+  
+  
+  	public:
+        NeoPixelLED(int led_count, int pin); // konstruktoer
+        void signal(int index, int r, int g, int b); // hovedfunksjon for aa starte LED-sekvens
+        void off(); // skrur av LED-en helt
     ;
 };
 
@@ -303,7 +304,14 @@ void NeoPixelLED::off()
  */
 class AdaptedBuzzer
 {
-    public:
+    private:
+        uint8_t _buzzerPin;
+        bool _playing;
+        int _melody[26];
+        int _noteDurations[26];
+    ;
+  
+  	public:
         AdaptedBuzzer(uint8_t buzzerPin);
         void playTone();
         void playTone(unsigned int frequency, unsigned long duration);
@@ -312,13 +320,6 @@ class AdaptedBuzzer
         void setPlaying(bool value);
         bool isPlaying();
         unsigned long previousMillis;
-    ;
-
-    private:
-        uint8_t _buzzerPin;
-        bool _playing;
-        int _melody[26];
-        int _noteDurations[26];
     ;
 };
 
@@ -480,13 +481,6 @@ bool AdaptedBuzzer::isPlaying()
  */
 class VaxButton 
 {
-    public:
-        VaxButton(int pin, NeoPixelLED& npLED, AdaptedBuzzer& buzzer); // konstrukoer
-        void tick(); 
-        void startLED(int index, int r, int g, int b);
-        void playTone();
-    ;
-
     private:
         int _pin;
         NeoPixelLED& _npLED;
@@ -494,6 +488,15 @@ class VaxButton
         AdaptedBuzzer& _buzzer;
         static void handleClick(void *ptr);
     ;
+  
+  	public:
+        VaxButton(int pin, NeoPixelLED& npLED, AdaptedBuzzer& buzzer); // konstrukoer
+        void tick(); 
+        void startLED(int index, int r, int g, int b);
+        void playTone();
+    ;
+
+    
 };
 
 #endif

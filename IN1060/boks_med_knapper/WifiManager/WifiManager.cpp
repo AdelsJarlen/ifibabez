@@ -1,58 +1,40 @@
 #include <WiFiManager.h>
+#include <time.h>
 
-// WiFi network name and password:
-const char * networkName = "Oppe IAV4";
-const char * networkPswd = "pappabetaler";
-
-// Internet domain to request from:
-const char * hostDomain = "https://www.aftenposten.no/";
-const int hostPort = 80;
-
-const int BUTTON_PIN = 0;
-const int LED_PIN = 13;
-
-void setup()
+WifiManager::WifiManager() 
 {
-  // Initilize hardware:
-  Serial.begin(115200);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
-  pinMode(LED_PIN, OUTPUT);
+  // WiFi network name and password:
+  _ssid = "Oppe IAV4";
+  _password = "pappabetaler";
 
-  // Connect to the WiFi network (see function below loop)
-  connectToWiFi(networkName, networkPswd);
-
-  digitalWrite(LED_PIN, LOW); // LED off
-  Serial.print("Press button 0 to connect to ");
-  Serial.println(hostDomain);
+  // Internet domain to request from:
+  _domain = "https://www.aftenposten.no/";
+  _ntp = "europe.pool.ntp.org";
+  _port = 80;
 }
 
-void loop()
+WifiManager::WifiManager(char * ssid, char * password, char * domain, int port) 
 {
-  if (digitalRead(BUTTON_PIN) == LOW)
-  { // Check if button has been pressed
-    while (digitalRead(BUTTON_PIN) == LOW)
-      ; // Wait for button to be released
+  // WiFi network name and password:
+  _ssid = ssid;
+  _password = password;
 
-    digitalWrite(LED_PIN, HIGH); // Turn on LED
-    requestURL(hostDomain, hostPort); // Connect to server
-    digitalWrite(LED_PIN, LOW); // Turn off LED
-  }
+  // Internet domain to request from:
+  _domain = domain;
+  _port = port;
+
+  _ntp = "europe.pool.ntp.org";
 }
 
-void connectToWiFi(const char * ssid, const char * pwd)
+void WifiManager::connectToWiFi()
 {
-  int ledState = 0;
+  
+  Serial.println("Connecting to WiFi network: " + String(_ssid));
 
-  printLine();
-  Serial.println("Connecting to WiFi network: " + String(ssid));
-
-  WiFi.begin(ssid, pwd);
+  WiFi.begin(_ssid, _password);
 
   while (WiFi.status() != WL_CONNECTED) 
   {
-    // Blink LED while we're connecting:
-    digitalWrite(LED_PIN, ledState);
-    ledState = (ledState + 1) % 2; // Flip ledState
     delay(500);
     Serial.print(".");
   }
@@ -63,24 +45,29 @@ void connectToWiFi(const char * ssid, const char * pwd)
   Serial.println(WiFi.localIP());
 }
 
-void requestURL(const char * host, uint8_t port)
+void WifiManager::requestURL()
 {
-  printLine();
-  Serial.println("Connecting to domain: " + String(host));
+  
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    connectToWiFi();
+  }
+  
+  Serial.println("Connecting to domain: " + String(_domain));
 
   // Use WiFiClient class to create TCP connections
   WiFiClient client;
-  if (!client.connect(host, port))
+  if (!client.connect(_domain, _port))
   {
     Serial.println("connection failed");
     return;
   }
+
   Serial.println("Connected!");
-  printLine();
 
   // This will send the request to the server
   client.print((String)"GET / HTTP/1.1\r\n" +
-               "Host: " + String(host) + "\r\n" +
+               "Host: " + String(_domain) + "\r\n" +
                "Connection: close\r\n\r\n");
   
   unsigned long timeout = millis();
@@ -107,10 +94,12 @@ void requestURL(const char * host, uint8_t port)
   client.stop();
 }
 
-void printLine()
+void WifiManager::requestTime()
 {
-  Serial.println();
-  for (int i=0; i<30; i++)
-    Serial.print("-");
-  Serial.println();
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    connectToWiFi();
+  }
+
+  configTime(_gmtOffset, _dstOffset, _ntp);
 }
