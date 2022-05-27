@@ -17,7 +17,7 @@ keywords: [IN1060, Arduino, programmering, C++, interaksjonsdesign, Universitete
 
 # 1. Introduksjon
 
-## Kort om gruppen
+## 1.1 Kort om gruppen
 
 **Gruppenavn:** <span style="color:orange;">**Ifibabez**</span>
 
@@ -31,7 +31,7 @@ keywords: [IN1060, Arduino, programmering, C++, interaksjonsdesign, Universitete
 
 
 
-## Kort om krav og funksjonalitet
+## 1.2 Kort om krav og funksjonalitet
 
 Den endelige tekniske løsningen for å lage en fungerende artefakt vi kunne filme og vise til brukerne er et resultat av flere iterasjoner og mye eksperimentering med ulike komponenter og 3D-printede elementer. 
 
@@ -66,7 +66,7 @@ For å få boksen til å fungere i henhold til brukernes ønsker og våre spesif
 
 
 
-## Tinkercad-schematic
+## 2.1 Tinkercad-schematic
 
 Under er en av de første **Tinkercad**-schematicene vi satt sammen for å vise hvordan en grunnleggende Arduino-løsning for den lokale funksjonaliteten ville kunne se ut, altså kun hvordan de fysiske komponentene inne i boksen ville snakke med hverandre. Tegningen viser `3 enkle LED-dioder ` (bare ensfargede LED-dioder fremfor RGB for å forenkle koblingene), `3 standard pushbuttons` (fra Starter Kit-et) samt `1 piezo-element` (også fra Starter Kit-et). Disse er koblet enkelt til `5V` og GND og gjennom resistorer der det er nødvendig. I henhold til Arduino-boken fra kitet bør knappene ha `10㏀`-resistorer og LED-diodene bør ha `220Ω`-resistorer. Den høye motstanden for knappene er særlig for å hjelpe med typiske signal-problemer fra mekaniske knapper (som ofte må ytterligere forbedres gjennom `debouncing` i koden uansett).
 
@@ -80,9 +80,9 @@ I tillegg til komponentene som vises her ble en *termoskriver* eller en annen fo
 
 <div style="page-break-after:always" /> 
 
-## 3. Valg av komponenter
+## 2.2 Valg av komponenter
 
-### Utfordring 1: Valg av WiFi-modul
+### 2.2.1 Utfordring 1: Valg av WiFi-modul
 
 Den første utfordringen vi støtte på da vi skulle velge ut og bestille de nødvendige komponentene for å bygge artefakten, var hvilken WiFi-modul vi skulle benytte. Et par kjappe Google-søk ga en haug med resultater fra forskjellige merker, men det var stor variasjon i hva som var tilgjengelig og i hva som egentlig støttet Arduino-kjernen og som kunne programmeres med `.ino`-filer og `C++`-biblioteker. Den aller vanligste WiFi-modulen som benyttes med Arduino Uno som mikrokontroller er kort basert på `ESP8266`-chipen fra **Espressif Systems**. Både ESP8266-modulen til Arduino og andre små utviklingskort basert på ESP8266 var tilgjengelige i norske nettbutikker, blant annet et lite men kraftig `WeMos D1 Mini`-kort fra **Luxorparts**, så disse var gode alternativer.
 
@@ -98,7 +98,11 @@ Den største forskjellen på disse kortene og Arduino-kortene er at sistnevnte e
 
 
 
-### Utfordring 2: Valg av LED-lys
+![IMG_20220523_162237](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_20220523_162237.jpg)
+
+
+
+### 2.2.2 Utfordring 2: Valg av LED-lys
 
 Til boksen ville vi også trenge minst tre LED-dioder som ga en form for *backlight* til vaksineknappene. Et av de viktige feedback-ønskene fra brukerne våre var nemlig at knappen skulle lyse i et gitt intervall, gjerne "så lenge som mulig", hver gang den ble trykket ned. På denne måten ville brukerne enkelt se om knappen faktisk var aktivert uten at den behøvde å lage for mye støy eller forstyrre arbeidsflyten ytterligere.
 
@@ -112,7 +116,11 @@ Til boksen ville vi også trenge minst tre LED-dioder som ga en form for *backli
 
 
 
-### Utfordring 3: Valg av knapper
+![IMG_3089](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3089.JPG)
+
+
+
+### 2.2.3 Utfordring 3: Valg av knapper
 
 Da vi begynte å sette sammen komponentene til artefakten testet vi noen forskjellige knappemekanismer for å se hva som ville passe best. Første runde ble gjennomført med noen helt enkle *pushbuttons* fra Starter Kit-et, men vi skjønte etter hvert at det ville være vanskelig å 3D-printe/lage en festemekanisme for våre custom keycaps som både var solid, stabil og som ga en form for taktil, mekanisk feedback når knappen ble trykket ned. Standard-knappene var rett og slett for små. Vi prøvde videre med knappemoduler som f.eks. **SunFounders** pushbutton-modul til Arduino og Raspberry Pi med `JST`-kabler. Denne typen knapp fungerte godt og hadde en ganske riktig størrelse til keycapsene vi ønsket å bruke, men vi opplevde likevel at feedbacken brukeren fikk ved å trykke den ned ikke var helt som vi skulle ønske. En annen utfordring med disse var at modulen nå nesten ville være for stor til at vi kunne få plass til LED-diodene oppå/ved siden av i hulrommet til knappene på boksen. 
 
@@ -126,7 +134,11 @@ Da vi begynte å sette sammen komponentene til artefakten testet vi noen forskje
 
 
 
-## Liste over alle komponenter som er brukt i den endelige artefakten
+![IMG_3087](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3087.JPG)
+
+
+
+## 2.3 Liste over alle komponenter
 
 | Komponent                                                    | Antall |
 | ------------------------------------------------------------ | ------ |
@@ -145,7 +157,7 @@ Da vi begynte å sette sammen komponentene til artefakten testet vi noen forskje
 
 
 
-## Full hookup-schematic for mikrokontrolleren vi bruker
+## 2.4 IO-oversikt for ESP32-S2 Thing Plus
 
 ![graphical_datasheet_ESP32-S2_thing_plus](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/graphical_datasheet_ESP32-S2_thing_plus.png)
 
@@ -153,7 +165,21 @@ Da vi begynte å sette sammen komponentene til artefakten testet vi noen forskje
 
 <div style="page-break-after:always" /> 
 
-# 4. Kode
+## 2.5 Montering av komponenter
+
+![IMG_3094](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3094.JPG)
+
+![IMG_3096](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3096.JPG)
+
+
+
+![IMG_3097](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3097.JPG)
+
+
+
+
+
+# 3. Kode
 
 > **Disclaimer:** Vi har skrevet all Arduino og C++-kode på engelsk fordi vi selv foretrekker å ikke blande inn norsk i selve koden. Det gjør det lettere for oss å lese koden som anvender eksterne biblioteker og gjør at all koden generelt ser mer "sammensveiset" ut. *Docstrings/kommentarer* er likevel lagt inn på norsk for at koden skal passe fint inn i rapporten.
 
@@ -161,7 +187,9 @@ Da vi begynte å sette sammen komponentene til artefakten testet vi noen forskje
 
 
 
-## LED-diodene (NeoPixelLED)
+## 3.1 LED-diodene (NeoPixelLED)
+
+
 
 ```` c++
 #ifndef NeoPixelLED_H
@@ -257,7 +285,7 @@ void NeoPixelLED::off()
 
 
 
-## Buzzeren (AdaptedBuzzer)
+## 3.2 Buzzeren (AdaptedBuzzer)
 
 
 
@@ -299,17 +327,259 @@ class AdaptedBuzzer
 
 
 
+````c++
+#include <AdaptedBuzzer.h>
+#include <pitches.h>
+
+/**
+ * @brief Oppretter et nytt AdaptedBuzzer-objekt paa gitt pin.
+ * Definerer ogsaa notene i melodien og deres varighet.
+ * @param buzzerPin GPIO-pinen buzzeren er koblet til
+ */
+AdaptedBuzzer::AdaptedBuzzer(uint8_t buzzerPin)
+{
+    _buzzerPin = buzzerPin; // assigner buzzerPinen
+    _playing = false;
+ 
+    int _melody[26] = { // definerer melodien
+        NOTE_E5, NOTE_E5, NOTE_E5,
+        NOTE_E5, NOTE_E5, NOTE_E5,
+        NOTE_E5, NOTE_G5, NOTE_C5, NOTE_D5,
+        NOTE_E5,
+        NOTE_F5, NOTE_F5, NOTE_F5, NOTE_F5,
+        NOTE_F5, NOTE_E5, NOTE_E5, NOTE_E5, NOTE_E5,
+        NOTE_E5, NOTE_D5, NOTE_D5, NOTE_E5,
+        NOTE_D5, NOTE_G5
+        };
+
+    int _noteDurations[26] = { // og meloditonenes varighet
+        8, 8, 4,
+        8, 8, 4,
+        8, 8, 8, 8,
+        2,
+        8, 8, 8, 8,
+        8, 8, 8, 16, 16,
+        8, 8, 8, 8,
+        4, 4
+    };
+
+    unsigned long previousMillis = 0; // variabel for non-blocking pauser
+}
+
+/**
+ * @brief Spiller av en standardtone fra pitches.h (C4) med varighet paa 500 ms.
+ */
+void AdaptedBuzzer::playTone()
+{
+    unsigned long startTime = millis();
+    tone(_buzzerPin, NOTE_C4, 500);
+    unsigned long endTime = millis();
+   
+    while (endTime - startTime < 500) {
+        setPlaying(true);
+        endTime = millis();
+    }
+
+    setPlaying(false);
+}
+
+/**
+ * @brief Spiller av en gitt tone med en gitt varighet.
+ * @param frequency : tonen fra pithces.h som skal spilles av
+ * @param duration : varighet i millisekunder
+ */
+void AdaptedBuzzer::playTone(unsigned int frequency, unsigned long duration)
+{
+    unsigned long startTime = millis();
+    tone(_buzzerPin, frequency, duration);
+    unsigned long endTime = millis();
+   
+    while (endTime - startTime < 500) {
+        setPlaying(true);
+        endTime = millis();
+    }
+
+    setPlaying(false);
+}
+
+/**
+ * @brief Spiller en melodi med non-blocking timing.
+ * Inspirert av Arduinos eget "blink without delay"-eksempel.
+ */
+void AdaptedBuzzer::playMelody()
+{
+    int pauseBetweenNotes;
+    unsigned long currentMillis = millis();
+    for (int thisNote = 0; thisNote < sizeof(_melody); thisNote++) {
+    
+    // to calculate the note duration, take one second divided by the note type.
+    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+        
+        if (currentMillis - previousMillis >= pauseBetweenNotes) {
+            previousMillis = currentMillis;
+            
+            int noteDuration = 1000 / _noteDurations[thisNote];
+
+            tone(_buzzerPin, _melody[thisNote], noteDuration);
+
+            // to distinguish the notes, set a minimum time between them.
+            // the note's duration + 30% seems to work well:
+            pauseBetweenNotes = noteDuration * 1.30;
+
+            // stop the tone playing:
+            noTone(_buzzerPin);
+        }
+    }
+}
+
+/**
+ * @brief Kaller noTone() paa buzzeren for aa stoppe tonen.
+ */
+void AdaptedBuzzer::stopTone() 
+{
+    noTone(_buzzerPin);
+}
+
+/**
+ * @brief Endrer verdien av playing.
+ * @param value : ny verdi
+ */
+void AdaptedBuzzer::setPlaying(bool value)
+{
+    _playing = value;
+}
+
+/**
+ * @brief Sjekker om buzzeren spiller en tone.
+ * @return true : hvis tone spilles
+ * @return false : hvis buzzeren er av
+ */
+bool AdaptedBuzzer::isPlaying()
+{
+    return _playing;
+}
+````
+
+
+
+## 3.3 Knappene (VaxButton)
+
+````c++
+#ifndef VaxButton_h
+#define VaxButton_h
+
+#include <OneButton.h>
+#include <NeoPixelLED.h>
+#include <AdaptedBuzzer.h>
+
+/**
+ * @brief Klassedefinisjon for VaxButton. 
+ * Holder styr paa det custom NeoPixelLED-objektet, AdaptedButton 
+ * og initialiserer en OneButton-knapp med automatisk debouncing
+ * for aa styre begge.
+ */
+class VaxButton 
+{
+    public:
+        VaxButton(int pin, NeoPixelLED& npLED, AdaptedBuzzer& buzzer); // konstrukoer
+        void tick(); 
+        void startLED(int index, int r, int g, int b);
+        void playTone();
+    ;
+
+    private:
+        int _pin;
+        NeoPixelLED& _npLED;
+        OneButton _btn;
+        AdaptedBuzzer& _buzzer;
+        static void handleClick(void *ptr);
+    ;
+};
+
+#endif
+````
+
+
+
+````c++
+#include <VaxButton.h>
+
+/**
+ * @brief Oppretter et nytt objekt av klassen VaxButton med Member Initializer List.
+ * @param pin GPIO-pinen knappen er koblet til.
+ * @param npLED et objekt av klassen NeoPixelLED (LED-stripen som skal brukes).
+ */
+VaxButton::VaxButton(int pin, NeoPixelLED& npLED, AdaptedBuzzer& buzzer) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer)
+{
+    _pin = pin;
+    _btn.attachClick(handleClick, this); // forteller OneButton-knappen hva den skal gjoere ved hvert trykk 
+}
+
+/**
+ * @brief Callback-funksjon med C++-pointer tilbake til this, altsaa knappen.
+ * Kaller startLED-funksjonen naar knappen trykkes, med hvitt lys som default.
+ * Kaller ogsaa playTone()-funksjonen paa AdaptedButton med default innstillinger.
+ * @param ptr C-style pointer til instansen av denne klassen
+ */
+void VaxButton::handleClick(void *ptr) 
+{
+  VaxButton *thingPtr = (VaxButton *) ptr;
+  thingPtr->startLED(0, 255, 255, 255);
+  thingPtr->playTone();
+}
+
+/**
+ * @brief Sjekker status paa knappen. Maa kjoeres kontinuerlig i loop(). 
+ * Kaller knappens tilkoblede funksjoner naar status endres.
+ */
+void VaxButton::tick()
+{
+    _btn.tick();
+}
+
+/**
+ * @brief Starter LED-syklusen i NeoPixel-stripen
+ * for RGB-dioden paa oppgitt indeks og med oppgitt RGB-verdi.
+ * @param pin 
+ */
+void VaxButton::startLED(int index, int r, int g, int b)
+{
+    _npLED.signal(index, r, g, b);
+}
+
+/**
+ * @brief Spiller av en enkel tone via buzzer-objektet.
+ */
+void VaxButton::playTone()
+{
+    _buzzer.playTone();
+}
+````
 
 
 
 
 
-
-## Knappene (VaxButton)
-
+## 3.4 WiFi-innstillinger (WifiManager)
 
 
-## WiFi-innstillinger (WifiManager)
+
+````c++
+````
+
+
+
+````c++
+````
+
+
+
+
+
+````js
+````
+
+
 
 
 
