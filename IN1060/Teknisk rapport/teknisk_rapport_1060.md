@@ -191,6 +191,8 @@ Da vi begynte å sette sammen komponentene til artefakten testet vi noen forskje
 
 
 
+### 3.1.1 NeoPixelLED.h
+
 ```` c++
 #ifndef NeoPixelLED_H
 #define NeoPixelLED_H
@@ -218,6 +220,10 @@ class NeoPixelLED
 ````
 
 
+
+
+
+### 3.1.2 NeoPixelLED.cpp
 
 ````c++
 #include "NeoPixelLED.h"
@@ -290,6 +296,8 @@ void NeoPixelLED::off()
 
 
 
+### 3.2.1 VaxBuzzer.h
+
 ````c++
 #ifndef VaxBuzzer_h
 #define VaxBuzzer_h
@@ -327,6 +335,8 @@ class VaxBuzzer
 ````
 
 
+
+### 3.2.2 VaxBuzzer.cpp
 
 ````c++
 #include <VaxBuzzer.h>
@@ -465,6 +475,10 @@ bool VaxBuzzer::isPlaying()
 
 ## 3.3 Knappene (VaxButton)
 
+
+
+### 3.3.1 VaxButton.h
+
 ````c++
 #ifndef VaxButton_h
 #define VaxButton_h
@@ -503,6 +517,10 @@ class VaxButton
 ````
 
 
+
+
+
+### 3.3.2 VaxButton.cpp
 
 ````c++
 #include <VaxButton.h>
@@ -567,26 +585,36 @@ void VaxButton::playTone()
 
 
 
+### 3.4.1 Kort om bruk av wifi i prosjektet
+
+
+
+### 3.4.2 WifiManager.h
+
 ````c++
 ````
 
 
 
+### 3.4.3 WifiManager.cpp
+
 ````c++
 ````
 
 
 
-
+### 3.4.4 Google script
 
 ````js
 ````
 
 
 
+## 3.5 OTA-innstillinger
 
 
-## Programkode 
+
+## 3.6 Programkode 
 
 
 
