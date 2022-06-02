@@ -35,7 +35,7 @@ keywords: [IN1060, Arduino, programmering, C++, interaksjonsdesign, Universitete
 
 Den endelige tekniske løsningen for å lage en fungerende artefakt vi kunne filme og vise til brukerne er et resultat av flere iterasjoner og mye eksperimentering med ulike komponenter og 3D-printede elementer. 
 
-<img align="right" src="/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/Bilder av prototype/IMG_3102.JPG" alt="IMG_3102" style="zoom:12.5%;padding:45px;"/>Som man kan se i bildet og i videoen vår, består løsningen av en 3D-printet boks med tre lysende mekaniske knapper som representerer de tre vaksine-typene våre brukere ville ha med i prosjektet. Måten boksen skal fungere på er forholdsvis grei å forstå, men inneholder en del steg:
+<img align="right" src="/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/Bilder av prototype/IMG_3102.JPG" alt="IMG_3102" style="zoom:12.5%;padding:65px;"/>Som man kan se i bildet og i videoen vår, består løsningen av en 3D-printet boks med tre lysende mekaniske knapper som representerer de tre vaksine-typene våre brukere ville ha med i prosjektet. Måten boksen skal fungere på er forholdsvis grei å forstå, men inneholder en del steg:
 
 1) Sykepleieren/helsearbeideren ved innregistrering spør innbyggeren om hvilken vaksine vedkommende vil ha `NØDVENDIG HANDLING (PRE-BETINGELSE)`
 2) Sykepleieren/helsearbeideren trykker på knappen som korresponderer med innbyggerens ønske `NØDVENDIG HANDLING (PRE-BETINGELSE)`
@@ -86,7 +86,7 @@ I tillegg til komponentene som vises her ble en *termoskriver* eller en annen fo
 
 Den første utfordringen vi støtte på da vi skulle velge ut og bestille de nødvendige komponentene for å bygge artefakten, var hvilken WiFi-modul vi skulle benytte. Et par kjappe Google-søk ga en haug med resultater fra forskjellige merker, men det var stor variasjon i hva som var tilgjengelig og i hva som egentlig støttet Arduino-kjernen og som kunne programmeres med `.ino`-filer og `C++`-biblioteker. Den aller vanligste WiFi-modulen som benyttes med Arduino Uno som mikrokontroller er kort basert på `ESP8266`-chipen fra **Espressif Systems**. Både ESP8266-modulen til Arduino og andre små utviklingskort basert på ESP8266 var tilgjengelige i norske nettbutikker, blant annet et lite men kraftig `WeMos D1 Mini`-kort fra **Luxorparts**, så disse var gode alternativer.
 
-<img align="right" src="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2018/08/esp32-boards.jpg?resize=750%2C413&quality=100&strip=all&ssl=1" style="zoom:50%;padding:20px 45px;" />Likevel fant vi etter hvert ut av at det allerede har kommet ut en langt kraftigere chip fra Espressif som er kjernen i en rekke nye development boards. Disse støtter alle Arduino-kode og kan programmeres fra `Arduino IDE` eller `PlatformIO`. Blant kortene fant vi for eksempel **Espressifs** egne DEVKIT, **WeMos**' LOLIN32, Huzzah32 fra **Adafruit** og SparkFun Electronics **ESP32-S2 Thing Plus**. Vi landet på sistnevnte av tre grunner:
+<img align="right" src="/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/esp32-boards.jpg" style="zoom:50%;padding:20px 45px;" />Likevel fant vi etter hvert ut av at det allerede har kommet ut en langt kraftigere chip fra Espressif som er kjernen i en rekke nye development boards. Disse støtter alle Arduino-kode og kan programmeres fra `Arduino IDE` eller `PlatformIO`. Blant kortene fant vi for eksempel **Espressifs** egne DEVKIT, **WeMos**' LOLIN32, Huzzah32 fra **Adafruit** og SparkFun Electronics **ESP32-S2 Thing Plus**. Vi landet på sistnevnte av tre grunner:
 
 1) En komplett Thing Plus er faktisk billigere enn en ekstra WiFi-modul til Arduino, selv om den tilbyr langt mer minne og funksjonalitet
 2) Thing Plus støtter LiPo-batterier som kan lades gjennom USB-C-porten på kontrolleren
@@ -98,7 +98,7 @@ Den største forskjellen på disse kortene og Arduino-kortene er at sistnevnte e
 
 
 
-![IMG_20220523_162237](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_20220523_162237.jpg)
+<img src="/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_20220523_162237.jpg" alt="IMG_20220523_162237" style="zoom:25%;" />
 
 
 
@@ -116,7 +116,7 @@ Til boksen ville vi også trenge minst tre LED-dioder som ga en form for *backli
 
 
 
-![IMG_3089](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3089.JPG)
+<img src="/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3089.JPG" alt="IMG_3089" style="zoom: 25%;" />
 
 
 
@@ -134,7 +134,7 @@ Da vi begynte å sette sammen komponentene til artefakten testet vi noen forskje
 
 
 
-![IMG_3087](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3087.JPG)
+<img src="/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3087.JPG" alt="IMG_3087" style="zoom:25%;" />
 
 
 
@@ -163,21 +163,37 @@ Da vi begynte å sette sammen komponentene til artefakten testet vi noen forskje
 
 
 
-<div style="page-break-after:always" /> 
+Som man kan se av hookup-schematicen over er **ESP32-S2**-kortet stapped med funksjonalitet som vi ikke egentlig kommer til å trenge i dette prosjektet. Det er blant annet en rekke pins (14 totalt) som har innebygget støtte for capacitive touch, samt ekstra koblinger som f.eks. `VUSB` eller `VBAT` som tillater å koble direkte til eksterne `USB`-porter eller batterier, samt en egen spesialkobling kalt `Qwiic` som gjør det mulig å "daisy chaine" flere SparkFun-produkter sammen med en type `JST`-kabler uten noen form for lodding eller løse breadboards. 
+
+
 
 ## 2.5 Montering av komponenter
 
-![IMG_3094](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3094.JPG)
+I prosjektet vårt er det særlig **5** funksjoner på ESP32-S2-kortet vi kommer til å bruke:  
 
-![IMG_3096](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3096.JPG)
-
-
-
-![IMG_3097](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3097.JPG)
-
-
+1. Vanlige analoge og digitale `IO`-pins (**3** til LED, **3** til knapper, **1** til buzzer og evt. ekstra)
+2. `JST`-koblingen for det oppladbare lithium-batteriet vårt
+3. `USB-C`-koblingen både for å laste opp de første sketchene over kabel og for å lade batteriet når boksen ikke er i bruk
+4. Innebygget `OTA`-funksjonalitet for å laste opp sketcher (firmware-oppdateringer) trådløst
+5. Innebygget `WiFi`-funksjonalitet for å kommunisere med printeren og evt. et Google Regneark e.l. 
 
 
+
+
+
+
+
+<img src="/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3094.JPG" alt="IMG_3094" style="zoom: 25%;" />
+
+<img src="/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3096.JPG" alt="IMG_3096" style="zoom:25%;" />
+
+
+
+<img src="/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/IMG_3097.JPG" alt="IMG_3097" style="zoom:25%;" />
+
+
+
+<div style="page-break-after:always" /> 
 
 # 3. Kode
 
@@ -858,6 +874,12 @@ void WifiManager::sendUpdateRequest(char * vaxType)
 
 ### 3.4.4 Google script
 
+
+
+![image-20220527212752064](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/image-20220527212752064.png)
+
+
+
 ````js
 function doGet(e){
   Logger.log("--- doGet ---");
@@ -920,6 +942,12 @@ function saveData(vaxType, vaxNumber){
   Logger.log("--- saveData end---"); 
 }
 ````
+
+
+
+![image-20220527212705899](/Users/jorgenosberg/Library/CloudStorage/OneDrive-Personal/Universitetet i Oslo/Informatikk/2. semester/ifibabez/ifibabez/IN1060/Teknisk rapport/image-20220527212705899.png)
+
+
 
 
 
