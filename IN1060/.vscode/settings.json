@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.rmd": "markdown",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "neopixelled.h": "c"
     }
 }
