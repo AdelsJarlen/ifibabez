@@ -203,19 +203,19 @@ I prosjektet vårt er det særlig **5** funksjoner på ESP32-S2-kortet vi kommer
 
 
 
-## 3.1 LED-diodene (NeoPixelLED)
+## 3.1 LED-diodene (VaxLED)
 
 
 
-### 3.1.1 NeoPixelLED.h
+### 3.1.1 VaxLED.h
 
 ```` c++
-#ifndef NeoPixelLED_H
-#define NeoPixelLED_H
+#ifndef VaxLED_H
+#define VaxLED_H
 
 #include <Adafruit_NeoPixel.h>
 
-class NeoPixelLED
+class VaxLED
 {
     private:
         Adafruit_NeoPixel flora; // lagrer NeoPixel-objektet med Adafruits custom-klasse
@@ -226,7 +226,7 @@ class NeoPixelLED
   
   
   	public:
-        NeoPixelLED(int led_count, int pin); // konstruktoer
+        VaxLED(int led_count, int pin); // konstruktoer
         void signal(int index, int r, int g, int b); // hovedfunksjon for aa starte LED-sekvens
         void off(); // skrur av LED-en helt
     ;
@@ -239,12 +239,12 @@ class NeoPixelLED
 
 
 
-### 3.1.2 NeoPixelLED.cpp
+### 3.1.2 VaxLED.cpp
 
 ````c++
-#include "NeoPixelLED.h"
+#include "VaxLED.h"
 
-NeoPixelLED::NeoPixelLED(int led_count, int pin) 
+VaxLED::VaxLED(int led_count, int pin) 
 {
   _led_count = led_count;
   _pin = pin;
@@ -252,7 +252,7 @@ NeoPixelLED::NeoPixelLED(int led_count, int pin)
 };
 
 
-void NeoPixelLED::signal(int index, int r, int g, int b)
+void VaxLED::signal(int index, int r, int g, int b)
 {
   int interval = 15;
   long startTime = millis();
@@ -300,7 +300,7 @@ void NeoPixelLED::signal(int index, int r, int g, int b)
   }
 };
 
-void NeoPixelLED::off() 
+void VaxLED::off() 
 {
   flora.clear();
 }
@@ -500,20 +500,20 @@ bool VaxBuzzer::isPlaying()
 #define VaxButton_h
 
 #include <OneButton.h>
-#include <NeoPixelLED.h>
+#include <VaxLED.h>
 #include <VaxBuzzer.h>
 #include <WifiManager.h>
 
 /**
  * @brief Klassedefinisjon for VaxButton. 
- * Holder styr paa det custom NeoPixelLED-objektet, AdaptedButton 
+ * Holder styr paa det custom VaxLED-objektet, AdaptedButton 
  * og initialiserer en OneButton-knapp med automatisk debouncing
  * for aa styre begge.
  */
 class VaxButton 
 {
     public:
-        VaxButton(int pin, char* vaksinetype, NeoPixelLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager); // konstrukoer
+        VaxButton(int pin, char* vaksinetype, VaxLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager); // konstrukoer
         void tick(); 
         void startLED(int index, int r, int g, int b);
         void playTone();
@@ -522,7 +522,7 @@ class VaxButton
     private:
         int _pin;
         char* _vaksinetype;
-        NeoPixelLED& _npLED;
+        VaxLED& _npLED;
         OneButton _btn;
         VaxBuzzer& _buzzer;
         WifiManager& _wifiManager;
@@ -546,10 +546,10 @@ class VaxButton
  * @brief Oppretter et nytt objekt av klassen VaxButton med Member Initializer List.
  * @param pin : GPIO-pinen knappen er koblet til
  * @param vaksinetype : vaksinetypen knappen representerer (som char array)
- * @param npLED : en referanse til et objekt av klassen NeoPixelLED (LED-stripen som skal brukes)
+ * @param npLED : en referanse til et objekt av klassen VaxLED (LED-stripen som skal brukes)
  * @param buzzer : en referanse til et objekt av klassen VaxBuzzer
  */
-VaxButton::VaxButton(int pin, char* vaksinetype, NeoPixelLED& npLED, VaxBuzzer& buzzer) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer)
+VaxButton::VaxButton(int pin, char* vaksinetype, VaxLED& npLED, VaxBuzzer& buzzer) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer)
 {
     _pin = pin;
     _vaksinetype = vaksinetype;

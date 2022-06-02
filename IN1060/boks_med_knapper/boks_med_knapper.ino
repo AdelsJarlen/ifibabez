@@ -15,9 +15,9 @@ int BUTTON_3 = 11;
 
 // InputMonitor inpMonitor(BUTTON_1, BUTTON_2, BUTTON_3, LED_1, LED_2, LED_3);
 
-NeoPixelLED led1(0, LED_1);
-NeoPixelLED led2(0, LED_2);
-NeoPixelLED led3(0, LED_3);
+VaxLED led1(0, LED_1);
+VaxLED led2(0, LED_2);
+VaxLED led3(0, LED_3);
 
 VaxButton btn1(BUTTON_1, led1);
 VaxButton btn2(BUTTON_2, led2);

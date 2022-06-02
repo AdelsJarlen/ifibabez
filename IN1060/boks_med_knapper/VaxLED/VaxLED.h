@@ -1,12 +1,12 @@
-#ifndef NeoPixelLED_H
-#define NeoPixelLED_H
+#ifndef VaxLED_H
+#define VaxLED_H
 
 #include <Adafruit_NeoPixel.h>
 
-class NeoPixelLED
+class VaxLED
 {
     public:
-        NeoPixelLED(int led_count, int pin);
+        VaxLED(int led_count, int pin);
         void signal(int index, int r, int g, int b);
         void off();
     ;

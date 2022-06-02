@@ -8,7 +8,7 @@
                 "${workspaceFolder}/boks_med_knapper/libraries/NTPClient/**",
                 "${workspaceFolder}/boks_med_knapper/libraries/WiFi/**",
                 "${workspaceFolder}/boks_med_knapper/VaxBuzzer/**",
-                "${workspaceFolder}/boks_med_knapper/NeoPixelLED/**",
+                "${workspaceFolder}/boks_med_knapper/VaxLED/**",
                 "${workspaceFolder}/boks_med_knapper/VaxButton/**",
                 "${workspaceFolder}/boks_med_knapper/WifiManager/**",
 

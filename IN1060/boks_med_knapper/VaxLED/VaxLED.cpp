@@ -1,6 +1,6 @@
-#include "NeoPixelLED.h"
+#include "VaxLED.h"
 
-NeoPixelLED::NeoPixelLED(int led_count, int pin) 
+VaxLED::VaxLED(int led_count, int pin) 
 {
   _led_count = led_count;
   _pin = pin;
@@ -8,7 +8,7 @@ NeoPixelLED::NeoPixelLED(int led_count, int pin)
 };
 
 // Naar signaliserer til 
-void NeoPixelLED::signal(int index, int r, int g, int b)
+void VaxLED::signal(int index, int r, int g, int b)
 {
   int interval = 15;
   long startTime = millis();
@@ -56,7 +56,7 @@ void NeoPixelLED::signal(int index, int r, int g, int b)
   }
 };
 
-void NeoPixelLED::off() 
+void VaxLED::off() 
 {
   flora.clear();
 }

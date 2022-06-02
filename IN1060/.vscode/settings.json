@@ -2,6 +2,6 @@
     "files.associations": {
         "*.rmd": "markdown",
         "chrono": "cpp",
-        "neopixelled.h": "c"
+        "VaxLED.h": "c"
     }
 }

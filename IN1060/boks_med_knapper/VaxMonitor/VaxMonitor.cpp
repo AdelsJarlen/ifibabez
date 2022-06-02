@@ -4,10 +4,10 @@
  * @brief Oppretter et nytt objekt av klassen VaxMonitor med Member Initializer List.
  * @param pin : GPIO-pinen knappen er koblet til
  * @param vaxType : vaksinetypen knappen representerer (som char array)
- * @param npLED : en referanse til et objekt av klassen NeoPixelLED (LED-stripen som skal brukes)
+ * @param npLED : en referanse til et objekt av klassen VaxLED (LED-stripen som skal brukes)
  * @param buzzer : en referanse til et objekt av klassen VaxBuzzer
  */
-VaxMonitor::VaxMonitor(int pin, char* vaxType, NeoPixelLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer), _wifiManager(wifiManager)
+VaxMonitor::VaxMonitor(int pin, char* vaxType, VaxLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer), _wifiManager(wifiManager)
 {
     _pin = pin;
     _vaxType = vaxType;
