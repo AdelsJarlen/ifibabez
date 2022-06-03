@@ -2,7 +2,7 @@
 #define WifiManager_h
 
 #include <WiFi.h>
-#include <WiFiUdp.h>
+#include <time.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include <HardwareSerial.h>
@@ -11,7 +11,7 @@ class WifiManager
 {
     public:
         WifiManager(HardwareSerial& hwSerial);
-        WifiManager(char * ssid, char * password, char * domain, char * scriptID, int port, HardwareSerial& hwSerial);
+        WifiManager(char * ssid, char * password, char * domain, int port, HardwareSerial& hwSerial);
         void connectToWiFi();
         void requestTime();
         void requestURL();

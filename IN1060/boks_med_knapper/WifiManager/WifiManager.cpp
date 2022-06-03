@@ -12,13 +12,14 @@ WifiManager::WifiManager(HardWareSerial& hwSerial) : _hwSerial(hwSerial)
   _password = "WIFI_PASSWORD";
 
   _domain = "http://example.com/";
-  _ntp = "europe.pool.ntp.org";
   _port = 80;
+
+  _ntp = "europe.pool.ntp.org";
+  _gmtOffset = 3600;
+  _dstOffset = 3600;
 
   _scriptID = "AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t"
   _scriptURL = "https://script.google.com/macros/s/AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t/exec"
-
-  _vaxNumber = 0;
 }
 
 /**
@@ -31,7 +32,7 @@ WifiManager::WifiManager(HardWareSerial& hwSerial) : _hwSerial(hwSerial)
  * @param port : porten man skal bruke
  * @param hwSerial : referanse til et Serial-objekt for aa logge det som skjer
  */
-WifiManager::WifiManager(char* ssid, char* password, char* domain, char* scriptID, int port, HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
+WifiManager::WifiManager(char* ssid, char* password, char* domain, int port, HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
 {
   // WiFi network name and password:
   _ssid = ssid;
@@ -39,15 +40,15 @@ WifiManager::WifiManager(char* ssid, char* password, char* domain, char* scriptI
 
   // Internet domain to request from:
   _domain = domain;
-  _scriptID = scriptID;
   _port = port;
 
+
   _ntp = "europe.pool.ntp.org";
+  _gmtOffset = 3600;
+  _dstOffset = 3600;
 
   _scriptID = "AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t"
   _scriptURL = "https://script.google.com/macros/s/AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t/exec"
-
-  _vaxNumber = 0;
 }
 
 /**
@@ -143,6 +144,8 @@ void WifiManager::requestTime()
     connectToWiFi();
   }
 
+  configTime(_gmtOffset, _dstOffset, _ntp);
+
   // henter ut en Timestructure fra epochTime fra NTP-serveren
   struct tm timeinfo;
 
@@ -160,7 +163,7 @@ void WifiManager::requestTime()
  * vaksinetype og vaksinenummer.
  * @param vaxType : vaksinetypen som har blitt trykket, sendes fra knappen
  */
-void WifiManager::sendUpdateRequest(char * vaxType)
+void WifiManager::sendUpdateRequest(char * vaxType, int vaxNumber)
 {
   // sjekker om WiFi er koblet til
   if (WiFi.status() != WL_CONNECTED)
@@ -184,7 +187,7 @@ void WifiManager::sendUpdateRequest(char * vaxType)
   StaticJsonDocument<200> jsonDoc;
 
   jsonDoc["vaxType"] = vaxType;
-  jsonDoc["vaxNumber"] = _vaxNumber;
+  jsonDoc["vaxNumber"] = vaxNumber;
   
   // konverterer JSON til String som kan sendes
   String requestBody;
@@ -204,7 +207,4 @@ void WifiManager::sendUpdateRequest(char * vaxType)
     _hwSerial.print("Error code: ");
     _hwSerial.println(httpResponseCode);
   }
-
-    // oeker vaksinetelleren vaar til slutt
-    _vaxNumber++;
 }

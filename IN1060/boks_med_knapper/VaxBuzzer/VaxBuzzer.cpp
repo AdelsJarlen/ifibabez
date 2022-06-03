@@ -10,28 +10,6 @@ VaxBuzzer::VaxBuzzer(uint8_t buzzerPin)
 {
     _buzzerPin = buzzerPin; // assigner buzzerPinen
     _playing = false;
- 
-    int _melody[26] = { // definerer melodien
-        NOTE_E5, NOTE_E5, NOTE_E5,
-        NOTE_E5, NOTE_E5, NOTE_E5,
-        NOTE_E5, NOTE_G5, NOTE_C5, NOTE_D5,
-        NOTE_E5,
-        NOTE_F5, NOTE_F5, NOTE_F5, NOTE_F5,
-        NOTE_F5, NOTE_E5, NOTE_E5, NOTE_E5, NOTE_E5,
-        NOTE_E5, NOTE_D5, NOTE_D5, NOTE_E5,
-        NOTE_D5, NOTE_G5
-        };
-
-    int _noteDurations[26] = { // og meloditonenes varighet
-        8, 8, 4,
-        8, 8, 4,
-        8, 8, 8, 8,
-        2,
-        8, 8, 8, 8,
-        8, 8, 8, 16, 16,
-        8, 8, 8, 8,
-        4, 4
-    };
 
     unsigned long previousMillis = 0; // variabel for non-blocking pauser
 }
@@ -77,36 +55,6 @@ void VaxBuzzer::playTone(unsigned int frequency, unsigned long duration)
 }
 
 /**
- * @brief Spiller en melodi med non-blocking timing.
- * Inspirert av Arduinos eget "blink without delay"-eksempel.
- */
-void VaxBuzzer::playMelody()
-{
-    int pauseBetweenNotes;
-    unsigned long currentMillis = millis();
-    for (int thisNote = 0; thisNote < sizeof(_melody); thisNote++) {
-    
-    // to calculate the note duration, take one second divided by the note type.
-    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-        
-        if (currentMillis - previousMillis >= pauseBetweenNotes) {
-            previousMillis = currentMillis;
-            
-            int noteDuration = 1000 / _noteDurations[thisNote];
-
-            tone(_buzzerPin, _melody[thisNote], noteDuration);
-
-            // to distinguish the notes, set a minimum time between them.
-            // the note's duration + 30% seems to work well:
-            pauseBetweenNotes = noteDuration * 1.30;
-
-            // stop the tone playing:
-            noTone(_buzzerPin);
-        }
-    }
-}
-
-/**
  * @brief Kaller noTone() paa buzzeren for aa stoppe tonen.
  */
 void VaxBuzzer::stopTone() 
@@ -132,3 +80,61 @@ bool VaxBuzzer::isPlaying()
 {
     return _playing;
 }
+
+/**
+ * @brief Spiller en melodi med non-blocking timing.
+ * Inspirert av Arduinos eget "blink without delay"-eksempel.
+ */
+void VaxBuzzer::playMelody()
+{
+    int pauseBetweenNotes;
+    unsigned long currentMillis = millis();
+    for (int thisNote = 0; thisNote < sizeof(melody); thisNote++) {
+    
+    // to calculate the note duration, take one second divided by the note type.
+    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+        
+        if (currentMillis - previousMillis >= pauseBetweenNotes) {
+            previousMillis = currentMillis;
+            
+            int noteDuration = 1000 / noteDurations[thisNote];
+
+            tone(_buzzerPin, melody[thisNote], noteDuration);
+
+            // to distinguish the notes, set a minimum time between them.
+            // the note's duration + 30% seems to work well:
+            pauseBetweenNotes = noteDuration * 1.30;
+
+            // stop the tone playing:
+            noTone(_buzzerPin);
+        }
+    }
+}
+
+
+void VaxBuzzer::playStartupSound()
+{
+    int melody[3] = { // definerer melodien
+        NOTE_C4, NOTE_E4, NOTE_G4,
+        };
+
+    int noteDurations[3] = { // og meloditonenes varighet
+        4, 4, 4,
+    };
+
+    playMelody(melody, noteDurations);
+}
+
+void VaxBuzzer::playShutdownSound()
+{
+    int melody[3] = { // definerer melodien
+        NOTE_G4, NOTE_E4, NOTE_C4,
+        };
+
+    int noteDurations[3] = { // og meloditonenes varighet
+        4, 4, 4,
+    };
+
+    playMelody(melody, noteDurations);
+}
+

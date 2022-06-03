@@ -15,18 +15,18 @@ class VaxBuzzer
         VaxBuzzer(uint8_t buzzerPin);
         void playTone();
         void playTone(unsigned int frequency, unsigned long duration);
-        void playMelody();
         void stopTone();
-        void setPlaying(bool value);
-        bool isPlaying();
+        void playStartupSound();
+        void playShutdownSound();
         unsigned long previousMillis;
     ;
 
     private:
+        void playMelody(int[] melody, int[] noteDurations);
+        void setPlaying(bool value);
+        bool isPlaying();
         uint8_t _buzzerPin;
         bool _playing;
-        int _melody[26];
-        int _noteDurations[26];
     ;
 };
 
