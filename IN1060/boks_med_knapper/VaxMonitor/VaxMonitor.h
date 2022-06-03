@@ -15,7 +15,7 @@
 class VaxMonitor 
 {
     public:
-        VaxMonitor(int pin1, int pin2, int pin3, VaxLED& led1, VaxLED& led2, VaxLED& led2, VaxBuzzer& buzzer, WifiManager& wifiManager); // konstruktoer
+        VaxMonitor(uint8_t pin1, uint8_t pin2, uint8_t pin3, VaxLED& led1, VaxLED& led2, VaxLED& led2, VaxBuzzer& buzzer, WifiManager& wifiManager); // konstruktoer
         void refresh(); // sjekker status paa knappene
     ;
 

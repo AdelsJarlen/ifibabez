@@ -6,14 +6,14 @@
 class VaxLED
 {
     public:
-        VaxLED(int led_count, int pin);
+        VaxLED(int led_count, uint8_t pin);
         void signal(int index, int r, int g, int b);
         void off();
     ;
 
     private:
         Adafruit_NeoPixel flora;
-        int _pin;
+        uint8_t _pin;
         int _led_count;
         int _default_brightness = 200;
     ;

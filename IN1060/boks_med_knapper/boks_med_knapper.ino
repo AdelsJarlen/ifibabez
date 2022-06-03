@@ -1,6 +1,5 @@
 #include <InputMonitor.h>
 
-
 int BUTTON_1 = 13;
 int BUTTON_2 = 12;
 int BUTTON_3 = 11;
@@ -14,6 +13,8 @@ int BUTTON_3 = 11;
 #define BUZZER A4
 
 // InputMonitor inpMonitor(BUTTON_1, BUTTON_2, BUTTON_3, LED_1, LED_2, LED_3);
+
+VaxBuzzer buzzer()
 
 VaxLED led1(0, LED_1);
 VaxLED led2(0, LED_2);

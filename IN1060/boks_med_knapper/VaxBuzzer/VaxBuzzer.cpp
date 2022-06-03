@@ -111,7 +111,10 @@ void VaxBuzzer::playMelody()
     }
 }
 
-
+/**
+ * @brief Bruker playMelody() for aa spille av en enkel
+ * treklang som startup-lyd.
+ */
 void VaxBuzzer::playStartupSound()
 {
     int melody[3] = { // definerer melodien
@@ -125,6 +128,12 @@ void VaxBuzzer::playStartupSound()
     playMelody(melody, noteDurations);
 }
 
+/**
+ * @brief Bruker playMelody() for aa spill av en invertert
+ * treklang som en shutdown-lyd. Kan brukes hvis boksen skal slaas
+ * av, men 
+ * 
+ */
 void VaxBuzzer::playShutdownSound()
 {
     int melody[3] = { // definerer melodien

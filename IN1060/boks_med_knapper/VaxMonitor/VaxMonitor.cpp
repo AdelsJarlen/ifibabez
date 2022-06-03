@@ -6,7 +6,7 @@
  * @param led 1-3 : en referanse til et objekt av klassen VaxLED (LED-stripen som skal brukes)
  * @param buzzer : en referanse til et objekt av klassen VaxBuzzer
  */
-VaxMonitor::VaxMonitor(int pin1, int pin2, int pin3, VaxLED& led1, VaxLED& led2, VaxLED& led3, VaxBuzzer& buzzer, WifiManager& wifiManager) : 
+VaxMonitor::VaxMonitor(uint8_t pin1, uint8_t pin2, uint8_t pin3, VaxLED& led1, VaxLED& led2, VaxLED& led3, VaxBuzzer& buzzer, WifiManager& wifiManager) : 
 _led1(led1), _led2(led2), _led3(led3), _buzzer(buzzer), _wifiManager(wifiManager)
 {   
     // oppretter alle OneButton-objektene som klassevariabler

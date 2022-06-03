@@ -1,6 +1,6 @@
 #include "VaxLED.h"
 
-VaxLED::VaxLED(int led_count, int pin) 
+VaxLED::VaxLED(int led_count, uint8_t pin) 
 {
   _led_count = led_count;
   _pin = pin;
