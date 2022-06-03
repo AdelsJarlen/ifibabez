@@ -50,6 +50,8 @@ void VaxBuzzer::playTone()
         endTime = millis();
     }
 
+    stopTone();
+
     setPlaying(false);
 }
 
@@ -68,6 +70,8 @@ void VaxBuzzer::playTone(unsigned int frequency, unsigned long duration)
         setPlaying(true);
         endTime = millis();
     }
+
+    stopTone();
 
     setPlaying(false);
 }

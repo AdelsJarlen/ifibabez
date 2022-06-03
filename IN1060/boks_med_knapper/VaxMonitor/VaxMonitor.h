@@ -7,31 +7,34 @@
 #include <WifiManager.h>
 
 /**
- * @brief Klassedefinisjon for VaxButton. 
- * Holder styr paa det custom VaxLED-objektet, AdaptedButton 
- * og initialiserer en OneButton-knapp med automatisk debouncing
- * for aa styre begge.
+ * @brief Klassedefinisjon for VaxMonitor. 
+ * Holder styr paa alle objektene av VaxLED-klassen, VaxBuzzeren
+ * og WifiManageren. Oppretter instanser av OneButton med riktig funksjonskall
+ * til hver vaksinetype.
  */
 class VaxMonitor 
 {
     public:
-        VaxMonitor(int[] pins, VaxLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager); // konstruktoer
-        void refresh(); 
+        VaxMonitor(int pin1, int pin2, int pin3, VaxLED& led1, VaxLED& led2, VaxLED& led2, VaxBuzzer& buzzer, WifiManager& wifiManager); // konstruktoer
+        void refresh(); // sjekker status paa knappene
     ;
 
-    private:
-        int[] _pins;
-        
-        VaxLED& _npLED;
+    private:        
+        VaxBuzzer& _buzzer;
+
+        WifiManager& _wifiManager;
+
+        VaxLED& _led1;
+        VaxLED& _led2;
+        VaxLED& _led3;
+
         OneButton _btn1;
         OneButton _btn2;
         OneButton _btn3;
-        VaxBuzzer& _buzzer;
-        WifiManager& _wifiManager;
 
-        static void handleClick(void *ptr);
-        void startLED(int index, int r, int g, int b);
-        void playTone();
+        static void btn1Clicked();
+        static void btn2Clicked();
+        static void btn3Clicked();
     ;
 };
 

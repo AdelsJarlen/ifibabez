@@ -2,16 +2,21 @@
 
 /**
  * @brief Oppretter et nytt objekt av klassen VaxMonitor med Member Initializer List.
- * @param pin : GPIO-pinen knappen er koblet til
- * @param vaxType : vaksinetypen knappen representerer (som char array)
- * @param npLED : en referanse til et objekt av klassen VaxLED (LED-stripen som skal brukes)
+ * @param pin 1-3 : GPIO-pinene knappene er koblet til
+ * @param led 1-3 : en referanse til et objekt av klassen VaxLED (LED-stripen som skal brukes)
  * @param buzzer : en referanse til et objekt av klassen VaxBuzzer
  */
-VaxMonitor::VaxMonitor(int pin, char* vaxType, VaxLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer), _wifiManager(wifiManager)
-{
-    _pin = pin;
-    _vaxType = vaxType;
-    _btn.attachClick(handleClick, this); // forteller OneButton-knappen hva den skal gjoere ved hvert trykk 
+VaxMonitor::VaxMonitor(int pin1, int pin2, int pin3, VaxLED& led1, VaxLED& led2, VaxLED& led3, VaxBuzzer& buzzer, WifiManager& wifiManager) : 
+_led1(led1), _led2(led2), _led3(led3), _buzzer(buzzer), _wifiManager(wifiManager)
+{   
+    // oppretter alle OneButton-objektene som klassevariabler
+    _btn1(pin1, true, true)
+    _btn2(pin2, true, true)
+    _btn3(pin3, true, true)
+
+    _btn1.attachClick(btn1Clicked);
+    _btn2.attachClick(btn2Clicked);
+    _btn3.attachClick(btn3Clicked);
 }
 
 /**
@@ -20,45 +25,46 @@ VaxMonitor::VaxMonitor(int pin, char* vaxType, VaxLED& npLED, VaxBuzzer& buzzer,
  * Kaller ogsaa playTone()-funksjonen paa AdaptedButton med default innstillinger.
  * @param ptr : C-style pointer til instansen av denne klassen
  */
-void VaxMonitor::handleClick(void *ptr) 
+void VaxMonitor::btn1Clicked() 
 {
-  VaxMonitor *vaxPtr = (VaxMonitor *) ptr;
-  vaxPtr->startLED(0, 255, 255, 255);
-  vaxPtr->playTone();
-  vaxPtr->sendUpdateRequest();
+  _led1.signal();
+  _buzzer.playTone();
+  _wifiManager.sendUpdateRequest("Pfizer (0,3 ml)")
+}
+
+/**
+ * @brief Callback-funksjon med C++-pointer tilbake til this, altsaa knappen.
+ * Kaller startLED-funksjonen naar knappen trykkes, med hvitt lys som default.
+ * Kaller ogsaa playTone()-funksjonen paa AdaptedButton med default innstillinger.
+ * @param ptr : C-style pointer til instansen av denne klassen
+ */
+void VaxMonitor::btn2Clicked() 
+{
+  _led2.signal();
+  _buzzer.playTone();
+  _wifiManager.sendUpdateRequest("Moderna (0,25 ml)")
+}
+
+/**
+ * @brief Callback-funksjon med C++-pointer tilbake til this, altsaa knappen.
+ * Kaller startLED-funksjonen naar knappen trykkes, med hvitt lys som default.
+ * Kaller ogsaa playTone()-funksjonen paa AdaptedButton med default innstillinger.
+ * @param ptr : C-style pointer til instansen av denne klassen
+ */
+void VaxMonitor::btn3Clicked() 
+{
+  _led3.signal();
+  _buzzer.playTone();
+  _wifiManager.sendUpdateRequest("Moderna (0,5 ml)")
 }
 
 /**
  * @brief Sjekker status paa knappen. Maa kjoeres kontinuerlig i loop(). 
  * Kaller knappens tilkoblede funksjoner naar status endres.
  */
-void VaxMonitor::tick()
+void VaxMonitor::refresh()
 {
-    _btn.tick();
-}
-
-/**
- * @brief Starter LED-syklusen i NeoPixel-stripen
- * for RGB-dioden paa oppgitt indeks og med oppgitt RGB-verdi.
- * @param index : indeks for leden i "flora"-objektet (hvis man har flere koblet i serie)
- * @param r : Roed verdi (RGB, 0-255)
- * @param g : Groenn verdi (RGB, 0-255)
- * @param b : Blaa verdi (RGB, 0-255)
- */
-void VaxMonitor::startLED(int index, int r, int g, int b)
-{
-    _npLED.signal(index, r, g, b);
-}
-
-/**
- * @brief Spiller av en enkel tone via buzzer-objektet.
- */
-void VaxMonitor::playTone()
-{
-    _buzzer.playTone();
-}
-
-void VaxMonitor::sendUpdateRequest()
-{
-    _wifiManager.sendUpdateRequest(_vaxType);
+    _btn1.tick();
+    _btn2.tick();
+    _btn3.tick();
 }

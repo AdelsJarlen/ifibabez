@@ -31,7 +31,7 @@ WifiManager::WifiManager(HardWareSerial& hwSerial) : _hwSerial(hwSerial)
  * @param port : porten man skal bruke
  * @param hwSerial : referanse til et Serial-objekt for aa logge det som skjer
  */
-WifiManager::WifiManager(char * ssid, char * password, char * domain, char * scriptID, int port, HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
+WifiManager::WifiManager(char* ssid, char* password, char* domain, char* scriptID, int port, HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
 {
   // WiFi network name and password:
   _ssid = ssid;
