@@ -5,29 +5,31 @@
 #include <time.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
-#include <HardwareSerial.h>
 
 class WifiManager
 {
     public:
-        WifiManager(HardwareSerial& hwSerial);
-        WifiManager(char * ssid, char * password, char * domain, int port, HardwareSerial& hwSerial);
-        void connectToWiFi();
-        void requestTime();
-        void requestURL();
-        void sendUpdateRequest();
+        WifiManager();
+        WifiManager(char * ssid, char * password, char * domain, int port);
+        bool connectToWiFi();
+        void disconnect();
+
+        bool sendUpdateRequest(char* vaxType, int vaxNumber);
+        String requestTime();
+        String requestURL();
     ;
 
     private:
+        // wifi settings
         char * _ssid;
         char * _password;
-        char * _domain;
-        char * _ntp;
+
+        // google script settings
         char * _scriptID;
         char * _scriptURL;
-        int _port;
-        int _vaxNumber;
-        HardWareSerial& _hwSerial;
+
+        // ntp server settings
+        char * _ntp;
         unsigned long _gmtOffset;
         unsigned int _dstOffset;
     ;

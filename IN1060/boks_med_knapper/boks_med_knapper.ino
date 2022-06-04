@@ -1,38 +1,31 @@
-#include <InputMonitor.h>
+#include <VaxMonitor.h>
 
-int BUTTON_1 = 13;
-int BUTTON_2 = 12;
-int BUTTON_3 = 11;
+uint8_t BUTTON1_PIN = 11;
+uint8_t BUTTON2_PIN = 12;
+uint8_t BUTTON3_PIN = 13;
 
-#define LED_1 A2
-#define LED_2 A1
-#define LED_3 A3
+#define LED1_PIN A1
+#define LED2_PIN A2
+#define LED3_PIN A3
 
-#define LED_COUNT 1
+#define BUZZER_PIN A4
 
-#define BUZZER A4
+VaxBuzzer buzzer(BUZZER_PIN);
 
-// InputMonitor inpMonitor(BUTTON_1, BUTTON_2, BUTTON_3, LED_1, LED_2, LED_3);
+VaxLED led1(0, LED1_PIN);
+VaxLED led2(0, LED2_PIN);
+VaxLED led3(0, LED3_PIN);
 
-VaxBuzzer buzzer()
+WifiManager wifiManager();
 
-VaxLED led1(0, LED_1);
-VaxLED led2(0, LED_2);
-VaxLED led3(0, LED_3);
-
-VaxButton btn1(BUTTON_1, led1);
-VaxButton btn2(BUTTON_2, led2);
-VaxButton btn3(BUTTON_3, led3);
+VaxMonitor vaxMonitor(BUTTON1_PIN, BUTTON2_PIN, BUTTON3_PIN, led1, led2, led3, buzzer, wifiManager);
 
 void setup() 
 {
-  Serial.begin(115200);
-  Serial.print(F("... Starter serial med baud rate 115200"));  
+  vaxMonitor.startup();
 }
 
 void loop() 
 {
-  btn1.tick();
-  btn2.tick();
-  btn3.tick();
+  vaxMonitor.refresh();
 }

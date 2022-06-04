@@ -23,7 +23,6 @@ _led1(led1), _led2(led2), _led3(led3), _buzzer(buzzer), _wifiManager(wifiManager
  * @brief Callback-funksjon med C++-pointer tilbake til this, altsaa knappen.
  * Kaller startLED-funksjonen naar knappen trykkes, med hvitt lys som default.
  * Kaller ogsaa playTone()-funksjonen paa AdaptedButton med default innstillinger.
- * @param ptr : C-style pointer til instansen av denne klassen
  */
 void VaxMonitor::btn1Clicked() 
 {
@@ -67,4 +66,24 @@ void VaxMonitor::refresh()
     _btn1.tick();
     _btn2.tick();
     _btn3.tick();
+}
+
+/**
+ * @brief Sjekker status paa knappen. Maa kjoeres kontinuerlig i loop(). 
+ * Kaller knappens tilkoblede funksjoner naar status endres.
+ */
+void VaxMonitor::startup()
+{
+    _buzzer.playStartupSound();
+    _wifiManager.connectToWiFi();
+}
+
+/**
+ * @brief Sjekker status paa knappen. Maa kjoeres kontinuerlig i loop(). 
+ * Kaller knappens tilkoblede funksjoner naar status endres.
+ */
+void VaxMonitor::shutdown()
+{
+    _buzzer.playShutdownSound();
+    _wifiManager.disconnect();
 }
