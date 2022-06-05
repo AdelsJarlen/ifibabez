@@ -502,7 +502,7 @@ bool VaxBuzzer::isPlaying()
 #include <OneButton.h>
 #include <VaxLED.h>
 #include <VaxBuzzer.h>
-#include <WifiManager.h>
+#include <VaxWifiManager.h>
 
 /**
  * @brief Klassedefinisjon for VaxButton. 
@@ -513,7 +513,7 @@ bool VaxBuzzer::isPlaying()
 class VaxButton 
 {
     public:
-        VaxButton(int pin, char* vaksinetype, VaxLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager); // konstrukoer
+        VaxButton(int pin, char* vaksinetype, VaxLED& npLED, VaxBuzzer& buzzer, VaxWifiManager& VaxWifiManager); // konstrukoer
         void tick(); 
         void startLED(int index, int r, int g, int b);
         void playTone();
@@ -525,7 +525,7 @@ class VaxButton
         VaxLED& _npLED;
         OneButton _btn;
         VaxBuzzer& _buzzer;
-        WifiManager& _wifiManager;
+        VaxWifiManager& _VaxWifiManager;
         static void handleClick(void *ptr);
     ;
 };
@@ -604,7 +604,7 @@ void VaxButton::playTone()
 
 
 
-## 3.4 WiFi-innstillinger (WifiManager)
+## 3.4 WiFi-innstillinger (VaxWifiManager)
 
 
 
@@ -612,11 +612,11 @@ void VaxButton::playTone()
 
 
 
-### 3.4.2 WifiManager.h
+### 3.4.2 VaxWifiManager.h
 
 ````c++
-#ifndef WifiManager_h
-#define WifiManager_h
+#ifndef VaxWifiManager_h
+#define VaxWifiManager_h
 
 #include <WiFi.h>
 #include <WiFiUdp.h>
@@ -624,11 +624,11 @@ void VaxButton::playTone()
 #include <ArduinoJson.h>
 #include <HardwareSerial.h>
 
-class WifiManager
+class VaxWifiManager
 {
     public:
-        WifiManager(HardWareSerial& hwSerial);
-        WifiManager(char * ssid, char * password, char * domain, char * scriptID, int port, HardWareSerial& hwSerial);
+        VaxWifiManager(HardWareSerial& hwSerial);
+        VaxWifiManager(char * ssid, char * password, char * domain, char * scriptID, int port, HardWareSerial& hwSerial);
         void connectToWiFi();
         void requestTime();
         void requestURL();
@@ -655,18 +655,18 @@ class WifiManager
 
 
 
-### 3.4.3 WifiManager.cpp
+### 3.4.3 VaxWifiManager.cpp
 
 ````c++
-#include <WifiManager.h>
+#include <VaxWifiManager.h>
 
 /**
- * @brief Oppretter en WifiManager med standard innstillinger.
+ * @brief Oppretter en VaxWifiManager med standard innstillinger.
  * Er fortrinnsvis en forenkling til bruk ved testing, altsaa naar
  * man har samme nettverksnavn, passord, domene og port. 
  * @param hwSerial : referanse til et serial-objekt for logging
  */
-WifiManager::WifiManager(HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
+VaxWifiManager::VaxWifiManager(HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
 {
   _ssid = "WIFI_NAME";
   _password = "WIFI_PASSWORD";
@@ -682,7 +682,7 @@ WifiManager::WifiManager(HardWareSerial& hwSerial) : _hwSerial(hwSerial)
 }
 
 /**
- * @brief Oppretter en WifiManager med innstillinger fra argumentene
+ * @brief Oppretter en VaxWifiManager med innstillinger fra argumentene
  * som sendes i metodekallet.
  * @param ssid : nettverksnavnet
  * @param password : nettverkspassordet
@@ -691,7 +691,7 @@ WifiManager::WifiManager(HardWareSerial& hwSerial) : _hwSerial(hwSerial)
  * @param port : porten man skal bruke
  * @param hwSerial : referanse til et Serial-objekt for aa logge det som skjer
  */
-WifiManager::WifiManager(char * ssid, char * password, char * domain, char * scriptID, int port, HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
+VaxWifiManager::VaxWifiManager(char * ssid, char * password, char * domain, char * scriptID, int port, HardWareSerial& hwSerial) : _hwSerial(hwSerial) 
 {
   // WiFi network name and password:
   _ssid = ssid;
@@ -714,7 +714,7 @@ WifiManager::WifiManager(char * ssid, char * password, char * domain, char * scr
  * @brief Initer WiFi-objektet fra WiFi-klassen (WiFiClass i WiFi.h) og
  * kobler til det internettet som ble oppgitt i konstruktoeren.
  */
-void WifiManager::connectToWiFi()
+void VaxWifiManager::connectToWiFi()
 {
   
   _hwSerial.println("Connecting to WiFi network: " + String(_ssid));
@@ -737,7 +737,7 @@ void WifiManager::connectToWiFi()
  * @brief Requester en URL og printer HTTP-responsen linje for linje.
  * Fortrinnsvis til bruk ved testing og debugging.
  */
-void WifiManager::requestURL()
+void VaxWifiManager::requestURL()
 {
   
   // sjekker om kortet er koblet til WiFi, kobler til hvis ikke
@@ -794,7 +794,7 @@ void WifiManager::requestURL()
  * Europa. Kan brukes dersom vi faar til aa sende print request med
  * custom label/txt til printeren.
  */
-void WifiManager::requestTime()
+void VaxWifiManager::requestTime()
 {
 
   // sjekker om WiFi er koblet til
@@ -820,7 +820,7 @@ void WifiManager::requestTime()
  * vaksinetype og vaksinenummer.
  * @param vaxType : vaksinetypen som har blitt trykket, sendes fra knappen
  */
-void WifiManager::sendUpdateRequest(char * vaxType)
+void VaxWifiManager::sendUpdateRequest(char * vaxType)
 {
   // sjekker om WiFi er koblet til
   if (WiFi.status() != WL_CONNECTED)
