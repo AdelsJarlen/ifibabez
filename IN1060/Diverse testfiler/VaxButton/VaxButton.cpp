@@ -7,7 +7,7 @@
  * @param npLED : en referanse til et objekt av klassen VaxLED (LED-stripen som skal brukes)
  * @param buzzer : en referanse til et objekt av klassen VaxBuzzer
  */
-VaxButton::VaxButton(int pin, char* vaxType, VaxLED& npLED, VaxBuzzer& buzzer, WifiManager& wifiManager) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer), _wifiManager(wifiManager)
+VaxButton::VaxButton(int pin, char* vaxType, VaxLED& npLED, VaxBuzzer& buzzer, VaxWifiManager& VaxWifiManager) : _btn(pin, true, true), _npLED(npLED), _buzzer(buzzer), _VaxWifiManager(VaxWifiManager)
 {
     _pin = pin;
     _vaxType = vaxType;
@@ -60,5 +60,5 @@ void VaxButton::playTone()
 
 void VaxButton::sendUpdateRequest()
 {
-    _wifiManager.sendUpdateRequest(_vaxType);
+    _VaxWifiManager.sendUpdateRequest(_vaxType);
 }
