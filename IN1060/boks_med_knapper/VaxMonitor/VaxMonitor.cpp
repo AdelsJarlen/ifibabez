@@ -6,13 +6,13 @@
  * @param led 1-3 : en referanse til et objekt av klassen VaxLED (LED-stripen som skal brukes)
  * @param buzzer : en referanse til et objekt av klassen VaxBuzzer
  */
-VaxMonitor::VaxMonitor(uint8_t pin1, uint8_t pin2, uint8_t pin3, VaxLED& led1, VaxLED& led2, VaxLED& led3, VaxBuzzer& buzzer, WifiManager& wifiManager) : 
-_led1(led1), _led2(led2), _led3(led3), _buzzer(buzzer), _wifiManager(wifiManager)
+VaxMonitor::VaxMonitor(uint8_t pin1, uint8_t pin2, uint8_t pin3, VaxLED& led1, VaxLED& led2, VaxLED& led3, VaxBuzzer& buzzer, VaxWifiManager& VaxWifiManager) : 
+_led1(led1), _led2(led2), _led3(led3), _buzzer(buzzer), _VaxWifiManager(VaxWifiManager)
 {   
     // oppretter alle OneButton-objektene som klassevariabler
-    _btn1(pin1, true, true)
-    _btn2(pin2, true, true)
-    _btn3(pin3, true, true)
+    _btn1(pin1, true, true);
+    _btn2(pin2, true, true);
+    _btn3(pin3, true, true);
 
     _btn1.attachClick(btn1Clicked);
     _btn2.attachClick(btn2Clicked);
@@ -28,7 +28,7 @@ void VaxMonitor::btn1Clicked()
 {
   _led1.signal();
   _buzzer.playTone();
-  _wifiManager.sendUpdateRequest("Pfizer (0,3 ml)")
+  _VaxWifiManager.sendUpdateRequest("Pfizer (0,3 ml)")
 }
 
 /**
@@ -41,7 +41,7 @@ void VaxMonitor::btn2Clicked()
 {
   _led2.signal();
   _buzzer.playTone();
-  _wifiManager.sendUpdateRequest("Moderna (0,25 ml)")
+  _VaxWifiManager.sendUpdateRequest("Moderna (0,25 ml)")
 }
 
 /**
@@ -54,7 +54,7 @@ void VaxMonitor::btn3Clicked()
 {
   _led3.signal();
   _buzzer.playTone();
-  _wifiManager.sendUpdateRequest("Moderna (0,5 ml)")
+  _VaxWifiManager.sendUpdateRequest("Moderna (0,5 ml)")
 }
 
 /**
@@ -75,7 +75,7 @@ void VaxMonitor::refresh()
 void VaxMonitor::startup()
 {
     _buzzer.playStartupSound();
-    _wifiManager.connectToWiFi();
+    _VaxWifiManager.connectToWiFi();
 }
 
 /**
@@ -85,5 +85,5 @@ void VaxMonitor::startup()
 void VaxMonitor::shutdown()
 {
     _buzzer.playShutdownSound();
-    _wifiManager.disconnect();
+    _VaxWifiManager.disconnect();
 }
