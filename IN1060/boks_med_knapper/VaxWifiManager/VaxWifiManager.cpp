@@ -1,11 +1,9 @@
-#include <WifiManager.h>
+#include <VaxWifiManager.h>
 
 /**
- * @brief Oppretter en WifiManager med standard innstillinger.
- * Er fortrinnsvis en forenkling til bruk ved testing, altsaa naar
- * man har samme nettverksnavn, passord, domene og port
+ * @brief Oppretter en VaxWifiManager med standard innstillinger og default internett
  */
-WifiManager::WifiManager()
+VaxWifiManager::VaxWifiManager()
 {
   // default nettverk og passord
   _ssid = "WIFI_NAME";
@@ -17,18 +15,17 @@ WifiManager::WifiManager()
   _dstOffset = 3600;
 
   // detaljer til Google Scriptet som skal brukes
-  _scriptID = "AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t"
-  _scriptURL = "https://script.google.com/macros/s/AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t/exec"
+  _scriptID = "AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t";
+  _scriptURL = "https://script.google.com/macros/s/AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t/exec";
 }
 
 /**
- * @brief Oppretter en WifiManager med innstillinger fra argumentene
- * som sendes i metodekallet
+ * @brief Oppretter en VaxWifiManager med det oppgitte nettverket. Bruker default 
+ * innstillinger for resten (NTP-server og Google Script)
  * @param ssid : nettverksnavnet
  * @param password : nettverkspassordet
- * @param scriptID : IDen til Google Script-webappen som skal motta requests
  */
-WifiManager::WifiManager(char* ssid, char* password)
+VaxWifiManager::VaxWifiManager(char* ssid, char* password)
 {
   // nettverksnavn og passord
   _ssid = ssid;
@@ -40,15 +37,15 @@ WifiManager::WifiManager(char* ssid, char* password)
   _dstOffset = 3600;
 
   // detaljer til Google Scriptet som skal brukes
-  _scriptID = "AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t"
-  _scriptURL = "https://script.google.com/macros/s/AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t/exec"
+  _scriptID = "AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t";
+  _scriptURL = "https://script.google.com/macros/s/AKfycbzYFLfeDfJZBbx-Ao-cU0IfuPxmAAsVb5hAdXM1oWZnsrWAVdPGH0OWje6Pl-3Mv_2t/exec";
 }
 
 /**
  * @brief Initer WiFi-objektet fra WiFi-klassen (WiFiClass i WiFi.h) og
  * kobler til det internettet som ble oppgitt i konstruktoeren
  */
-bool WifiManager::connectToWiFi()
+bool VaxWifiManager::connectToWiFi()
 {
   WiFi.begin(_ssid, _password); // starter tilkoblingen
 
@@ -66,10 +63,11 @@ bool WifiManager::connectToWiFi()
 }
 
 /**
- * @brief Requester en URL og printer HTTP-responsen linje for linje.
- * Fortrinnsvis til bruk ved testing og debugging
+ * @brief Requester en URL og returnerer HTTP-responsen som String.
+ * Fortrinnsvis til bruk ved testing og debugging av WiFi-funksjonaliteten
+ * @param url : URLen man vil lese fra
  */
-String WifiManager::requestURL(char* url)
+String VaxWifiManager::requestURL(char* url)
 {
   
   // sjekker om kortet er koblet til WiFi, kobler til hvis ikke
@@ -86,7 +84,10 @@ String WifiManager::requestURL(char* url)
   http.begin(client, _domain);
 
   // sender selve GET-requesten til domenet
-  http.GET()
+  int httpCode = http.GET()
+
+  // return None hvis URLen ikke kan leses
+  if (httpCode <= 0) {return};
 
   // lagrer responsen som en String (OBS: kan kreve mye minne, funker ofte ikke paa vanlig Arduino Uno)
   String response = http.getString();
@@ -101,10 +102,10 @@ String WifiManager::requestURL(char* url)
  * Europa. Kan brukes dersom vi faar til aa sende print request med
  * custom label/txt til printeren
  */
-String WifiManager::requestTime()
+String VaxWifiManager::requestTime()
 {
 
-  // sjekker om WiFi er koblet til
+  // sjekker om WiFi er koblet til, kobler til hvis ikke
   if (WiFi.status() != WL_CONNECTED)
   {
     if (!connectToWiFi()) {return};
@@ -119,11 +120,11 @@ String WifiManager::requestTime()
   // konverterer til localtime med vaare tidssone-innstillinger
   if (!getLocalTime(&timeinfo)) {return};
 
-  // konverterer streamen fra timeinfo til en character buffer
+  // konverterer streamen fra timeinfo til en character buffer med standardformat (dd/mm/YYYY kl. HH:MM)
   char timeCharBuff[50];
   strftime(timeCharBuff, sizeof(timeCharBuff), "%d/%m/%Y kl. %H:%M", &timeinfo);
 
-  // konverterer charbufferen til en String i standardformat (dd/mm/YYYY kl. HH:MM)
+  // konverterer charbufferen til en String
   String timeString(timeCharBuff);
 
   return timeString;
@@ -134,9 +135,9 @@ String WifiManager::requestTime()
  * vaksinetype og vaksinenummer
  * @param vaxType : vaksinetypen som har blitt trykket, sendes fra knappen
  */
-bool WifiManager::sendUpdateRequest(char * vaxType, int vaxNumber)
+bool VaxWifiManager::sendUpdateRequest(char * vaxType, int vaxNumber)
 {
-  // sjekker om WiFi fortsatt er koblet til, kobler til på nytt hvis ikke
+  // sjekker om WiFi fortsatt er koblet til, kobler til paa nytt hvis ikke
   if (WiFi.status() != WL_CONNECTED)
   {
     if (!connectToWiFi()) {return false};
@@ -171,7 +172,7 @@ bool WifiManager::sendUpdateRequest(char * vaxType, int vaxNumber)
 /**
  * @brief Kobler fra WiFi
  */
-void WifiManager::disconnect()
+void VaxWifiManager::disconnect()
 {
   WiFi.disconnect();
 }

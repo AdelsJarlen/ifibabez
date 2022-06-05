@@ -1,16 +1,16 @@
-#ifndef WifiManager_h
-#define WifiManager_h
+#ifndef VaxWifiManager_h
+#define VaxWifiManager_h
 
 #include <WiFi.h>
 #include <time.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
-class WifiManager
+class VaxWifiManager
 {
     public:
-        WifiManager();
-        WifiManager(char * ssid, char * password, char * domain, int port);
+        VaxWifiManager();
+        VaxWifiManager(char * ssid, char * password, char * domain, int port);
         bool connectToWiFi();
         void disconnect();
 
