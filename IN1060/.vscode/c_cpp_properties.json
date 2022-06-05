@@ -1,63 +1,33 @@
 {
     "configurations": [
         {
-            "name": "Mac",
-            "includePath": [
-                "${workspaceFolder}/boks_med_knapper/**",
-                "${workspaceFolder}/boks_med_knapper/libraries/NTPClient/**",
-                "${workspaceFolder}/boks_med_knapper/libraries/WiFi/**",
-                "${workspaceFolder}/boks_med_knapper/VaxBuzzer/**",
-                "${workspaceFolder}/boks_med_knapper/VaxLED/**",
-                "${workspaceFolder}/boks_med_knapper/VaxButton/**",
-                "${workspaceFolder}/boks_med_knapper/WifiManager/**",
-                "/Applications/Arduino.app/Contents/Java/libraries/**",
-                "/Applications/Arduino.app/Contents/Java/hardware/tools/avr/avr/include",
-                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/variants/standard",
-                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino"
-            ],
-            "browse": {
-                "limitSymbolsToIncludedHeaders": false,
-                "path": [
-                    "/Applications/Arduino.app/Contents/Java/**",
-                    "${workspaceFolder}/boks_med_knapper/**",
-                    "~/Library/Arduino15/packages/esp32/hardware/esp32/2.0.3/libraries/**"
-                ]
-            },
-            "forcedInclude": [
-                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/Arduino.h"
-            ],
-            "defines": [
-                "USBCON"
-            ],
-            "macFrameworkPath": [
-                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
-            ],
-            "compilerPath": "usr/bin/clang",
-            "cStandard": "c17",
-            "cppStandard": "c++98",
-            "intelliSenseMode": "macos-x64"
-        },
-        {
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/boks_med_knapper/**",
-                "${workspaceFolder}/boks_med_knapper/libraries/NTPClient/**",
-                "${workspaceFolder}/boks_med_knapper/libraries/WiFi/**",
-                "${workspaceFolder}/boks_med_knapper/VaxBuzzer/**",
+                "${workspaceFolder}/boks_med_knapper/VaxMonitor/**",
                 "${workspaceFolder}/boks_med_knapper/VaxLED/**",
-                "${workspaceFolder}/boks_med_knapper/VaxButton/**",
-                "${workspaceFolder}/boks_med_knapper/WifiManager/**",
-                "C:/Users/jorge/Documents/Arduino/libraries/**",
-                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/**",
+                "${workspaceFolder}/boks_med_knapper/VaxBuzzer/**",
+                "${workspaceFolder}/boks_med_knapper/VaxWifiManager/**",
+                "C:/Users/jorge/Documents/Arduino/libraries/ArduinoJson/**",
+                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/HTTPClient/**",
+                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/WiFi",
                 "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/arduino/avr/cores/arduino/**",
-                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/libraries/**"
+                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/libraries/**",
+                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware//tools//avr//avr//**",
+                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/arduino/avr/cores/arduino/**",
+                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/tools/**"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,
                 "path": [
                     "${workspaceFolder}/boks_med_knapper/**",
                     "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/**",
-                    "C:/Users/jorge/Documents/Arduino/libraries/**"
+                    "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/HTTPClient/**",
+                    "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/WiFi/**",
+                    "C:/Users/jorge/Documents/Arduino/libraries/**",
+                    "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/tools/avr/avr/**",
+                    "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/arduino/avr/cores/arduino/**",
+                    "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/tools/**"
                 ]
             },
             "forcedInclude": [
@@ -66,8 +36,8 @@
             "defines": [
                 "USBCON"
             ],
-            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx64/x64/cl.exe",
-            "intelliSenseMode": "msvc-x64"
+            "compilerPath": "C:/msys64/mingw64/bin/gcc.exe",
+            "intelliSenseMode": "windows-gcc-x64"
         }
     ],
     "version": 4
