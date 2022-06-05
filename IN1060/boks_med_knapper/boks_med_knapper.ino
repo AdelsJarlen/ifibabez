@@ -16,9 +16,9 @@ VaxLED led1(0, LED1_PIN);
 VaxLED led2(0, LED2_PIN);
 VaxLED led3(0, LED3_PIN);
 
-WifiManager wifiManager();
+VaxWifiManager VaxWifiManager();
 
-VaxMonitor vaxMonitor(BUTTON1_PIN, BUTTON2_PIN, BUTTON3_PIN, led1, led2, led3, buzzer, wifiManager);
+VaxMonitor vaxMonitor(BUTTON1_PIN, BUTTON2_PIN, BUTTON3_PIN, led1, led2, led3, buzzer, VaxWifiManager);
 
 void setup() 
 {
