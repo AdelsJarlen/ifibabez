@@ -132,7 +132,6 @@ void VaxBuzzer::playStartupSound()
  * @brief Bruker playMelody() for aa spill av en invertert
  * treklang som en shutdown-lyd. Kan brukes hvis boksen skal slaas
  * av, men 
- * 
  */
 void VaxBuzzer::playShutdownSound()
 {

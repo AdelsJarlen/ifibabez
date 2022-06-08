@@ -4,30 +4,30 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/boks_med_knapper/**",
-                "${workspaceFolder}/boks_med_knapper/VaxMonitor/**",
-                "${workspaceFolder}/boks_med_knapper/VaxLED/**",
-                "${workspaceFolder}/boks_med_knapper/VaxBuzzer/**",
-                "${workspaceFolder}/boks_med_knapper/VaxWifiManager/**",
-                "C:/Users/jorge/Documents/Arduino/libraries/ArduinoJson/**",
+                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/**",
+                "C:/Users/jorge/Documents/Arduino/libraries/**",
                 "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/HTTPClient/**",
-                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/WiFi",
-                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/arduino/avr/cores/arduino/**",
-                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/libraries/**",
-                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware//tools//avr//avr//**",
-                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/arduino/avr/cores/arduino/**",
-                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/tools/**"
+                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/WiFi/**",
+                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/WiFiClientSecure/**",
+                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/**",
+                "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/tools/**",
+                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/cores/esp32/**",
+                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/tools/sdk/esp32s2/**",
+                "C:/Users/jorge/Documents/ArduinoData/packages/esp32/tools/**"
             ],
             "browse": {
-                "limitSymbolsToIncludedHeaders": false,
                 "path": [
                     "${workspaceFolder}/boks_med_knapper/**",
                     "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/**",
+                    "C:/Users/jorge/Documents/Arduino/libraries/**",
+                    "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/**",
+                    "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/tools/**",
                     "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/HTTPClient/**",
                     "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/WiFi/**",
-                    "C:/Users/jorge/Documents/Arduino/libraries/**",
-                    "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/tools/avr/avr/**",
-                    "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/hardware/arduino/avr/cores/arduino/**",
-                    "C:/Program Files/WindowsApps/ArduinoLLC.ArduinoIDE_1.8.57.0_x86__mdqgnx93n4wtt/tools/**"
+                    "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/libraries/WiFiClientSecure/**",
+                    "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/cores/esp32/**",
+                    "C:/Users/jorge/Documents/ArduinoData/packages/esp32/hardware/esp32/2.0.3/tools/sdk/esp32s2/**",
+                    "C:/Users/jorge/Documents/ArduinoData/packages/esp32/tools/**"
                 ]
             },
             "forcedInclude": [

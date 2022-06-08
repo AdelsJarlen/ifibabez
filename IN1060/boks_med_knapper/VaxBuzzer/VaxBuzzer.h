@@ -7,7 +7,7 @@
  * @brief Klassedefinisjon for klassen VaxBuzzer. Holder styr paa en
  * buzzerPin og har funksjonalitet for aa spille av standard pipelyd eller en
  * gitt tone i en gitt varighet. Inneholder også en standard melodi med 
- * informasjon om tonenes varighet og en non-blocking melodi-funksjon.
+ * informasjon om tonenes varighet og en melodi-funksjon.
  */
 class VaxBuzzer
 {

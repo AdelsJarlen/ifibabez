@@ -3,11 +3,14 @@
 
 #include <Adafruit_NeoPixel.h>
 
+/**
+ * @brief Klassedefinisjon for VaxLed.
+ */
 class VaxLED
 {
     public:
         VaxLED(int led_count, uint8_t pin);
-        void signal(int index, int r, int g, int b);
+        void signal(int index, int r, int g, int b, int i);
         void off();
     ;
 

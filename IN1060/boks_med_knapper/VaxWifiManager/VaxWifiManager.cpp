@@ -48,9 +48,7 @@ VaxWifiManager::VaxWifiManager(char* ssid, char* password)
 bool VaxWifiManager::connectToWiFi()
 {
   WiFi.begin(_ssid, _password); // starter tilkoblingen
-
   long timeout = 30000; // timeout paa 30 sekunder
-
   unsigned long startTime = millis();
   
   while (WiFi.status() != WL_CONNECTED) 
@@ -81,10 +79,10 @@ String VaxWifiManager::requestURL(char* url)
   HTTPClient http;
 
   // aapner en connection
-  http.begin(client, _domain);
+  http.begin(client, url);
 
   // sender selve GET-requesten til domenet
-  int httpCode = http.GET()
+  int httpCode = http.GET();
 
   // return None hvis URLen ikke kan leses
   if (httpCode <= 0) {return};

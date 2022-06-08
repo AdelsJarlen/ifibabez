@@ -9,26 +9,30 @@
 class VaxWifiManager
 {
     public:
-        VaxWifiManager();
-        VaxWifiManager(char * ssid, char * password, char * domain, int port);
+        // konstruktoerer
+        VaxWifiManager(); // default internett hvis man bruker samme hele tiden
+        VaxWifiManager(char * ssid, char * password); // for aa koble til et annet nett
+
+        // kobler til eller fra
         bool connectToWiFi();
         void disconnect();
 
+        // sender requests til Google scriptet, NTP-server eller oppgitt URL
         bool sendUpdateRequest(char* vaxType, int vaxNumber);
         String requestTime();
         String requestURL();
     ;
 
     private:
-        // wifi settings
+        // nettverksinnstillinger
         char * _ssid;
         char * _password;
 
-        // google script settings
+        // google script-innstillinger
         char * _scriptID;
         char * _scriptURL;
 
-        // ntp server settings
+        // ntp server-innstillinger
         char * _ntp;
         unsigned long _gmtOffset;
         unsigned int _dstOffset;
