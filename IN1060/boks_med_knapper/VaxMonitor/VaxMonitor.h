@@ -33,6 +33,8 @@ class VaxMonitor
         OneButton _btn2;
         OneButton _btn3;
 
+        int _vaxNumber;
+
         static void btn1Clicked();
         static void btn2Clicked();
         static void btn3Clicked();

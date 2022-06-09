@@ -17,6 +17,8 @@ _led1(led1), _led2(led2), _led3(led3), _buzzer(buzzer), _VaxWifiManager(VaxWifiM
     _btn1.attachClick(btn1Clicked);
     _btn2.attachClick(btn2Clicked);
     _btn3.attachClick(btn3Clicked);
+
+    _vaxNumber = 1;
 }
 
 /**
@@ -28,7 +30,8 @@ void VaxMonitor::btn1Clicked()
 {
   _led1.signal();
   _buzzer.playTone();
-  _VaxWifiManager.sendUpdateRequest("Pfizer (0,3 ml)")
+  _VaxWifiManager.sendUpdateRequest("Pfizer (0,3 ml)", _vaxNumber);
+  _vaxNumber++;
 }
 
 /**
@@ -41,7 +44,8 @@ void VaxMonitor::btn2Clicked()
 {
   _led2.signal();
   _buzzer.playTone();
-  _VaxWifiManager.sendUpdateRequest("Moderna (0,25 ml)")
+  _VaxWifiManager.sendUpdateRequest("Moderna (0,25 ml)", _vaxNumber);
+  _vaxNumber++;
 }
 
 /**
@@ -54,7 +58,8 @@ void VaxMonitor::btn3Clicked()
 {
   _led3.signal();
   _buzzer.playTone();
-  _VaxWifiManager.sendUpdateRequest("Moderna (0,5 ml)")
+  _VaxWifiManager.sendUpdateRequest("Moderna (0,5 ml)", _vaxNumber);
+  _vaxNumber++;
 }
 
 /**
